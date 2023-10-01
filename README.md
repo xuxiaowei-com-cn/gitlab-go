@@ -23,6 +23,10 @@ go run main.go
 ### run help
 
 ```shell
+go run main.go help
+```
+
+```shell
 $ go run main.go help
 NAME:
    boom - make an explosive entrance
@@ -30,11 +34,15 @@ NAME:
 USAGE:
    boom [global options] command [command options] [arguments...]
 
+VERSION:
+   v0.0.1-snapshot
+
 COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --help, -h  show help
+   --help, -h     show help
+   --version, -v  print the version
 ```
 
 ### test

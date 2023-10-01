@@ -9,10 +9,10 @@ import (
 )
 
 var (
-	BuildDate         string // 2023-07-19T12:20:54Z
-	GitCommitSha      string // fa3d7990104d7c1f16943a67f11b154b71f6a132
-	GitCommitShortSha string // fa3d7990
-	GitVersion        string // v1.27.4
+	BuildDate         string  // 2023-07-19T12:20:54Z
+	GitCommitSha      string  // fa3d7990104d7c1f16943a67f11b154b71f6a132
+	GitCommitShortSha string  // fa3d7990
+	GitVersion        = "dev" // v1.27.4
 )
 
 func main() {

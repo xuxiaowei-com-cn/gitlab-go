@@ -1,0 +1,7 @@
+stages:
+  - sync
+
+# 嵌入
+include:
+  # 同步代码
+  - /sync.yml

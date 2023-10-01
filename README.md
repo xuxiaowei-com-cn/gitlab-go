@@ -14,6 +14,10 @@ go get -u github.com/urfave/cli/v2
 go mod tidy
 ```
 
+```shell
+go mod download
+```
+
 ### run
 
 ```shell

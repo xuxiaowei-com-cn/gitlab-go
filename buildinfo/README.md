@@ -3,6 +3,8 @@
 ### get
 
 ```shell
+go env -w GOPROXY=https://goproxy.cn,direct
+# go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
 go get -u github.com/xuxiaowei-com-cn/git-go@main
 ```
 

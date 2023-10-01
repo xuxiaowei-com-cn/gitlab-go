@@ -20,7 +20,9 @@ build:golang:1.21:
     name: "${CI_JOB_NAME}"
     expire_in: 1 week
     paths:
+      - gitlab-go-windows-*
       - gitlab-go-linux-*
+      - gitlab-go-darwin-*
 
 build:golang:1.21-alpine3.18:
   stage: build

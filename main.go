@@ -11,7 +11,10 @@ import (
 )
 
 const (
-	Name              = "git-go"
+	Name              = "gitlab-go"
+	Description       = "基于 Go 语言开发的 GitLab 命令行工具"
+	URL               = "https://github.com/xuxiaowei-com-cn/gitlab-go.git"
+	BugReportUrl      = "https://github.com/xuxiaowei-com-cn/gitlab-go/issues"
 	OrganizationName  = "徐晓伟工作室"
 	OrganizationUrl   = "http://xuxiaowei.com.cn"
 	OrganizationEmail = "xuxiaowei@xuxiaowei.com.cn"
@@ -60,7 +63,10 @@ func main() {
 
 func versionInfo() string {
 	var info = buildinfo.Version{
-		Name: Name,
+		Name:         Name,
+		Description:  Description,
+		URL:          URL,
+		BugReportUrl: BugReportUrl,
 		BuildVersion: buildinfo.BuildVersion{
 			BuildDate:          BuildDate,
 			Compiler:           Compiler,

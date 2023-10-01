@@ -33,3 +33,6 @@ build/
 .vscode/
 
 /*.exe
+/gitlab-go-windows-*
+/gitlab-go-linux-*
+/gitlab-go-darwin-*

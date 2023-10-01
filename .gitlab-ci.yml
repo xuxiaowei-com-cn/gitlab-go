@@ -1,5 +1,42 @@
 stages:
+  - build
   - sync
+
+build:golang:1.21:
+  stage: build
+  image: golang:1.21
+  script:
+    - go version
+    - go env -w GOPROXY=https://goproxy.cn,direct
+    - GOOS=windows GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-windows-amd64.exe .
+    - GOOS=windows GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-windows-arm64.exe .
+    - GOOS=linux   GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-linux-amd64 .
+    - GOOS=linux   GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-linux-arm64 .
+    - GOOS=darwin  GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-darwin-amd64 .
+    - GOOS=darwin  GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-darwin-arm64 .
+    - ./gitlab-go-linux-amd64 --version
+    - ./gitlab-go-linux-amd64
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    expire_in: 1 week
+    paths:
+      - gitlab-go-linux-*
+
+build:golang:1.21-alpine3.18:
+  stage: build
+  image: golang:1.21-alpine3.18
+  script:
+    - go version
+    - go env -w GOPROXY=https://goproxy.cn,direct
+    - GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-linux-alpine-amd64 .
+    - GOOS=linux GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-linux-alpine-arm64 .
+    - ./gitlab-go-linux-alpine-amd64 --version
+    - ./gitlab-go-linux-alpine-amd64
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    expire_in: 1 week
+    paths:
+      - gitlab-go-linux-*
 
 # 嵌入
 include:

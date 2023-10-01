@@ -74,29 +74,35 @@ go build
 - Windows
     - amd64
         ```shell
-        GOOS=windows GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-windows-amd64.exe .
+        go build -o buildinfo/buildinfo.exe buildinfo/buildinfo.go
+        GOOS=windows GOARCH=amd64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo.exe now) -X main.GitCommitSha=$(buildinfo/buildinfo.exe commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo.exe commitShortSha)" -trimpath -o gitlab-go-windows-amd64.exe .
         ```
     - arm64
         ```shell
-        GOOS=windows GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-windows-arm64.exe .
+        go build -o buildinfo/buildinfo.exe buildinfo/buildinfo.go
+        GOOS=windows GOARCH=arm64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo.exe now) -X main.GitCommitSha=$(buildinfo/buildinfo.exe commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo.exe commitShortSha)" -trimpath -o gitlab-go-windows-arm64.exe .
         ```
 
 - Linux
     - amd64
         ```shell
-        GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-linux-amd64 .
+        go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+        GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha)" -trimpath -o gitlab-go-linux-amd64 .
         ```
     - arm64
         ```shell
-        GOOS=linux GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-linux-arm64 .
+        go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+        GOOS=linux GOARCH=arm64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha)" -trimpath -o gitlab-go-linux-arm64 .
         ```
 
 - Darwin
     - amd64
         ```shell
-        GOOS=darwin GOARCH=amd64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-darwin-amd64 .
+        go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+        GOOS=darwin GOARCH=amd64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha)" -trimpath -o gitlab-go-darwin-amd64 .
         ```
     - arm64
         ```shell
-        GOOS=darwin GOARCH=arm64 go build -v -ldflags "-s -w -buildid=" -trimpath -o gitlab-go-darwin-arm64 .
+        go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+        GOOS=darwin GOARCH=arm64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha)" -trimpath -o gitlab-go-darwin-arm64 .
         ```

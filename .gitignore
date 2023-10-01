@@ -37,3 +37,5 @@ build/
 /gitlab-go-windows-*
 /gitlab-go-linux-*
 /gitlab-go-darwin-*
+
+/buildinfo/buildinfo

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/xuxiaowei-com-cn/git-go/buildinfo"
+	"github.com/xuxiaowei-com-cn/gitlab-go/jobs"
 	"github.com/xuxiaowei-com-cn/gitlab-go/pipelines"
 	"github.com/xuxiaowei-com-cn/gitlab-go/projects"
 	"gopkg.in/yaml.v3"
@@ -55,6 +56,7 @@ func main() {
 		Commands: []*cli.Command{
 			projects.Projects(),
 			pipelines.Pipelines(),
+			jobs.Jobs(),
 		},
 	}
 

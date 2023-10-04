@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
+	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 )
 
 // Projects 项目 API https://docs.gitlab.cn/jh/api/projects.html
@@ -13,10 +14,10 @@ func Projects() *cli.Command {
 		Aliases: []string{"p"},
 		Usage:   "项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html",
 		Action: func(context *cli.Context) error {
-			var token = context.String("token")
-			var baseUrl = context.String("baseUrl")
+			var token = context.String(constant.Token)
+			var baseUrl = context.String(constant.BaseUrl)
 			if baseUrl == "" {
-				baseUrl = "https://jihulab.com/api/v4"
+				baseUrl = constant.BaseUrlDefault
 			}
 			gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
 			if err != nil {
@@ -38,11 +39,11 @@ func Projects() *cli.Command {
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:  "token",
+				Name:  constant.Token,
 				Usage: "your_access_token",
 			},
 			&cli.StringFlag{
-				Name:  "baseUrl",
+				Name:  constant.BaseUrl,
 				Usage: "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
 			},
 		},

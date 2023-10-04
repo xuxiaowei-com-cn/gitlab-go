@@ -8,6 +8,7 @@
 go env -w GOPROXY=https://goproxy.cn,direct
 # go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
 go get -u github.com/urfave/cli/v2
+go get -u github.com/xanzy/go-gitlab
 go get -u github.com/xuxiaowei-com-cn/git-go@main
 go get -u gopkg.in/yaml.v3
 ```

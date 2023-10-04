@@ -41,6 +41,10 @@ func Projects() *cli.Command {
 				Name:  "token",
 				Usage: "your_access_token",
 			},
+			&cli.StringFlag{
+				Name:  "baseUrl",
+				Usage: "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
+			},
 		},
 	}
 }

@@ -43,8 +43,9 @@ func Projects() *cli.Command {
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:  constant.BaseUrl,
-				Usage: "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
+				Name:    constant.BaseUrl,
+				EnvVars: []string{"CI_API_V4_URL"},
+				Usage:   "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
 			},
 			&cli.StringFlag{
 				Name:  constant.Token,

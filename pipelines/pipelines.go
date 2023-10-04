@@ -14,18 +14,22 @@ func Pipelines() *cli.Command {
 		Aliases: []string{"pl"},
 		Usage:   "流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html",
 		Action: func(context *cli.Context) error {
-			var token = context.String(constant.Token)
 			var baseUrl = context.String(constant.BaseUrl)
-			var id = context.String(constant.Id)
 			if baseUrl == "" {
 				baseUrl = constant.BaseUrlDefault
 			}
+			var token = context.String(constant.Token)
+			var sort = context.String(constant.Sort)
+			var id = context.String(constant.Id)
+
 			gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
 			if err != nil {
 				return err
 			}
 
-			opt := &gitlab.ListProjectPipelinesOptions{}
+			opt := &gitlab.ListProjectPipelinesOptions{
+				Sort: &sort,
+			}
 			PipelineInfos, response, err := gitClient.Pipelines.ListProjectPipelines(id, opt)
 			fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 			if err != nil {
@@ -40,12 +44,17 @@ func Pipelines() *cli.Command {
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
+				Name:  constant.BaseUrl,
+				Usage: "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
+			},
+			&cli.StringFlag{
 				Name:  constant.Token,
 				Usage: "your_access_token",
 			},
 			&cli.StringFlag{
-				Name:  constant.BaseUrl,
-				Usage: "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
+				Name:  constant.Sort,
+				Value: constant.SortDefault,
+				Usage: "按照 asc 或者 desc（默认：desc）对流水线排序",
 			},
 			&cli.StringFlag{
 				Name:     constant.Id,

@@ -6,6 +6,8 @@ import (
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"github.com/xuxiaowei-com-cn/gitlab-go/utils"
+	"net/http"
 )
 
 // JobsArtifacts 作业产物 API https://docs.gitlab.cn/jh/api/job_artifacts.html
@@ -59,6 +61,44 @@ func JobsArtifacts() *cli.Command {
 					if err != nil {
 						return err
 					}
+
+					return nil
+				},
+			},
+			{
+				Name:    "delete-project",
+				Aliases: []string{"rm-p"},
+				Usage:   "删除项目产物",
+				Flags:   append(flag.Common(), flag.Id(true)),
+				Action: func(context *cli.Context) error {
+					var baseUrl = context.String(constant.BaseUrl)
+					var token = context.String(constant.Token)
+					var id = context.String(constant.Id)
+
+					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+					if err != nil {
+						return err
+					}
+
+					fmt.Printf("Delete ProjectId: %s, Artifacts\n", id)
+
+					project, err := utils.ParseID(id)
+					if err != nil {
+						return err
+					}
+					u := fmt.Sprintf("projects/%s/artifacts", gitlab.PathEscape(project))
+
+					req, err := gitClient.NewRequest(http.MethodDelete, u, nil, nil)
+					if err != nil {
+						return err
+					}
+
+					response, err := gitClient.Do(req, nil)
+					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					if err != nil {
+						return err
+					}
+
 					return nil
 				},
 			},

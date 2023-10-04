@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/xuxiaowei-com-cn/git-go/buildinfo"
+	"github.com/xuxiaowei-com-cn/gitlab-go/job_artifacts"
 	"github.com/xuxiaowei-com-cn/gitlab-go/jobs"
 	"github.com/xuxiaowei-com-cn/gitlab-go/pipelines"
 	"github.com/xuxiaowei-com-cn/gitlab-go/projects"
@@ -57,6 +58,7 @@ func main() {
 			projects.Projects(),
 			pipelines.Pipelines(),
 			jobs.Jobs(),
+			job_artifacts.JobsArtifacts(),
 		},
 	}
 

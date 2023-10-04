@@ -80,6 +80,12 @@ func main() {
 
 					return nil
 				},
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:  "token",
+						Usage: "your_access_token",
+					},
+				},
 			},
 		},
 	}

@@ -11,8 +11,8 @@ import (
 // Jobs 作业 API https://docs.gitlab.cn/jh/api/jobs.html
 func Jobs() *cli.Command {
 	return &cli.Command{
-		Name:    "jobs",
-		Aliases: []string{"j"},
+		Name:    "job",
+		Aliases: []string{"jobs", "j"},
 		Usage:   "作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html",
 		Flags:   append(flag.Common(), flag.Sort()),
 		Subcommands: []*cli.Command{

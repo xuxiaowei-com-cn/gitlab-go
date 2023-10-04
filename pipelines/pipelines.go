@@ -11,8 +11,8 @@ import (
 // Pipelines 流水线 API https://docs.gitlab.cn/jh/api/pipelines.html
 func Pipelines() *cli.Command {
 	return &cli.Command{
-		Name:    "pipelines",
-		Aliases: []string{"pl"},
+		Name:    "pipeline",
+		Aliases: []string{"pipelines", "pl"},
 		Usage:   "流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html",
 		Flags:   append(flag.Common(), flag.Sort(), flag.Id(false)),
 		Subcommands: []*cli.Command{

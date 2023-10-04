@@ -152,26 +152,26 @@ VERSION:
    dev
 
 COMMANDS:
-   projects, p        项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
-   pipelines, pl      流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
-   jobs, j            作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
-   job-artifacts, ja  作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
-   help, h            Shows a list of commands or help for one command
+   project, projects, p             项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+   pipeline, pipelines, pl          流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
+   job, jobs, j                     作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+   job-artifact, job-artifacts, ja  作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+   help, h                          Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --help, -h     show help
    --version, -v  print the version
 ```
 
-- [projects - 项目 API](https://docs.gitlab.cn/jh/api/projects.html)
+- [project - 项目 API](https://docs.gitlab.cn/jh/api/projects.html)
 
     ```shell
-    $ go run main.go projects --help
+    $ go run main.go project --help
     NAME:
-       gitlab-go projects - 项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+       gitlab-go project - 项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
     
     USAGE:
-       gitlab-go projects command [command options] [arguments...]
+       gitlab-go project command [command options] [arguments...]
     
     COMMANDS:
        list     列出所有项目
@@ -184,15 +184,15 @@ GLOBAL OPTIONS:
        --help, -h        show help
     ```
 
-- [pipelines - 流水线 API](https://docs.gitlab.cn/jh/api/pipelines.html)
+- [pipeline - 流水线 API](https://docs.gitlab.cn/jh/api/pipelines.html)
 
     ```shell
-    $ go run main.go pipelines --help
+    $ go run main.go pipeline --help
     NAME:
-       gitlab-go pipelines - 流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
+       gitlab-go pipeline - 流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
     
     USAGE:
-       gitlab-go pipelines command [command options] [arguments...]
+       gitlab-go pipeline command [command options] [arguments...]
     
     COMMANDS:
        list     列出项目流水线
@@ -206,15 +206,15 @@ GLOBAL OPTIONS:
        --help, -h        show help
     ```
 
-- [jobs - 作业 API](https://docs.gitlab.cn/jh/api/jobs.html)
+- [job - 作业 API](https://docs.gitlab.cn/jh/api/jobs.html)
 
     ```shell
-    $ go run main.go jobs --help
+    $ go run main.go job --help
     NAME:
-       gitlab-go jobs - 作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+       gitlab-go job - 作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
     
     USAGE:
-       gitlab-go jobs command [command options] [arguments...]
+       gitlab-go job command [command options] [arguments...]
     
     COMMANDS:
        list     列出项目作业
@@ -227,22 +227,22 @@ GLOBAL OPTIONS:
        --help, -h        show help
     ```
 
-- [job-artifacts - 作业产物 API](https://docs.gitlab.cn/jh/api/job_artifacts.html)
+- [job-artifact - 作业产物 API](https://docs.gitlab.cn/jh/api/job_artifacts.html)
 
     ```shell
-    $ go run main.go job-artifacts --help
+    $ go run main.go job-artifact --help
     NAME:
-       gitlab-go job-artifacts - 作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+       gitlab-go job-artifact - 作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
     
     USAGE:
-       gitlab-go job-artifacts command [command options] [arguments...]
+       gitlab-go job-artifact command [command options] [arguments...]
     
     COMMANDS:
-       get                   获取作业产物（未完成）
-       download, dl          下载产物归档文件（未完成）
-       delete, rm            删除作业产物
-       delete-project, rm-p  删除项目产物
-       help, h               Shows a list of commands or help for one command
+       get                                    获取作业产物（未完成）
+       download, dl                           下载产物归档文件（未完成）
+       delete, rm                             删除作业产物
+       delete-project, delete-projects, rm-p  删除项目产物
+       help, h                                Shows a list of commands or help for one command
     
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]

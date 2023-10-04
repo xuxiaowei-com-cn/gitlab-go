@@ -11,8 +11,8 @@ import (
 // Projects 项目 API https://docs.gitlab.cn/jh/api/projects.html
 func Projects() *cli.Command {
 	return &cli.Command{
-		Name:    "projects",
-		Aliases: []string{"p"},
+		Name:    "project",
+		Aliases: []string{"projects", "p"},
 		Usage:   "项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html",
 		Flags:   append(flag.Common(), flag.Sort()),
 		Subcommands: []*cli.Command{

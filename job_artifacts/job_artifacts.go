@@ -13,8 +13,8 @@ import (
 // JobsArtifacts 作业产物 API https://docs.gitlab.cn/jh/api/job_artifacts.html
 func JobsArtifacts() *cli.Command {
 	return &cli.Command{
-		Name:    "job-artifacts",
-		Aliases: []string{"ja"},
+		Name:    "job-artifact",
+		Aliases: []string{"job-artifacts", "ja"},
 		Usage:   "作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html",
 		Flags:   append(flag.Common(), flag.Id(false), flag.JobId(false)),
 		Subcommands: []*cli.Command{
@@ -67,7 +67,7 @@ func JobsArtifacts() *cli.Command {
 			},
 			{
 				Name:    "delete-project",
-				Aliases: []string{"rm-p"},
+				Aliases: []string{"delete-projects", "rm-p"},
 				Usage:   "删除项目产物",
 				Flags:   append(flag.Common(), flag.Id(true)),
 				Action: func(context *cli.Context) error {

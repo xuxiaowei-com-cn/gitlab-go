@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/git-go/buildinfo"
+	"github.com/xuxiaowei-com-cn/gitlab-go/projects"
 	"gopkg.in/yaml.v3"
 	"log"
 	"os"
@@ -52,41 +52,7 @@ func main() {
 		Version: versionInfo(),
 		Usage:   Description,
 		Commands: []*cli.Command{
-			{
-				Name:    "projects",
-				Aliases: []string{"p"},
-				Usage:   "项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html",
-				Action: func(context *cli.Context) error {
-					var token = context.String("token")
-					var baseUrl = context.String("baseUrl")
-					if baseUrl == "" {
-						baseUrl = "https://jihulab.com/api/v4"
-					}
-					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
-					if err != nil {
-						return err
-					}
-
-					opt := &gitlab.ListProjectsOptions{}
-					projects, response, err := gitClient.Projects.ListProjects(opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
-					if err != nil {
-						return err
-					}
-
-					for index, project := range projects {
-						fmt.Printf("Index: %d,\t ID: %d,\t Path: %s,\t Name: %s\n", index, project.ID, project.Path, project.Name)
-					}
-
-					return nil
-				},
-				Flags: []cli.Flag{
-					&cli.StringFlag{
-						Name:  "token",
-						Usage: "your_access_token",
-					},
-				},
-			},
+			projects.Projects(),
 		},
 	}
 

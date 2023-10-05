@@ -75,10 +75,10 @@ build:docker:
     - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1
     - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1 docker.io/library/debian:12.1
     - if [ "$CI_COMMIT_TAG" ]; then
-        tag="$CI_COMMIT_TAG-debian";
+        tag="$CI_COMMIT_TAG";
         tag_hub="$CI_COMMIT_TAG-debian";
       else
-        tag="dev-$CI_PIPELINE_ID-debian";
+        tag="dev-$CI_PIPELINE_ID";
         tag_hub="dev-debian";
       fi
     - echo "tag=$tag"
@@ -161,11 +161,11 @@ build:docker:alpine3.18:
     - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3
     - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3 docker.io/library/alpine:3.18.3
     - if [ "$CI_COMMIT_TAG" ]; then
-      tag="$CI_COMMIT_TAG-alpine";
-      tag_hub="$CI_COMMIT_TAG-alpine";
+        tag="$CI_COMMIT_TAG";
+        tag_hub="$CI_COMMIT_TAG-alpine";
       else
-      tag="dev-$CI_PIPELINE_ID-alpine";
-      tag_hub="dev-alpine";
+        tag="dev-$CI_PIPELINE_ID";
+        tag_hub="dev-alpine";
       fi
     - echo "tag=$tag"
     - echo "tag_hub=$tag_hub"

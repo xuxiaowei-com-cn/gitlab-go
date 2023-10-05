@@ -70,7 +70,7 @@ build:docker:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - cp gitlab-go-linux-amd64 docker/debian/gitlab-go
+    - cp gitlab-go-linux-amd64 docker/debian/
     - cd $CI_PROJECT_DIR/docker/debian
     - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1
     - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1 docker.io/library/debian:12.1
@@ -156,7 +156,7 @@ build:docker:alpine3.18:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - cp gitlab-go-linux-amd64 docker/alpine/gitlab-go
+    - cp gitlab-go-linux-alpine-amd64 docker/alpine/
     - cd $CI_PROJECT_DIR/docker/alpine
     - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3
     - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3 docker.io/library/alpine:3.18.3

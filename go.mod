@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/urfave/cli/v2 v2.25.7
-	github.com/xanzy/go-gitlab v0.92.3
+	github.com/xanzy/go-gitlab v0.93.0
 	github.com/xuxiaowei-com-cn/git-go v0.0.0-20231001210858-ffa8a39f60e3
 	gopkg.in/yaml.v3 v3.0.1
 )

@@ -94,11 +94,6 @@ build:docker:
     expire_in: 1 week
     paths:
       - docker/debian/*.tar
-  rules:
-    # 匹配以 dependabot 开头的分支
-    - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
-      # 不执行
-      when: never
 
 build:golang:1.21-alpine3.18:
   stage: build
@@ -185,11 +180,6 @@ build:docker:alpine3.18:
     expire_in: 1 week
     paths:
       - docker/alpine/*.tar
-  rules:
-    # 匹配以 dependabot 开头的分支
-    - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
-      # 不执行
-      when: never
 
 # 嵌入
 include:

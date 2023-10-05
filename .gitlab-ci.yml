@@ -1,5 +1,6 @@
 stages:
   - build
+  - build:docker
   - sync
 
 build:golang:1.21:
@@ -27,6 +28,78 @@ build:golang:1.21:
       - gitlab-go-linux-*
       - gitlab-go-darwin-*
 
+build:docker:
+  stage: build:docker
+  needs:
+    - job: build:golang:1.21
+      artifacts: true
+  image: docker:24.0.6
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://docker:2375
+  services:
+    - name: docker:24.0.6-dind
+      alias: docker
+  before_script:
+    - set +e
+    - start_time=$(date +%s)
+    - elapsed=0
+    - interval=5
+    - timeout=60
+    - |
+      while true; do
+        docker info >/dev/null 2>&1
+        result=$?
+        echo "result=$result"
+        current_time=$(date +%s)
+        elapsed_time=$((current_time - start_time))
+        if [[ $result -eq 0 ]]; then
+          echo "docker 完成启动"
+          break
+        fi
+        if [[ $elapsed_time -gt $timeout ]]; then
+          echo "docker 启动超时"
+          exit 1
+        fi
+        echo "docker 正在启动($elapsed) ..."
+        elapsed=$((elapsed+interval))
+        sleep $interval
+      done
+    - set -e
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  script:
+    - cp gitlab-go-linux-amd64 docker/debian/gitlab-go
+    - cd $CI_PROJECT_DIR/docker/debian
+    - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1
+    - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1 docker.io/library/debian:12.1
+    - if [ "$CI_COMMIT_TAG" ]; then
+        tag="$CI_COMMIT_TAG-debian";
+        tag_hub="$CI_COMMIT_TAG-debian";
+      else
+        tag="dev-$CI_PIPELINE_ID-debian";
+        tag_hub="dev-debian";
+      fi
+    - echo "tag=$tag"
+    - echo "tag_hub=$tag_hub"
+    - docker build -t $CI_REGISTRY_IMAGE/gitlab-go-debian:$tag . --no-cache --progress plain
+    - docker tag $CI_REGISTRY_IMAGE/gitlab-go-debian:$tag $DOCKER_USERNAME/gitlab-go:$tag_hub
+    - docker images
+    - docker push $CI_REGISTRY_IMAGE/gitlab-go-debian:$tag
+    - docker push $DOCKER_USERNAME/gitlab-go:$tag_hub
+    - docker save -o gitlab-go-dev-debian-$CI_PIPELINE_ID.tar $CI_REGISTRY_IMAGE/gitlab-go-debian:$tag
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    expire_in: 1 week
+    paths:
+      - docker/debian/*.tar
+  rules:
+    # 匹配以 dependabot 开头的分支
+    - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
+      # 不执行
+      when: never
+
 build:golang:1.21-alpine3.18:
   stage: build
   image: golang:1.21-alpine3.18
@@ -45,6 +118,78 @@ build:golang:1.21-alpine3.18:
     expire_in: 1 week
     paths:
       - gitlab-go-linux-*
+
+build:docker:alpine3.18:
+  stage: build:docker
+  needs:
+    - job: build:golang:1.21-alpine3.18
+      artifacts: true
+  image: docker:24.0.6
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://docker:2375
+  services:
+    - name: docker:24.0.6-dind
+      alias: docker
+  before_script:
+    - set +e
+    - start_time=$(date +%s)
+    - elapsed=0
+    - interval=5
+    - timeout=60
+    - |
+      while true; do
+        docker info >/dev/null 2>&1
+        result=$?
+        echo "result=$result"
+        current_time=$(date +%s)
+        elapsed_time=$((current_time - start_time))
+        if [[ $result -eq 0 ]]; then
+          echo "docker 完成启动"
+          break
+        fi
+        if [[ $elapsed_time -gt $timeout ]]; then
+          echo "docker 启动超时"
+          exit 1
+        fi
+        echo "docker 正在启动($elapsed) ..."
+        elapsed=$((elapsed+interval))
+        sleep $interval
+      done
+    - set -e
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  script:
+    - cp gitlab-go-linux-amd64 docker/alpine/gitlab-go
+    - cd $CI_PROJECT_DIR/docker/alpine
+    - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3
+    - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3 docker.io/library/alpine:3.18.3
+    - if [ "$CI_COMMIT_TAG" ]; then
+      tag="$CI_COMMIT_TAG-alpine";
+      tag_hub="$CI_COMMIT_TAG-alpine";
+      else
+      tag="dev-$CI_PIPELINE_ID-alpine";
+      tag_hub="dev-alpine";
+      fi
+    - echo "tag=$tag"
+    - echo "tag_hub=$tag_hub"
+    - docker build -t $CI_REGISTRY_IMAGE/gitlab-go-alpine:$tag . --no-cache --progress plain
+    - docker tag $CI_REGISTRY_IMAGE/gitlab-go-alpine:$tag $DOCKER_USERNAME/gitlab-go:$tag_hub
+    - docker images
+    - docker push $CI_REGISTRY_IMAGE/gitlab-go-alpine:$tag
+    - docker push $DOCKER_USERNAME/gitlab-go:$tag_hub
+    - docker save -o gitlab-go-dev-alpine-$CI_PIPELINE_ID.tar $CI_REGISTRY_IMAGE/gitlab-go-alpine:$tag
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    expire_in: 1 week
+    paths:
+      - docker/alpine/*.tar
+  rules:
+    # 匹配以 dependabot 开头的分支
+    - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
+      # 不执行
+      when: never
 
 # 嵌入
 include:

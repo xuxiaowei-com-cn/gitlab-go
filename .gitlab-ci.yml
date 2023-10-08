@@ -13,6 +13,8 @@ build:golang:1.21:
     - go env -w GOPROXY=https://goproxy.cn,direct
     #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
     - go mod download
+    - go test ./... -v
+    - go run main.go
     - go build -o buildinfo/buildinfo buildinfo/buildinfo.go
     - GOOS=windows GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState= -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/amd64 -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o gitlab-go-windows-amd64.exe .
     - GOOS=windows GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState= -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/arm64 -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o gitlab-go-windows-arm64.exe .

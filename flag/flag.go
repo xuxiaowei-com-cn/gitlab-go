@@ -7,16 +7,32 @@ import (
 
 func Common() []cli.Flag {
 	return []cli.Flag{
-		&cli.StringFlag{
-			Name:    constant.BaseUrl,
-			Value:   constant.BaseUrlDefault,
-			EnvVars: []string{"CI_API_V4_URL"},
-			Usage:   "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
-		},
-		&cli.StringFlag{
-			Name:  constant.Token,
-			Usage: "your_access_token",
-		},
+		BaseUrl(),
+		Token(false),
+	}
+}
+
+func CommonTokenRequired() []cli.Flag {
+	return []cli.Flag{
+		BaseUrl(),
+		Token(true),
+	}
+}
+
+func BaseUrl() cli.Flag {
+	return &cli.StringFlag{
+		Name:    constant.BaseUrl,
+		Value:   constant.BaseUrlDefault,
+		EnvVars: []string{"CI_API_V4_URL"},
+		Usage:   "实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4",
+	}
+}
+
+func Token(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.Token,
+		Usage:    "your_access_token",
+		Required: required,
 	}
 }
 

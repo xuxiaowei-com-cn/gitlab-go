@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/xuxiaowei-com-cn/git-go/buildinfo"
+	"github.com/xuxiaowei-com-cn/gitlab-go/instance_level_ci_variables"
 	"github.com/xuxiaowei-com-cn/gitlab-go/job_artifacts"
 	"github.com/xuxiaowei-com-cn/gitlab-go/jobs"
 	"github.com/xuxiaowei-com-cn/gitlab-go/pipelines"
@@ -64,6 +65,7 @@ func main() {
 			pipelines.Pipelines(),
 			jobs.Jobs(),
 			job_artifacts.JobsArtifacts(),
+			instance_level_ci_variables.InstanceLevelCiVariables(),
 		},
 	}
 

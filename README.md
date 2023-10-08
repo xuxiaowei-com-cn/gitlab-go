@@ -155,11 +155,12 @@ AUTHOR:
    徐晓伟 <xuxiaowei@xuxiaowei.com.cn>
 
 COMMANDS:
-   project, projects, p             项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
-   pipeline, pipelines, pl          流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
-   job, jobs, j                     作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
-   job-artifact, job-artifacts, ja  作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
-   help, h                          Shows a list of commands or help for one command
+   project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+   pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
+   job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+   job-artifact, job-artifacts, ja                                作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+   instance-level-ci-variable, instance-level-ci-variables, ilcv  实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+   help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --help, -h     show help
@@ -255,6 +256,26 @@ COPYRIGHT:
        --token value     your_access_token
        --id value        项目 ID 或 URL 编码的路径
        --job-id value    作业 ID
+       --help, -h        show help
+    ```
+
+- [instance-level-ci-variable - 实例级 CI/CD 变量 API](https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html)
+
+    ```shell
+    $ go run main.go instance-level-ci-variable --help
+    NAME:
+       gitlab-go instance-level-ci-variable - 实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+    
+    USAGE:
+       gitlab-go instance-level-ci-variable command [command options] [arguments...]
+    
+    COMMANDS:
+       get      列出所有实例变量
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
        --help, -h        show help
     ```
 

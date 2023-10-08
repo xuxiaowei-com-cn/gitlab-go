@@ -22,6 +22,9 @@ const (
 	OrganizationName  = "徐晓伟工作室"
 	OrganizationUrl   = "http://xuxiaowei.com.cn"
 	OrganizationEmail = "xuxiaowei@xuxiaowei.com.cn"
+	Copyright         = "徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>"
+	Author            = "徐晓伟"
+	Email             = "xuxiaowei@xuxiaowei.com.cn"
 )
 
 var (
@@ -51,9 +54,11 @@ func init() {
 
 func main() {
 	app := &cli.App{
-		Name:    Name,
-		Version: versionInfo(),
-		Usage:   Description,
+		Name:      Name,
+		Version:   versionInfo(),
+		Authors:   []*cli.Author{{Name: Author, Email: Email}},
+		Usage:     Description,
+		Copyright: Copyright,
 		Commands: []*cli.Command{
 			projects.Projects(),
 			pipelines.Pipelines(),

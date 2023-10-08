@@ -151,6 +151,9 @@ USAGE:
 VERSION:
    dev
 
+AUTHOR:
+   徐晓伟 <xuxiaowei@xuxiaowei.com.cn>
+
 COMMANDS:
    project, projects, p             项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
    pipeline, pipelines, pl          流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
@@ -161,6 +164,9 @@ COMMANDS:
 GLOBAL OPTIONS:
    --help, -h     show help
    --version, -v  print the version
+
+COPYRIGHT:
+   徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>
 ```
 
 - [project - 项目 API](https://docs.gitlab.cn/jh/api/projects.html)

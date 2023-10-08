@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/xuxiaowei-com-cn/git-go/buildinfo"
+	"github.com/xuxiaowei-com-cn/gitlab-go/access_requests"
 	"github.com/xuxiaowei-com-cn/gitlab-go/instance_level_ci_variables"
 	"github.com/xuxiaowei-com-cn/gitlab-go/job_artifacts"
 	"github.com/xuxiaowei-com-cn/gitlab-go/jobs"
@@ -61,11 +62,12 @@ func main() {
 		Usage:     Description,
 		Copyright: Copyright,
 		Commands: []*cli.Command{
-			projects.Projects(),
-			pipelines.Pipelines(),
-			jobs.Jobs(),
-			job_artifacts.JobsArtifacts(),
+			access_requests.AccessRequests(),
 			instance_level_ci_variables.InstanceLevelCiVariables(),
+			job_artifacts.JobsArtifacts(),
+			jobs.Jobs(),
+			pipelines.Pipelines(),
+			projects.Projects(),
 		},
 	}
 

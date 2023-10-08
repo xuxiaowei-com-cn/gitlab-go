@@ -155,11 +155,12 @@ AUTHOR:
    徐晓伟 <xuxiaowei@xuxiaowei.com.cn>
 
 COMMANDS:
-   project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
-   pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
-   job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
-   job-artifact, job-artifacts, ja                                作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+   access-request, access-requests, ar                            群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
    instance-level-ci-variable, instance-level-ci-variables, ilcv  实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+   job-artifact, job-artifacts, ja                                作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+   job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+   pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
+   project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
    help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -170,18 +171,85 @@ COPYRIGHT:
    徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>
 ```
 
-- [project - 项目 API](https://docs.gitlab.cn/jh/api/projects.html)
+- [access-request - 群组和项目访问请求 API](https://docs.gitlab.cn/jh/api/access_requests.html)
 
     ```shell
-    $ go run main.go project --help
+    $ go run main.go access-request --help
     NAME:
-       gitlab-go project - 项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+       gitlab-go access-request - 群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
     
     USAGE:
-       gitlab-go project command [command options] [arguments...]
+       gitlab-go access-request command [command options] [arguments...]
     
     COMMANDS:
-       list     列出所有项目
+       group, groups      为群组列出访问请求
+       project, projects  为项目列出访问请求
+       help, h            Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --id value        项目 ID 或 URL 编码的路径
+       --help, -h        show help
+    ```
+
+- [instance-level-ci-variable - 实例级 CI/CD 变量 API](https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html)
+
+    ```shell
+    $ go run main.go instance-level-ci-variable --help
+    NAME:
+       gitlab-go instance-level-ci-variable - 实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+    
+    USAGE:
+       gitlab-go instance-level-ci-variable command [command options] [arguments...]
+    
+    COMMANDS:
+       get      列出所有实例变量
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --help, -h        show help
+    ```
+
+- [job-artifact - 作业产物 API](https://docs.gitlab.cn/jh/api/job_artifacts.html)
+
+    ```shell
+    $ go run main.go job-artifact --help
+    NAME:
+       gitlab-go job-artifact - 作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+    
+    USAGE:
+       gitlab-go job-artifact command [command options] [arguments...]
+    
+    COMMANDS:
+       get                                    获取作业产物（未完成）
+       download, dl                           下载产物归档文件（未完成）
+       delete, rm                             删除作业产物
+       delete-project, delete-projects, rm-p  删除项目产物
+       help, h                                Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --id value        项目 ID 或 URL 编码的路径
+       --job-id value    作业 ID
+       --help, -h        show help
+    ```
+
+- [job - 作业 API](https://docs.gitlab.cn/jh/api/jobs.html)
+
+    ```shell
+    $ go run main.go job --help
+    NAME:
+       gitlab-go job - 作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+    
+    USAGE:
+       gitlab-go job command [command options] [arguments...]
+    
+    COMMANDS:
+       list     列出项目作业
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
@@ -213,69 +281,24 @@ COPYRIGHT:
        --help, -h        show help
     ```
 
-- [job - 作业 API](https://docs.gitlab.cn/jh/api/jobs.html)
+- [project - 项目 API](https://docs.gitlab.cn/jh/api/projects.html)
 
     ```shell
-    $ go run main.go job --help
+    $ go run main.go project --help
     NAME:
-       gitlab-go job - 作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+       gitlab-go project - 项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
     
     USAGE:
-       gitlab-go job command [command options] [arguments...]
+       gitlab-go project command [command options] [arguments...]
     
     COMMANDS:
-       list     列出项目作业
+       list     列出所有项目
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value     your_access_token
        --sort value      按照 asc 或者 desc 排序 (default: "desc")
-       --help, -h        show help
-    ```
-
-- [job-artifact - 作业产物 API](https://docs.gitlab.cn/jh/api/job_artifacts.html)
-
-    ```shell
-    $ go run main.go job-artifact --help
-    NAME:
-       gitlab-go job-artifact - 作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
-    
-    USAGE:
-       gitlab-go job-artifact command [command options] [arguments...]
-    
-    COMMANDS:
-       get                                    获取作业产物（未完成）
-       download, dl                           下载产物归档文件（未完成）
-       delete, rm                             删除作业产物
-       delete-project, delete-projects, rm-p  删除项目产物
-       help, h                                Shows a list of commands or help for one command
-    
-    OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --id value        项目 ID 或 URL 编码的路径
-       --job-id value    作业 ID
-       --help, -h        show help
-    ```
-
-- [instance-level-ci-variable - 实例级 CI/CD 变量 API](https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html)
-
-    ```shell
-    $ go run main.go instance-level-ci-variable --help
-    NAME:
-       gitlab-go instance-level-ci-variable - 实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
-    
-    USAGE:
-       gitlab-go instance-level-ci-variable command [command options] [arguments...]
-    
-    COMMANDS:
-       get      列出所有实例变量
-       help, h  Shows a list of commands or help for one command
-    
-    OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
        --help, -h        show help
     ```
 

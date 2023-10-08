@@ -2,7 +2,7 @@ module github.com/xuxiaowei-com-cn/gitlab-go/buildinfo
 
 go 1.21
 
-require github.com/xuxiaowei-com-cn/git-go v0.0.0-20231001210858-ffa8a39f60e3
+require github.com/xuxiaowei-com-cn/git-go v0.0.0-20231008014508-4797774c5442
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect

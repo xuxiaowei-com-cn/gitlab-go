@@ -136,6 +136,9 @@ go run main.go
 
 ### run help
 
+- Windows 环境为 %xxx%
+- Linux 环境为 $xxx
+
 ```shell
 go run main.go help
 ```

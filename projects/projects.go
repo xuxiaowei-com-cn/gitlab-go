@@ -1,11 +1,11 @@
 package projects
 
 import (
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"log"
 )
 
 // Projects 项目 API https://docs.gitlab.cn/jh/api/projects.html
@@ -34,13 +34,13 @@ func Projects() *cli.Command {
 						Sort: &sort,
 					}
 					projects, response, err := gitClient.Projects.ListProjects(opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
 
 					for index, project := range projects {
-						fmt.Printf("Index: %d,\t ID: %d,\t Path: %s,\t Name: %s\n", index, project.ID, project.Path, project.Name)
+						log.Printf("Index: %d,\t ID: %d,\t Path: %s,\t Name: %s\n", index, project.ID, project.Path, project.Name)
 					}
 
 					return nil

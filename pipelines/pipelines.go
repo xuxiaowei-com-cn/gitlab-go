@@ -1,11 +1,11 @@
 package pipelines
 
 import (
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"log"
 )
 
 // Pipelines 流水线 API https://docs.gitlab.cn/jh/api/pipelines.html
@@ -35,13 +35,13 @@ func Pipelines() *cli.Command {
 						Sort: &sort,
 					}
 					PipelineInfos, response, err := gitClient.Pipelines.ListProjectPipelines(id, opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
 
 					for index, pipelineInfo := range PipelineInfos {
-						fmt.Printf("Index: %d,\t ID: %d,\t IID: %d,\t ProjectID: %d,\t Status: %s,\t CreatedAt: %s\n", index, pipelineInfo.ID, pipelineInfo.IID, pipelineInfo.ProjectID, pipelineInfo.Status, pipelineInfo.CreatedAt)
+						log.Printf("Index: %d,\t ID: %d,\t IID: %d,\t ProjectID: %d,\t Status: %s,\t CreatedAt: %s\n", index, pipelineInfo.ID, pipelineInfo.IID, pipelineInfo.ProjectID, pipelineInfo.Status, pipelineInfo.CreatedAt)
 					}
 
 					return nil

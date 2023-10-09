@@ -6,6 +6,7 @@ import (
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"log"
 )
 
 // JobsArtifacts 作业产物 API https://docs.gitlab.cn/jh/api/job_artifacts.html
@@ -21,7 +22,7 @@ func JobsArtifacts() *cli.Command {
 				Usage: "获取作业产物（未完成）",
 				Flags: append(flag.Common(), flag.Id(true), flag.JobId(false)),
 				Action: func(context *cli.Context) error {
-					fmt.Println("获取作业产物")
+					log.Printf("获取作业产物")
 
 					return fmt.Errorf("未完成")
 				},
@@ -53,9 +54,9 @@ func JobsArtifacts() *cli.Command {
 						return err
 					}
 
-					fmt.Printf("Delete ProjectId: %s, JobId: %d Artifacts\n", id, jobId)
+					log.Printf("Delete ProjectId: %s, JobId: %d Artifacts\n", id, jobId)
 					response, err := gitClient.Jobs.DeleteArtifacts(id, jobId)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
@@ -78,9 +79,9 @@ func JobsArtifacts() *cli.Command {
 						return err
 					}
 
-					fmt.Printf("Delete ProjectId: %s Artifacts\n", id)
+					log.Printf("Delete ProjectId: %s Artifacts\n", id)
 					response, err := gitClient.Jobs.DeleteProjectArtifacts(id)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}

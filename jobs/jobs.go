@@ -1,11 +1,11 @@
 package jobs
 
 import (
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"log"
 )
 
 // Jobs 作业 API https://docs.gitlab.cn/jh/api/jobs.html
@@ -32,13 +32,13 @@ func Jobs() *cli.Command {
 
 					opt := &gitlab.ListJobsOptions{}
 					jobs, response, err := gitClient.Jobs.ListProjectJobs(id, opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
 
 					for index, job := range jobs {
-						fmt.Printf("Index: %d,\t ID: %d,\t Name: %s,\t ProjectID: %d,\t Status: %s,\t CreatedAt: %s\n", index, job.ID, job.Name, job.Project.ID, job.Status, job.CreatedAt)
+						log.Printf("Index: %d,\t ID: %d,\t Name: %s,\t ProjectID: %d,\t Status: %s,\t CreatedAt: %s\n", index, job.ID, job.Name, job.Project.ID, job.Status, job.CreatedAt)
 					}
 
 					return nil

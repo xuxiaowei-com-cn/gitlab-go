@@ -1,11 +1,11 @@
 package access_requests
 
 import (
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"log"
 )
 
 // AccessRequests 群组和项目访问请求 API https://docs.gitlab.cn/jh/api/access_requests.html
@@ -33,13 +33,13 @@ func AccessRequests() *cli.Command {
 
 					opt := &gitlab.ListAccessRequestsOptions{}
 					accessRequests, response, err := gitClient.AccessRequests.ListGroupAccessRequests(id, opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
 
 					for index, accessRequest := range accessRequests {
-						fmt.Printf("Index: %d,\t ID: %d,\t Username: %s,\t Name: %s,\t State: %s,\t CreatedAt: %s,\t RequestedAt: %s,\t AccessLevel: %d\n", index, accessRequest.ID, accessRequest.Username, accessRequest.Name, accessRequest.State, accessRequest.CreatedAt, accessRequest.RequestedAt, accessRequest.AccessLevel)
+						log.Printf("Index: %d,\t ID: %d,\t Username: %s,\t Name: %s,\t State: %s,\t CreatedAt: %s,\t RequestedAt: %s,\t AccessLevel: %d\n", index, accessRequest.ID, accessRequest.Username, accessRequest.Name, accessRequest.State, accessRequest.CreatedAt, accessRequest.RequestedAt, accessRequest.AccessLevel)
 					}
 
 					return nil
@@ -62,13 +62,13 @@ func AccessRequests() *cli.Command {
 
 					opt := &gitlab.ListAccessRequestsOptions{}
 					accessRequests, response, err := gitClient.AccessRequests.ListProjectAccessRequests(id, opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
 
 					for index, accessRequest := range accessRequests {
-						fmt.Printf("Index: %d,\t ID: %d,\t Username: %s,\t Name: %s,\t State: %s,\t CreatedAt: %s,\t RequestedAt: %s,\t AccessLevel: %d\n", index, accessRequest.ID, accessRequest.Username, accessRequest.Name, accessRequest.State, accessRequest.CreatedAt, accessRequest.RequestedAt, accessRequest.AccessLevel)
+						log.Printf("Index: %d,\t ID: %d,\t Username: %s,\t Name: %s,\t State: %s,\t CreatedAt: %s,\t RequestedAt: %s,\t AccessLevel: %d\n", index, accessRequest.ID, accessRequest.Username, accessRequest.Name, accessRequest.State, accessRequest.CreatedAt, accessRequest.RequestedAt, accessRequest.AccessLevel)
 					}
 
 					return nil

@@ -1,11 +1,11 @@
 package instance_level_ci_variables
 
 import (
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"log"
 )
 
 // InstanceLevelCiVariables 实例级 CI/CD 变量 API https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
@@ -31,13 +31,13 @@ func InstanceLevelCiVariables() *cli.Command {
 
 					opt := &gitlab.ListInstanceVariablesOptions{}
 					variables, response, err := gitClient.InstanceVariables.ListVariables(opt)
-					fmt.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
 
 					for index, variable := range variables {
-						fmt.Printf("Index: %d,\t Key: %s,\t Value: %s,\t VariableType: %s,\t Protected: %t,\t Masked: %t,\t Raw: %t\n", index, variable.Key, variable.Value, variable.VariableType, variable.Protected, variable.Masked, variable.Raw)
+						log.Printf("Index: %d,\t Key: %s,\t Value: %s,\t VariableType: %s,\t Protected: %t,\t Masked: %t,\t Raw: %t\n", index, variable.Key, variable.Value, variable.VariableType, variable.Protected, variable.Masked, variable.Raw)
 					}
 
 					return nil

@@ -258,23 +258,26 @@ COPYRIGHT:
        --token value              your_access_token
        --page value               页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
        --per-page value           每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json               打印 JSON (default: false)
+       --print-time               打印时间 (default: false)
        --assignee-username value  对于给定的用户名 username，返回指派给这个用户的议题。与 assignee_id 相似且与其冲突。在免费版中，assignee_username 数组只能包含单个成员，否则将报参数错误提示。
        --author-id value          对于给定的用户 id，返回这个用户创建的议题。与 author_username 冲突。与 scope=all 或 scope=assigned_to_me 配合使用。
        --author-username value    对于给定的用户名 username，返回这个用户创建的议题。与 author_id 相似且与其冲突。
-       --confidential value       筛选私密议题与公开议题。
+       --confidential             筛选私密议题与公开议题。 (default: false)
        --due-date value           返回没有截止日期、已经逾期、本周内逾期、本月内逾期或介于两周前和下个月之间逾期的议题。可接受的值：0（没有截止日期）、any、today、tomorrow、overdue、week、month、next_month_and_previous_two_weeks。
        --iids value               返回包含给定 iid 的议题。
-       --in value                 修改 search 属性的范围。可以使用 title、description 或使用半角逗号对他们进行连接。默认值是 title,description。
+       --in value                 修改 search 属性的范围。可以使用 title、description 或使用半角逗号对他们进行连接。默认值是 title,description。 (default: "title,description")
        --issue-type value         筛选议题的类型，可选值为 issue、incident 或 test_case。引入于 13.12 版本。
        --iteration-id value       对于给定的迭代 ID，返回与这个迭代关联的议题。使用 None 则返回未与迭代关联的议题。使用 Any 则返回存在关联迭代的议题。引入于 13.6 版本。
        --milestone value          里程碑名称。使用 None 则列出没有里程碑的议题。使用 Any 则列出存在关联里程碑的议题。None 及 Any 的用法将会在未来被弃用，请使用 milestone_id 替代。milestone 与 milestone_id 冲突。
        --milestone-id value       对于给定的时间段（None、Any、Upcoming 或 Started），返回与该时间段里程碑相关联的议题。使用 None 则列出没有里程碑的议题。使用 Any 则列出存在关联里程碑的议题。使用 Upcoming 则列出与未开始里程碑相关联的议题。使用 Started 则列出与已开始里程碑相关联的议题。milestone 和 milestone_id 冲突。引入于 14.3 版本。
        --my-reaction-emoji value  对于给定的 emoji，返回用户使用该表情回应的议题。使用 None 则返回没有使用表情回应的议题。使用 Any 则返回使用至少一个表情回应的议题。
-       --order-by value           返回根据 created_at、due_date、label_priority、milestone_due、popularity、priority、relative_position、title、updated_at 或 weight 排序的议题。默认值是 created_at。
-       --scope value              返回满足范围 created_by_me、assigned_to_me 或 all 的议题。默认值是 created_by_me。
+       --order-by value           返回根据 created_at、due_date、label_priority、milestone_due、popularity、priority、relative_position、title、updated_at 或 weight 排序的议题。默认值是 created_at。 (default: "created_at")
+       --scope value              返回满足范围 created_by_me、assigned_to_me 或 all 的议题。默认值是 created_by_me。 (default: "created_by_me")
        --search value             根据 title 和 description 搜索议题。
        --sort value               按照 asc 或者 desc 排序 (default: "desc")
-       --state value              返回全部 all 议题或仅返回处于 opened 或 closed 状态的议题。
+       --state value              返回全部 all 议题或仅返回处于 opened 或 closed 状态的议题。 (default: "all")
+       --with-labels-details      若为 true 则返回更详尽的标签信息：:name、:color、:description、:description_html、:text_color。默认值是 false。description_html 属性引入于 12.7 版本。 (default: false)
        --help, -h                 show help
     ```
 

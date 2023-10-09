@@ -156,6 +156,7 @@ AUTHOR:
 
 COMMANDS:
    access-request, access-requests, ar                            群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
+   board, boards                                                  项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
    instance-level-ci-variable, instance-level-ci-variables, ilcv  实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
    job-artifact, job-artifacts, ja                                作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
    job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
@@ -185,6 +186,27 @@ COPYRIGHT:
        group, groups      为群组列出访问请求
        project, projects  为项目列出访问请求
        help, h            Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --id value        项目 ID 或 URL 编码的路径
+       --help, -h        show help
+    ```
+
+- [board - 项目议题板 API](https://docs.gitlab.cn/jh/api/boards.html)
+
+    ```shell
+    $ go run main.go board --help
+    NAME:
+       gitlab-go board - 项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
+    
+    USAGE:
+       gitlab-go board command [command options] [arguments...]
+    
+    COMMANDS:
+       list     列出项目议题板
+       help, h  Shows a list of commands or help for one command
     
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]

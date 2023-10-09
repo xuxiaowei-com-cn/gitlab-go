@@ -25,13 +25,20 @@ func Issues() *cli.Command {
 				Action: func(context *cli.Context) error {
 					var baseUrl = context.String(constant.BaseUrl)
 					var token = context.String(constant.Token)
+					var page = context.Int(constant.Page)
+					var perPage = context.Int(constant.PerPage)
 
 					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
 					if err != nil {
 						return err
 					}
 
-					opt := &gitlab.ListIssuesOptions{}
+					opt := &gitlab.ListIssuesOptions{
+						ListOptions: gitlab.ListOptions{
+							Page:    page,
+							PerPage: perPage,
+						},
+					}
 					issues, response, err := gitClient.Issues.ListIssues(opt)
 					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {

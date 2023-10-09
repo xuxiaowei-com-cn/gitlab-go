@@ -8,6 +8,6 @@ const (
 	JobId          = "job-id"
 	Sort           = "sort"
 	SortDefault    = "desc"
-	PAGE           = "page"
+	Page           = "page"
 	PerPage        = "per-page"
 )

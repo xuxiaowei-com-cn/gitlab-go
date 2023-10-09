@@ -61,15 +61,17 @@ func JobId(required bool) cli.Flag {
 }
 
 func Page() cli.Flag {
-	return &cli.UintFlag{
-		Name:  constant.PAGE,
+	return &cli.IntFlag{
+		Name:  constant.Page,
+		Value: 1,
 		Usage: "页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination",
 	}
 }
 
 func PerPage() cli.Flag {
-	return &cli.UintFlag{
+	return &cli.IntFlag{
 		Name:  constant.PerPage,
+		Value: 20,
 		Usage: "每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination",
 	}
 }

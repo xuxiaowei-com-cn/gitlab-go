@@ -20,7 +20,7 @@ func Issues() *cli.Command {
 			flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 			flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 			flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(), flag.Scope(), flag.Search(),
-			flag.Sort(), flag.State()),
+			flag.Sort(), flag.State(), flag.WithLabelsDetails()),
 		Subcommands: []*cli.Command{
 			{
 				Name:  "list",
@@ -29,7 +29,7 @@ func Issues() *cli.Command {
 					flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 					flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 					flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(), flag.Scope(), flag.Search(),
-					flag.Sort(), flag.State()),
+					flag.Sort(), flag.State(), flag.WithLabelsDetails()),
 				Action: func(context *cli.Context) error {
 					var baseUrl = context.String(constant.BaseUrl)
 					var token = context.String(constant.Token)
@@ -38,7 +38,7 @@ func Issues() *cli.Command {
 
 					// var assigneeId = context.Int(constant.AssigneeId)
 					var assigneeUsername = context.String(constant.AssigneeUsername)
-					var authorId = context.Int(constant.AuthorId)
+					//var authorId = context.Int(constant.AuthorId)
 					var authorUsername = context.String(constant.AuthorUsername)
 					var confidential = context.Bool(constant.Confidential)
 					// var createdAfter = context.String(constant.CreatedAfter)
@@ -48,7 +48,7 @@ func Issues() *cli.Command {
 					// var healthStatus = context.String(constant.HealthStatus)
 					var iids = context.IntSlice(constant.Iids)
 					var in = context.String(constant.In)
-					var issueType = context.String(constant.IssueType)
+					//var issueType = context.String(constant.IssueType)
 					var iterationId = context.Int(constant.IterationId)
 					// var iterationTitle = context.Int(constant.IterationTitle)
 					// var labels = context.StringSlice(constant.Labels)
@@ -73,43 +73,71 @@ func Issues() *cli.Command {
 					}
 
 					opt := &gitlab.ListIssuesOptions{
-						State: &state,
-						// Labels:              labels,
-						// NotLabels:           notLabels,
 						WithLabelDetails: &withLabelsDetails,
-						Milestone:        &milestone,
-						// NotMilestone:        notMilestone,
-						Scope:          &scope,
-						AuthorID:       &authorId,
-						AuthorUsername: &authorUsername,
-						// NotAuthorUsername:   notAuthorUsername,
-						// NotAuthorID:         notAuthorID,
-						// AssigneeID:          &assigneeId,
-						// NotAssigneeID:       notAssigneeID,
-						AssigneeUsername: &assigneeUsername,
-						// NotAssigneeUsername: notAssigneeUsername,
-						MyReactionEmoji: &myReactionEmoji,
-						// NotMyReactionEmoji: notMyReactionEmoji,
-						IIDs: &iids,
-						In:   &in,
-						// NotIn:         notIn,
-						OrderBy: &orderBy,
-						Sort:    &sort,
-						Search:  &search,
-						// NotSearch:     notSearch,
-						// CreatedAfter:  createdAfter,
-						// CreatedBefore: createdBefore,
-						DueDate: &dueDate,
-						// UpdatedAfter:  updatedAfter,
-						// UpdatedBefore: updatedBefore,
-						Confidential: &confidential,
-						IssueType:    &issueType,
-						IterationID:  &iterationId,
+						Scope:            &scope,
+						In:               &in,
+						OrderBy:          &orderBy,
+						Sort:             &sort,
+						Confidential:     &confidential,
 						ListOptions: gitlab.ListOptions{
 							Page:    page,
 							PerPage: perPage,
 						},
 					}
+
+					if search != "" {
+						opt.Search = &search
+					}
+					if state != "" {
+						opt.State = &state
+					}
+					if milestone != "" {
+						opt.Milestone = &milestone
+					}
+					if authorUsername != "" {
+						opt.AuthorUsername = &authorUsername
+					}
+					if assigneeUsername != "" {
+						opt.AssigneeUsername = &assigneeUsername
+					}
+					if myReactionEmoji != "" {
+						opt.MyReactionEmoji = &myReactionEmoji
+					}
+					if len(iids) > 0 {
+						opt.IIDs = &iids
+					}
+					if dueDate != "" {
+						opt.DueDate = &dueDate
+					}
+					if iterationId != 0 {
+						opt.IterationID = &iterationId
+					}
+
+					//opt := &gitlab.ListIssuesOptions{
+					//	// Labels:              labels,
+					//	// NotLabels:           notLabels,
+					//	// NotMilestone:        notMilestone,
+					//	// AuthorID:       &authorId,
+					//	// NotAuthorUsername:   notAuthorUsername,
+					//	// NotAuthorID:         notAuthorID,
+					//	// AssigneeID:          &assigneeId,
+					//	// NotAssigneeID:       notAssigneeID,
+					//	// NotAssigneeUsername: notAssigneeUsername,
+					//	// NotMyReactionEmoji: notMyReactionEmoji,
+					//	// NotIn:         notIn,
+					//	// NotSearch:     notSearch,
+					//	// CreatedAfter:  createdAfter,
+					//	// CreatedBefore: createdBefore,
+					//	// UpdatedAfter:  updatedAfter,
+					//	// UpdatedBefore: updatedBefore,
+					//	Confidential: &confidential,
+					//	//IssueType:    &issueType,
+					//	IterationID: &iterationId,
+					//	ListOptions: gitlab.ListOptions{
+					//		Page:    page,
+					//		PerPage: perPage,
+					//	},
+					//}
 					issues, response, err := gitClient.Issues.ListIssues(opt)
 					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {

@@ -29,8 +29,9 @@ func AuthorUsername() cli.Flag {
 }
 
 func Confidential() cli.Flag {
-	return &cli.StringFlag{
+	return &cli.BoolFlag{
 		Name:  constant.Confidential,
+		Value: false,
 		Usage: "筛选私密议题与公开议题。",
 	}
 }
@@ -52,6 +53,7 @@ func Iids() cli.Flag {
 func In() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.In,
+		Value: "title,description",
 		Usage: "修改 search 属性的范围。可以使用 title、description 或使用半角逗号对他们进行连接。默认值是 title,description。",
 	}
 }
@@ -94,6 +96,7 @@ func MyReactionEmoji() cli.Flag {
 func OrderBy() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.OrderBy,
+		Value: "created_at",
 		Usage: "返回根据 created_at、due_date、label_priority、milestone_due、popularity、priority、relative_position、title、updated_at 或 weight 排序的议题。默认值是 created_at。",
 	}
 }
@@ -101,6 +104,7 @@ func OrderBy() cli.Flag {
 func Scope() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.Scope,
+		Value: "created_by_me",
 		Usage: "返回满足范围 created_by_me、assigned_to_me 或 all 的议题。默认值是 created_by_me。",
 	}
 }
@@ -115,6 +119,15 @@ func Search() cli.Flag {
 func State() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.State,
+		Value: "all",
 		Usage: "返回全部 all 议题或仅返回处于 opened 或 closed 状态的议题。",
+	}
+}
+
+func WithLabelsDetails() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.WithLabelsDetails,
+		Value: false,
+		Usage: "若为 true 则返回更详尽的标签信息：:name、:color、:description、:description_html、:text_color。默认值是 false。description_html 属性引入于 12.7 版本。",
 	}
 }

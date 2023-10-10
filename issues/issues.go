@@ -16,7 +16,7 @@ func Issues() *cli.Command {
 		Name:    "issue",
 		Aliases: []string{"issues"},
 		Usage:   "议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html",
-		Flags: append(flag.Common(), flag.Page(), flag.PerPage(),
+		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
 			flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 			flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 			flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(), flag.Scope(), flag.Search(),
@@ -25,7 +25,7 @@ func Issues() *cli.Command {
 			{
 				Name:  "list",
 				Usage: "列出议题",
-				Flags: append(flag.CommonTokenRequired(), flag.Page(), flag.PerPage(),
+				Flags: append(flag.CommonTokenRequired(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
 					flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 					flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 					flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(), flag.Scope(), flag.Search(),
@@ -35,6 +35,8 @@ func Issues() *cli.Command {
 					var token = context.String(constant.Token)
 					var page = context.Int(constant.Page)
 					var perPage = context.Int(constant.PerPage)
+					var printJson = context.Bool(constant.PrintJson)
+					var printTime = context.Bool(constant.PrintTime)
 
 					// var assigneeId = context.Int(constant.AssigneeId)
 					var assigneeUsername = context.String(constant.AssigneeUsername)
@@ -146,13 +148,60 @@ func Issues() *cli.Command {
 
 					fmt.Println("")
 
-					for index, issue := range issues {
-						jsonData, err := json.Marshal(issue)
-						if err != nil {
-							panic(err)
+					if printJson {
+						if printTime {
+							for _, issue := range issues {
+								jsonData, err := json.Marshal(issue)
+								if err != nil {
+									panic(err)
+								}
+
+								log.Printf("\n%s\n", string(jsonData))
+								fmt.Println("")
+							}
+						} else {
+							for _, issue := range issues {
+								jsonData, err := json.Marshal(issue)
+								if err != nil {
+									panic(err)
+								}
+
+								fmt.Printf("%s\n", string(jsonData))
+								fmt.Println("")
+							}
 						}
-						log.Printf("Index: %d: \n%s\n", index, string(jsonData))
-						fmt.Println("")
+					} else {
+						if printTime {
+							for _, issue := range issues {
+								log.Printf("ID: %d\n", issue.ID)
+								log.Printf("Title: %s\n", issue.Title)
+								log.Printf("State: %s\n", issue.State)
+								log.Printf("CreatedAt: %s\n", issue.CreatedAt)
+								log.Printf("UpdatedAt: %s\n", issue.UpdatedAt)
+								log.Printf("ClosedAt: %s\n", issue.ClosedAt)
+								log.Printf("DueDate: %s\n", issue.DueDate)
+								log.Printf("Author: %s\n", issue.Author.Name)
+								log.Printf("Assignee: %s\n", issue.Assignee.Name)
+								log.Printf("Labels: %s\n", issue.Labels)
+								log.Printf("Milestone: %s\n", issue.Milestone.Title)
+								log.Printf("ProjectID: %d\n", issue.ProjectID)
+								fmt.Println("")
+							}
+						} else {
+							for _, issue := range issues {
+								fmt.Printf("ID: %d\n", issue.ID)
+								fmt.Printf("Title: %s\n", issue.Title)
+								fmt.Printf("State: %s\n", issue.State)
+								fmt.Printf("CreatedAt: %s\n", issue.CreatedAt)
+								fmt.Printf("UpdatedAt: %s\n", issue.UpdatedAt)
+								fmt.Printf("ClosedAt: %s\n", issue.ClosedAt)
+								fmt.Printf("DueDate: %s\n", issue.DueDate)
+								fmt.Printf("Author: %s\n", issue.Author.Name)
+								fmt.Printf("Labels: %s\n", issue.Labels)
+								fmt.Printf("ProjectID: %d\n", issue.ProjectID)
+								fmt.Println("")
+							}
+						}
 					}
 
 					return nil

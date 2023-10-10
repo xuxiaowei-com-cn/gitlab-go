@@ -19,6 +19,22 @@ func CommonTokenRequired() []cli.Flag {
 	}
 }
 
+func PrintJson() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.PrintJson,
+		Value: constant.PrintJsonDefault,
+		Usage: "打印 JSON",
+	}
+}
+
+func PrintTime() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.PrintTime,
+		Value: constant.PrintTimeDefault,
+		Usage: "打印时间",
+	}
+}
+
 func BaseUrl() cli.Flag {
 	return &cli.StringFlag{
 		Name:    constant.BaseUrl,

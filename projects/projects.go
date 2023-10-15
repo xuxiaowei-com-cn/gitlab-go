@@ -14,16 +14,20 @@ func Projects() *cli.Command {
 		Name:    "project",
 		Aliases: []string{"projects", "p"},
 		Usage:   "项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html",
-		Flags:   append(flag.Common(), flag.Sort()),
+		Flags:   append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Search(), flag.SearchNamespaces()),
 		Subcommands: []*cli.Command{
 			{
 				Name:  "list",
 				Usage: "列出所有项目",
-				Flags: append(flag.Common(), flag.Sort()),
+				Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Search(), flag.SearchNamespaces()),
 				Action: func(context *cli.Context) error {
 					var baseUrl = context.String(constant.BaseUrl)
 					var token = context.String(constant.Token)
 					var sort = context.String(constant.Sort)
+					var page = context.Int(constant.Page)
+					var perPage = context.Int(constant.PerPage)
+					var search = context.String(constant.Search)
+					var searchNamespaces = context.Bool(constant.SearchNamespaces)
 
 					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
 					if err != nil {
@@ -31,7 +35,13 @@ func Projects() *cli.Command {
 					}
 
 					opt := &gitlab.ListProjectsOptions{
-						Sort: &sort,
+						ListOptions: gitlab.ListOptions{
+							Page:    page,
+							PerPage: perPage,
+						},
+						Sort:             &sort,
+						Search:           &search,
+						SearchNamespaces: &searchNamespaces,
 					}
 					projects, response, err := gitClient.Projects.ListProjects(opt)
 					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)

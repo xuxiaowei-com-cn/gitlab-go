@@ -26,6 +26,7 @@ const (
 	OrderBy           = "order-by"
 	Scope             = "scope"
 	Search            = "search"
+	SearchNamespaces  = "search-namespaces"
 	State             = "state"
 	UpdatedAfter      = "updated-after"
 	UpdatedBefore     = "updated-before"

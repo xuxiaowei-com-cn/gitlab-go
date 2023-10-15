@@ -116,6 +116,14 @@ func Search() cli.Flag {
 	}
 }
 
+func SearchNamespaces() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.SearchNamespaces,
+		Value: false,
+		Usage: "匹配搜索条件时包括上级命名空间。默认为 false。",
+	}
+}
+
 func State() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.State,

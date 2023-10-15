@@ -278,6 +278,8 @@ COPYRIGHT:
        --sort value               按照 asc 或者 desc 排序 (default: "desc")
        --state value              返回全部 all 议题或仅返回处于 opened 或 closed 状态的议题。 (default: "all")
        --with-labels-details      若为 true 则返回更详尽的标签信息：:name、:color、:description、:description_html、:text_color。默认值是 false。description_html 属性引入于 12.7 版本。 (default: false)
+       --created-after value      对于给定的时间戳，返回不早于该时间创建的议题。时间戳应符合 ISO 8601 格式（2019-03-15T08:00:00Z）
+       --created-before value     对于给定的时间戳，返回不晚于该时间创建的议题。时间戳应符合 ISO 8601 格式（2019-03-15T08:00:00Z）。
        --help, -h                 show help
     ```
 

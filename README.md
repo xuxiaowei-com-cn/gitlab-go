@@ -373,6 +373,7 @@ COPYRIGHT:
        --per-page value     每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
        --search value       根据 title 和 description 搜索议题。
        --search-namespaces  匹配搜索条件时包括上级命名空间。默认为 false。 (default: false)
+       --order-by value     返回按 id、name、path、created_at、updated_at、last_activity_at 或 similarity 字段排序的项目。repository_size、storage_size、packages_size 或 wiki_size 字段只允许管理员使用。similarity（引入于 14.1 版本）仅在搜索 时可用，并且仅限于当前用户所属的项目。默认是created_at。 (default: "created_at")
        --help, -h           show help
     ```
 

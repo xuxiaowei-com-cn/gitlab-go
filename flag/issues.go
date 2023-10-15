@@ -93,14 +93,6 @@ func MyReactionEmoji() cli.Flag {
 	}
 }
 
-func OrderBy() cli.Flag {
-	return &cli.StringFlag{
-		Name:  constant.OrderBy,
-		Value: "created_at",
-		Usage: "返回根据 created_at、due_date、label_priority、milestone_due、popularity、priority、relative_position、title、updated_at 或 weight 排序的议题。默认值是 created_at。",
-	}
-}
-
 func Scope() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.Scope,

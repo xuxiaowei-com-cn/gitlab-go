@@ -91,3 +91,11 @@ func PerPage() cli.Flag {
 		Usage: "每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination",
 	}
 }
+
+func OrderBy(usage string) cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.OrderBy,
+		Value: "created_at",
+		Usage: usage,
+	}
+}

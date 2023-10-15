@@ -264,6 +264,33 @@ func ContainerRegistry() *cli.Command {
 					return nil
 				},
 			},
+			{
+				Name:    "delete-tag",
+				Aliases: []string{"rm-tag"},
+				Usage:   "删除仓库里存储库的某个标签",
+				Flags: append(flag.CommonTokenRequired(),
+					flag.Id(true), flag.Repository(true), flag.TagName(true)),
+				Action: func(context *cli.Context) error {
+					var baseUrl = context.String(constant.BaseUrl)
+					var token = context.String(constant.Token)
+					var id = context.String(constant.Id)
+					var repository = context.Int(constant.Repository)
+					var tagName = context.String(constant.TagName)
+
+					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+					if err != nil {
+						return err
+					}
+
+					response, err := gitClient.ContainerRegistry.DeleteRegistryRepositoryTag(id, repository, tagName)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					if err != nil {
+						return err
+					}
+
+					return nil
+				},
+			},
 		},
 	}
 }

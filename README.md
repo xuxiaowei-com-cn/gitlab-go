@@ -231,10 +231,11 @@ COPYRIGHT:
        gitlab-go container-registry command [command options] [arguments...]
     
     COMMANDS:
-       list       列出仓库内存储库
-       list-tags  列出仓库里存储库的标签
-       get-tag    获取仓库里存储库的某个标签的详情
-       help, h    Shows a list of commands or help for one command
+       list                列出仓库内存储库
+       list-tags           列出仓库里存储库的标签
+       get-tag             获取仓库里存储库的某个标签的详情
+       delete-tag, rm-tag  删除仓库里存储库的某个标签
+       help, h             Shows a list of commands or help for one command
     
     OPTIONS:
        --base-url value    实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]

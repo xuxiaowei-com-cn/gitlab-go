@@ -57,6 +57,9 @@ func Projects() *cli.Command {
 
 					for index, project := range projects {
 						log.Printf("Index: %d,\t ID: %d,\t Path: %s,\t Name: %s\n", index, project.ID, project.Path, project.Name)
+
+						//name := strings.Replace(project.PathWithNamespace, "xuxiaowei-com-cn/", "", -1)
+						//fmt.Printf("git submodule add -b main ../%s.git %s\n", name, name)
 					}
 
 					return nil

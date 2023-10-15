@@ -131,3 +131,19 @@ func WithLabelsDetails() cli.Flag {
 		Usage: "若为 true 则返回更详尽的标签信息：:name、:color、:description、:description_html、:text_color。默认值是 false。description_html 属性引入于 12.7 版本。",
 	}
 }
+
+func CreatedAfter() cli.Flag {
+	return &cli.TimestampFlag{
+		Name:   constant.CreatedAfter,
+		Usage:  "对于给定的时间戳，返回不早于该时间创建的议题。时间戳应符合 ISO 8601 格式（2019-03-15T08:00:00Z）",
+		Layout: "2006-01-02T15:04:05Z",
+	}
+}
+
+func CreatedBefore() cli.Flag {
+	return &cli.TimestampFlag{
+		Name:   constant.CreatedBefore,
+		Usage:  "对于给定的时间戳，返回不晚于该时间创建的议题。时间戳应符合 ISO 8601 格式（2019-03-15T08:00:00Z）。",
+		Layout: "2006-01-02T15:04:05Z",
+	}
+}

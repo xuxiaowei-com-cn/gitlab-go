@@ -20,7 +20,8 @@ func Issues() *cli.Command {
 			flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 			flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 			flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(), flag.Scope(), flag.Search(),
-			flag.Sort(), flag.State(), flag.WithLabelsDetails()),
+			flag.Sort(), flag.State(), flag.WithLabelsDetails(),
+			flag.CreatedAfter(), flag.CreatedBefore()),
 		Subcommands: []*cli.Command{
 			{
 				Name:  "list",
@@ -29,7 +30,8 @@ func Issues() *cli.Command {
 					flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 					flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 					flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(), flag.Scope(), flag.Search(),
-					flag.Sort(), flag.State(), flag.WithLabelsDetails()),
+					flag.Sort(), flag.State(), flag.WithLabelsDetails(),
+					flag.CreatedAfter(), flag.CreatedBefore()),
 				Action: func(context *cli.Context) error {
 					var baseUrl = context.String(constant.BaseUrl)
 					var token = context.String(constant.Token)
@@ -38,13 +40,13 @@ func Issues() *cli.Command {
 					var printJson = context.Bool(constant.PrintJson)
 					var printTime = context.Bool(constant.PrintTime)
 
-					// var assigneeId = context.Int(constant.AssigneeId)
+					var assigneeId = context.Int(constant.AssigneeId)
 					var assigneeUsername = context.String(constant.AssigneeUsername)
-					//var authorId = context.Int(constant.AuthorId)
+					var authorId = context.Int(constant.AuthorId)
 					var authorUsername = context.String(constant.AuthorUsername)
 					var confidential = context.Bool(constant.Confidential)
-					// var createdAfter = context.String(constant.CreatedAfter)
-					// var createdBefore = context.String(constant.CreatedBefore)
+					var createdAfter = context.Timestamp(constant.CreatedAfter)
+					var createdBefore = context.Timestamp(constant.CreatedBefore)
 					var dueDate = context.String(constant.DueDate)
 					// var epicId = context.String(constant.EpicId)
 					// var healthStatus = context.String(constant.HealthStatus)
@@ -73,7 +75,6 @@ func Issues() *cli.Command {
 					if err != nil {
 						return err
 					}
-
 					opt := &gitlab.ListIssuesOptions{
 						WithLabelDetails: &withLabelsDetails,
 						Scope:            &scope,
@@ -86,7 +87,18 @@ func Issues() *cli.Command {
 							PerPage: perPage,
 						},
 					}
-
+					if assigneeId != 0 {
+						opt.AssigneeID = gitlab.AssigneeID(assigneeId)
+					}
+					if authorId != 0 {
+						opt.AuthorID = &authorId
+					}
+					if createdAfter != nil {
+						opt.CreatedAfter = createdAfter
+					}
+					if createdBefore != nil {
+						opt.CreatedBefore = createdBefore
+					}
 					if search != "" {
 						opt.Search = &search
 					}

@@ -17,7 +17,7 @@ func ContainerRegistry() *cli.Command {
 		Aliases: []string{"cr"},
 		Usage:   "容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html",
 		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
-			flag.Id(false), flag.Repository(false)),
+			flag.Id(false), flag.Repository(false), flag.TagName(false)),
 		Subcommands: []*cli.Command{
 			{
 				Name:  "list",
@@ -186,6 +186,78 @@ func ContainerRegistry() *cli.Command {
 								fmt.Printf("TotalSize: %d\n", registryRepositoryTag.TotalSize)
 								fmt.Println("")
 							}
+						}
+					}
+
+					return nil
+				},
+			},
+			{
+				Name:  "get-tag",
+				Usage: "获取仓库里存储库的某个标签的详情",
+				Flags: append(flag.CommonTokenRequired(), flag.PrintJson(), flag.PrintTime(),
+					flag.Id(true), flag.Repository(true), flag.TagName(true)),
+				Action: func(context *cli.Context) error {
+					var baseUrl = context.String(constant.BaseUrl)
+					var token = context.String(constant.Token)
+					var id = context.String(constant.Id)
+					var repository = context.Int(constant.Repository)
+					var tagName = context.String(constant.TagName)
+					var printJson = context.Bool(constant.PrintJson)
+					var printTime = context.Bool(constant.PrintTime)
+
+					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+					if err != nil {
+						return err
+					}
+
+					registryRepositoryTag, response, err := gitClient.ContainerRegistry.GetRegistryRepositoryTagDetail(id, repository, tagName)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					if err != nil {
+						return err
+					}
+
+					fmt.Println("")
+
+					if printJson {
+						if printTime {
+							jsonData, err := json.Marshal(registryRepositoryTag)
+							if err != nil {
+								panic(err)
+							}
+
+							log.Printf("\n%s\n", string(jsonData))
+							fmt.Println("")
+						} else {
+							jsonData, err := json.Marshal(registryRepositoryTag)
+							if err != nil {
+								panic(err)
+							}
+
+							fmt.Printf("%s\n", string(jsonData))
+							fmt.Println("")
+						}
+					} else {
+						if printTime {
+							log.Printf("Name: %s\n", registryRepositoryTag.Name)
+							log.Printf("Path: %s\n", registryRepositoryTag.Path)
+							log.Printf("Location: %s\n", registryRepositoryTag.Location)
+							log.Printf("Revision: %s\n", registryRepositoryTag.Revision)
+							log.Printf("ShortRevision: %s\n", registryRepositoryTag.ShortRevision)
+							log.Printf("Digest: %s\n", registryRepositoryTag.Digest)
+							log.Printf("CreatedAt: %s\n", registryRepositoryTag.CreatedAt)
+							log.Printf("TotalSize: %d\n", registryRepositoryTag.TotalSize)
+							fmt.Println("")
+						} else {
+							fmt.Printf("Name: %s\n", registryRepositoryTag.Name)
+							fmt.Printf("Path: %s\n", registryRepositoryTag.Path)
+							fmt.Printf("Location: %s\n", registryRepositoryTag.Location)
+							fmt.Printf("Revision: %s\n", registryRepositoryTag.Revision)
+							fmt.Printf("ShortRevision: %s\n", registryRepositoryTag.ShortRevision)
+							fmt.Printf("Digest: %s\n", registryRepositoryTag.Digest)
+							fmt.Printf("CreatedAt: %s\n", registryRepositoryTag.CreatedAt)
+							fmt.Printf("TotalSize: %d\n", registryRepositoryTag.TotalSize)
+							fmt.Println("")
 						}
 					}
 

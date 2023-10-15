@@ -76,6 +76,14 @@ func Repository(required bool) cli.Flag {
 	}
 }
 
+func TagName(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.TagName,
+		Usage:    "标签的名称",
+		Required: required,
+	}
+}
+
 func JobId(required bool) cli.Flag {
 	return &cli.StringFlag{
 		Name:     constant.JobId,

@@ -233,6 +233,7 @@ COPYRIGHT:
     COMMANDS:
        list       列出仓库内存储库
        list-tags  列出仓库里存储库的标签
+       get-tag    获取仓库里存储库的某个标签的详情
        help, h    Shows a list of commands or help for one command
     
     OPTIONS:
@@ -244,6 +245,7 @@ COPYRIGHT:
        --print-time        打印时间 (default: false)
        --id value          项目 ID 或 URL 编码的路径
        --repository value  仓库里存储库的 ID
+       --tag-name value    标签的名称
        --help, -h          show help
     ```
 

@@ -68,6 +68,14 @@ func Id(required bool) cli.Flag {
 	}
 }
 
+func Repository(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.Repository,
+		Usage:    "仓库里存储库的 ID",
+		Required: required,
+	}
+}
+
 func JobId(required bool) cli.Flag {
 	return &cli.StringFlag{
 		Name:     constant.JobId,

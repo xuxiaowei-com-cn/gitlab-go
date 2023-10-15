@@ -5,6 +5,7 @@ const (
 	BaseUrl          = "base-url"
 	BaseUrlDefault   = "https://gitlab.com/api/v4"
 	Id               = "id"
+	Repository       = "repository"
 	JobId            = "job-id"
 	Sort             = "sort"
 	SortDefault      = "desc"

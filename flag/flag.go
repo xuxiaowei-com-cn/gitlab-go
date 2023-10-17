@@ -131,3 +131,11 @@ func Scope(value string, usage string) cli.Flag {
 		Usage: usage,
 	}
 }
+
+func IssueId(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.IssueId,
+		Usage:    "项目议题的内部 ID",
+		Required: required,
+	}
+}

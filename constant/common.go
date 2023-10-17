@@ -18,4 +18,5 @@ const (
 	PrintTime        = "print-time"
 	PrintTimeDefault = false
 	Scope            = "scope"
+	IssueId          = "issue-id"
 )

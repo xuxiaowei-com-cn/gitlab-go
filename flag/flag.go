@@ -123,3 +123,11 @@ func OrderBy(usage string) cli.Flag {
 		Usage: usage,
 	}
 }
+
+func Scope(value string, usage string) cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.Scope,
+		Value: value,
+		Usage: usage,
+	}
+}

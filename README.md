@@ -357,7 +357,11 @@ COPYRIGHT:
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value     your_access_token
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
        --sort value      按照 asc 或者 desc 排序 (default: "desc")
+       --id value        项目 ID 或 URL 编码的路径
+       --scope value     要显示的作业范围。以下之一或数组：created、pending、running、failed、success、canceled、skipped、waiting_for_resource 或 manual。范围如果未提供，则返回所有作业。
        --help, -h        show help
     ```
 

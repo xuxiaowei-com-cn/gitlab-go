@@ -93,14 +93,6 @@ func MyReactionEmoji() cli.Flag {
 	}
 }
 
-func Scope() cli.Flag {
-	return &cli.StringFlag{
-		Name:  constant.Scope,
-		Value: "created_by_me",
-		Usage: "返回满足范围 created_by_me、assigned_to_me 或 all 的议题。默认值是 created_by_me。",
-	}
-}
-
 func Search() cli.Flag {
 	return &cli.StringFlag{
 		Name:  constant.Search,

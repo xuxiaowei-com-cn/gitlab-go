@@ -24,7 +24,6 @@ const (
 	NonArchived       = "non-archived"
 	Not               = "not"
 	OrderBy           = "order-by"
-	Scope             = "scope"
 	Search            = "search"
 	SearchNamespaces  = "search-namespaces"
 	State             = "state"

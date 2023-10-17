@@ -17,4 +17,5 @@ const (
 	PrintJsonDefault = false
 	PrintTime        = "print-time"
 	PrintTimeDefault = false
+	Scope            = "scope"
 )

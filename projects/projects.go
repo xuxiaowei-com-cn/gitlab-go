@@ -1,6 +1,8 @@
 package projects
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
@@ -18,13 +20,15 @@ func Projects() *cli.Command {
 		Name:    "project",
 		Aliases: []string{"projects", "p"},
 		Usage:   "项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html",
-		Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Search(), flag.SearchNamespaces(),
+		Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
+			flag.Search(), flag.SearchNamespaces(),
 			flag.OrderBy(OrderByUsage)),
 		Subcommands: []*cli.Command{
 			{
 				Name:  "list",
 				Usage: "列出所有项目",
-				Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Search(), flag.SearchNamespaces(),
+				Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
+					flag.Search(), flag.SearchNamespaces(),
 					flag.OrderBy(OrderByUsage)),
 				Action: func(context *cli.Context) error {
 					var baseUrl = context.String(constant.BaseUrl)
@@ -35,6 +39,8 @@ func Projects() *cli.Command {
 					var search = context.String(constant.Search)
 					var searchNamespaces = context.Bool(constant.SearchNamespaces)
 					var orderBy = context.String(constant.OrderBy)
+					var printJson = context.Bool(constant.PrintJson)
+					var printTime = context.Bool(constant.PrintTime)
 
 					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
 					if err != nil {
@@ -55,13 +61,53 @@ func Projects() *cli.Command {
 					if err != nil {
 						return err
 					}
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Page %d, PerPage: %d, Response StatusCode: %d\n", page, perPage, response.Response.StatusCode)
 
-					for index, project := range projects {
-						log.Printf("Index: %d,\t ID: %d,\t Path: %s,\t Name: %s\n", index, project.ID, project.Path, project.Name)
+					fmt.Println("")
 
-						//name := strings.Replace(project.PathWithNamespace, "xuxiaowei-com-cn/", "", -1)
-						//fmt.Printf("git submodule add -b main ../%s.git %s\n", name, name)
+					//name := strings.Replace(project.PathWithNamespace, "xuxiaowei-com-cn/", "", -1)
+					//fmt.Printf("git submodule add -b main ../%s.git %s\n", name, name)
+
+					if printJson {
+						if printTime {
+							for _, project := range projects {
+								jsonData, err := json.Marshal(project)
+								if err != nil {
+									panic(err)
+								}
+
+								log.Printf("\n%s\n", string(jsonData))
+								fmt.Println("")
+							}
+						} else {
+							for _, project := range projects {
+								jsonData, err := json.Marshal(project)
+								if err != nil {
+									panic(err)
+								}
+
+								fmt.Printf("%s\n", string(jsonData))
+								fmt.Println("")
+							}
+						}
+					} else {
+						if printTime {
+							for _, project := range projects {
+								log.Printf("ID: %d\n", project.ID)
+								log.Printf("Path: %s\n", project.Path)
+								log.Printf("Name: %s\n", project.Name)
+
+								fmt.Println("")
+							}
+						} else {
+							for _, project := range projects {
+								fmt.Printf("ID: %d\n", project.ID)
+								fmt.Printf("Path: %s\n", project.Path)
+								fmt.Printf("Name: %s\n", project.Name)
+
+								fmt.Println("")
+							}
+						}
 					}
 
 					return nil

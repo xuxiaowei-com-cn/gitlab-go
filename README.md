@@ -195,6 +195,10 @@ COPYRIGHT:
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value     your_access_token
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json      打印 JSON (default: false)
+       --print-time      打印时间 (default: false)
        --id value        项目 ID 或 URL 编码的路径
        --help, -h        show help
     ```
@@ -216,6 +220,10 @@ COPYRIGHT:
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value     your_access_token
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json      打印 JSON (default: false)
+       --print-time      打印时间 (default: false)
        --id value        项目 ID 或 URL 编码的路径
        --help, -h        show help
     ```
@@ -267,6 +275,10 @@ COPYRIGHT:
     OPTIONS:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value     your_access_token
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json      打印 JSON (default: false)
+       --print-time      打印时间 (default: false)
        --help, -h        show help
     ```
 
@@ -385,6 +397,10 @@ COPYRIGHT:
        --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value     your_access_token
        --sort value      按照 asc 或者 desc 排序 (default: "desc")
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json      打印 JSON (default: false)
+       --print-time      打印时间 (default: false)
        --id value        项目 ID 或 URL 编码的路径
        --help, -h        show help
     ```
@@ -409,6 +425,8 @@ COPYRIGHT:
        --sort value         按照 asc 或者 desc 排序 (default: "desc")
        --page value         页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
        --per-page value     每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json         打印 JSON (default: false)
+       --print-time         打印时间 (default: false)
        --search value       根据 title 和 description 搜索议题。
        --search-namespaces  匹配搜索条件时包括上级命名空间。默认为 false。 (default: false)
        --order-by value     返回按 id、name、path、created_at、updated_at、last_activity_at 或 similarity 字段排序的项目。repository_size、storage_size、packages_size 或 wiki_size 字段只允许管理员使用。similarity（引入于 14.1 版本）仅在搜索 时可用，并且仅限于当前用户所属的项目。默认是created_at。 (default: "created_at")

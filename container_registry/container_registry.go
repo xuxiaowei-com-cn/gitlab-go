@@ -48,7 +48,7 @@ func ContainerRegistry() *cli.Command {
 					if err != nil {
 						return err
 					}
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Page %d, PerPage: %d, Response StatusCode: %d\n", page, perPage, response.Response.StatusCode)
 
 					fmt.Println("")
 
@@ -135,7 +135,7 @@ func ContainerRegistry() *cli.Command {
 					if err != nil {
 						return err
 					}
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					log.Printf("Page %d, PerPage: %d, Response StatusCode: %d\n", page, perPage, response.Response.StatusCode)
 
 					fmt.Println("")
 

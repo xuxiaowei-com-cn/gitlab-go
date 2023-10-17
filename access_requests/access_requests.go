@@ -33,10 +33,10 @@ func AccessRequests() *cli.Command {
 
 					opt := &gitlab.ListAccessRequestsOptions{}
 					accessRequests, response, err := gitClient.AccessRequests.ListGroupAccessRequests(id, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, accessRequest := range accessRequests {
 						log.Printf("Index: %d,\t ID: %d,\t Username: %s,\t Name: %s,\t State: %s,\t CreatedAt: %s,\t RequestedAt: %s,\t AccessLevel: %d\n", index, accessRequest.ID, accessRequest.Username, accessRequest.Name, accessRequest.State, accessRequest.CreatedAt, accessRequest.RequestedAt, accessRequest.AccessLevel)
@@ -62,10 +62,10 @@ func AccessRequests() *cli.Command {
 
 					opt := &gitlab.ListAccessRequestsOptions{}
 					accessRequests, response, err := gitClient.AccessRequests.ListProjectAccessRequests(id, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, accessRequest := range accessRequests {
 						log.Printf("Index: %d,\t ID: %d,\t Username: %s,\t Name: %s,\t State: %s,\t CreatedAt: %s,\t RequestedAt: %s,\t AccessLevel: %d\n", index, accessRequest.ID, accessRequest.Username, accessRequest.Name, accessRequest.State, accessRequest.CreatedAt, accessRequest.RequestedAt, accessRequest.AccessLevel)

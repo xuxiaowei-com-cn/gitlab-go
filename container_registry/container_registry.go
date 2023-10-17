@@ -44,17 +44,17 @@ func ContainerRegistry() *cli.Command {
 						},
 					}
 
-					registryRepositorys, response, err := gitClient.ContainerRegistry.ListProjectRegistryRepositories(id, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					registryRepositories, response, err := gitClient.ContainerRegistry.ListProjectRegistryRepositories(id, opt)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					fmt.Println("")
 
 					if printJson {
 						if printTime {
-							for _, registryRepository := range registryRepositorys {
+							for _, registryRepository := range registryRepositories {
 								jsonData, err := json.Marshal(registryRepository)
 								if err != nil {
 									panic(err)
@@ -64,7 +64,7 @@ func ContainerRegistry() *cli.Command {
 								fmt.Println("")
 							}
 						} else {
-							for _, registryRepository := range registryRepositorys {
+							for _, registryRepository := range registryRepositories {
 								jsonData, err := json.Marshal(registryRepository)
 								if err != nil {
 									panic(err)
@@ -76,7 +76,7 @@ func ContainerRegistry() *cli.Command {
 						}
 					} else {
 						if printTime {
-							for _, registryRepository := range registryRepositorys {
+							for _, registryRepository := range registryRepositories {
 								log.Printf("ID: %d\n", registryRepository.ID)
 								log.Printf("Name: %s\n", registryRepository.Name)
 								log.Printf("Path: %s\n", registryRepository.Path)
@@ -89,7 +89,7 @@ func ContainerRegistry() *cli.Command {
 								fmt.Println("")
 							}
 						} else {
-							for _, registryRepository := range registryRepositorys {
+							for _, registryRepository := range registryRepositories {
 								fmt.Printf("ID: %d\n", registryRepository.ID)
 								fmt.Printf("Name: %s\n", registryRepository.Name)
 								fmt.Printf("Path: %s\n", registryRepository.Path)
@@ -132,10 +132,10 @@ func ContainerRegistry() *cli.Command {
 					}
 
 					registryRepositoryTags, response, err := gitClient.ContainerRegistry.ListRegistryRepositoryTags(id, repository, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					fmt.Println("")
 
@@ -212,10 +212,10 @@ func ContainerRegistry() *cli.Command {
 					}
 
 					registryRepositoryTag, response, err := gitClient.ContainerRegistry.GetRegistryRepositoryTagDetail(id, repository, tagName)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					fmt.Println("")
 
@@ -283,10 +283,10 @@ func ContainerRegistry() *cli.Command {
 					}
 
 					response, err := gitClient.ContainerRegistry.DeleteRegistryRepositoryTag(id, repository, tagName)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					return nil
 				},

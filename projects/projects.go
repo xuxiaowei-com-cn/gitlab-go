@@ -50,10 +50,10 @@ func Projects() *cli.Command {
 						OrderBy:          &orderBy,
 					}
 					projects, response, err := gitClient.Projects.ListProjects(opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, project := range projects {
 						log.Printf("Index: %d,\t ID: %d,\t Path: %s,\t Name: %s\n", index, project.ID, project.Path, project.Name)

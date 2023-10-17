@@ -32,10 +32,10 @@ func Jobs() *cli.Command {
 
 					opt := &gitlab.ListJobsOptions{}
 					jobs, response, err := gitClient.Jobs.ListProjectJobs(id, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, job := range jobs {
 						log.Printf("Index: %d,\t ID: %d,\t Name: %s,\t ProjectID: %d,\t Status: %s,\t CreatedAt: %s\n", index, job.ID, job.Name, job.Project.ID, job.Status, job.CreatedAt)

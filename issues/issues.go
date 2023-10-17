@@ -157,10 +157,10 @@ func Issues() *cli.Command {
 					//	},
 					//}
 					issues, response, err := gitClient.Issues.ListIssues(opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					fmt.Println("")
 

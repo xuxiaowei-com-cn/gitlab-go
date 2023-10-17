@@ -31,10 +31,10 @@ func InstanceLevelCiVariables() *cli.Command {
 
 					opt := &gitlab.ListInstanceVariablesOptions{}
 					variables, response, err := gitClient.InstanceVariables.ListVariables(opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, variable := range variables {
 						log.Printf("Index: %d,\t Key: %s,\t Value: %s,\t VariableType: %s,\t Protected: %t,\t Masked: %t,\t Raw: %t\n", index, variable.Key, variable.Value, variable.VariableType, variable.Protected, variable.Masked, variable.Raw)

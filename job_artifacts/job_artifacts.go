@@ -36,10 +36,10 @@ func JobsArtifacts() *cli.Command {
 					}
 
 					artifactsReader, response, err := gitClient.Jobs.GetJobArtifacts(id, jobId)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					log.Printf("Get Job Artifacts End")
 
@@ -91,10 +91,10 @@ func JobsArtifacts() *cli.Command {
 
 					log.Printf("Delete ProjectId: %s, JobId: %d Artifacts\n", id, jobId)
 					response, err := gitClient.Jobs.DeleteArtifacts(id, jobId)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					return nil
 				},
@@ -116,10 +116,10 @@ func JobsArtifacts() *cli.Command {
 
 					log.Printf("Delete ProjectId: %s Artifacts\n", id)
 					response, err := gitClient.Jobs.DeleteProjectArtifacts(id)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					return nil
 				},

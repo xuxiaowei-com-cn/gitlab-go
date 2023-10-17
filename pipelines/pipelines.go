@@ -35,10 +35,10 @@ func Pipelines() *cli.Command {
 						Sort: &sort,
 					}
 					PipelineInfos, response, err := gitClient.Pipelines.ListProjectPipelines(id, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, pipelineInfo := range PipelineInfos {
 						log.Printf("Index: %d,\t ID: %d,\t IID: %d,\t ProjectID: %d,\t Status: %s,\t CreatedAt: %s\n", index, pipelineInfo.ID, pipelineInfo.IID, pipelineInfo.ProjectID, pipelineInfo.Status, pipelineInfo.CreatedAt)

@@ -33,10 +33,10 @@ func Boards() *cli.Command {
 
 					opt := &gitlab.ListIssueBoardsOptions{}
 					issueBoards, response, err := gitClient.Boards.ListIssueBoards(id, opt)
-					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 					if err != nil {
 						return err
 					}
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
 
 					for index, issueBoard := range issueBoards {
 						jsonData, err := json.Marshal(issueBoard)

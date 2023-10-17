@@ -325,18 +325,19 @@ COPYRIGHT:
        gitlab-go job-artifact command [command options] [arguments...]
     
     COMMANDS:
-       get                                    获取作业产物（未完成）
+       get                                    获取（下载）作业产物
        download, dl                           下载产物归档文件（未完成）
        delete, rm                             删除作业产物
        delete-project, delete-projects, rm-p  删除项目产物
        help, h                                Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --id value        项目 ID 或 URL 编码的路径
-       --job-id value    作业 ID
-       --help, -h        show help
+       --base-url value        实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value           your_access_token
+       --id value              项目 ID 或 URL 编码的路径
+       --job-id value          作业 ID
+       --artifacts-name value  保存产物名称（保存到系统磁盘的名称） (default: "artifacts.zip")
+       --help, -h              show help
     ```
 
 - [job - 作业 API](https://docs.gitlab.cn/jh/api/jobs.html)

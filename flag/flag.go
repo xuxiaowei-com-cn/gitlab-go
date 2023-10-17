@@ -92,6 +92,14 @@ func JobId(required bool) cli.Flag {
 	}
 }
 
+func ArtifactsName() cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.ArtifactsName,
+		Value: "artifacts.zip",
+		Usage: "保存产物名称（保存到系统磁盘的名称）",
+	}
+}
+
 func Page() cli.Flag {
 	return &cli.IntFlag{
 		Name:  constant.Page,

@@ -8,6 +8,7 @@ const (
 	Repository       = "repository"
 	TagName          = "tag-name"
 	JobId            = "job-id"
+	ArtifactsName    = "artifacts-name"
 	Sort             = "sort"
 	SortDefault      = "desc"
 	Page             = "page"

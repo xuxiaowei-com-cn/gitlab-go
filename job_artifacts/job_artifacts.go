@@ -6,7 +6,9 @@ import (
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
+	"io"
 	"log"
+	"os"
 )
 
 // JobsArtifacts 作业产物 API https://docs.gitlab.cn/jh/api/job_artifacts.html
@@ -15,16 +17,49 @@ func JobsArtifacts() *cli.Command {
 		Name:    "job-artifact",
 		Aliases: []string{"job-artifacts", "ja"},
 		Usage:   "作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html",
-		Flags:   append(flag.Common(), flag.Id(false), flag.JobId(false)),
+		Flags:   append(flag.Common(), flag.Id(false), flag.JobId(false), flag.ArtifactsName()),
 		Subcommands: []*cli.Command{
 			{
 				Name:  "get",
-				Usage: "获取作业产物（未完成）",
-				Flags: append(flag.Common(), flag.Id(true), flag.JobId(false)),
+				Usage: "获取（下载）作业产物",
+				Flags: append(flag.Common(), flag.Id(true), flag.JobId(true), flag.ArtifactsName()),
 				Action: func(context *cli.Context) error {
-					log.Printf("获取作业产物")
+					var baseUrl = context.String(constant.BaseUrl)
+					var token = context.String(constant.Token)
+					var id = context.String(constant.Id)
+					var jobId = context.Int(constant.JobId)
+					var artifactsName = context.String(constant.ArtifactsName)
 
-					return fmt.Errorf("未完成")
+					gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+					if err != nil {
+						return err
+					}
+
+					artifactsReader, response, err := gitClient.Jobs.GetJobArtifacts(id, jobId)
+					log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+					if err != nil {
+						return err
+					}
+
+					log.Printf("Get Job Artifacts End")
+
+					// 读取构件数据
+					artifactsData, err := io.ReadAll(artifactsReader)
+					if err != nil {
+						return err
+					}
+
+					log.Printf("Read All Reader End")
+
+					// 将构件数据保存到文件
+					err = os.WriteFile(artifactsName, artifactsData, 0644)
+					if err != nil {
+						return err
+					}
+
+					log.Printf("Write File End")
+
+					return nil
 				},
 			},
 			{

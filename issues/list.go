@@ -10,7 +10,7 @@ import (
 	"log"
 )
 
-// List 列出议题 https://docs.gitlab.cn/jh/api/issues.html#list-issues
+// List 列出议题 https://docs.gitlab.cn/jh/api/issues.html#%E5%88%97%E5%87%BA%E8%AE%AE%E9%A2%98
 func List() *cli.Command {
 	return &cli.Command{
 		Name:  "list",

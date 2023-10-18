@@ -1,8 +1,13 @@
 package flag
 
 import (
+	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/xuxiaowei-com-cn/gitlab-go/constant"
+)
+
+const (
+	RangeMaxInterval = 10000
 )
 
 func Common() []cli.Flag {
@@ -144,5 +149,17 @@ func Recursion() cli.Flag {
 	return &cli.BoolFlag{
 		Name:  constant.Recursion,
 		Usage: "递归",
+	}
+}
+
+func IssueIdRange(required bool) cli.Flag {
+	return &cli.StringSliceFlag{
+		Name: constant.IssueIdRange,
+		Usage: "议题ID的范围，支持范围如下：\n\t" +
+			"单数：1\n\t" +
+			"多个数字（使用英文逗号隔开）：1,2,3,7,8,15\n\t" +
+			"支持范围：5-10,\n\t" +
+			fmt.Sprintf("支持范围方向选择：-10（小于等于10，即：从 0 到 10），214-（大于等于214，即：从 214 到 214 + %d，数据范围不超过 %d）", RangeMaxInterval, RangeMaxInterval),
+		Required: required,
 	}
 }

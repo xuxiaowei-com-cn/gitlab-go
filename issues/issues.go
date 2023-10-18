@@ -23,10 +23,11 @@ func Issues() *cli.Command {
 			flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(OrderByUsage), flag.Scope(ScopeValue, ScopeUsage), flag.Search(),
 			flag.Sort(), flag.State(), flag.WithLabelsDetails(),
 			flag.CreatedAfter(), flag.CreatedBefore(),
-			flag.IssueId(false)),
+			flag.IssueId(false), flag.IssueIdRange(false)),
 		Subcommands: []*cli.Command{
 			List(),
 			Delete(),
+			DeleteRange(),
 		},
 	}
 }

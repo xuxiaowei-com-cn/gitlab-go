@@ -139,3 +139,10 @@ func IssueId(required bool) cli.Flag {
 		Required: required,
 	}
 }
+
+func Recursion() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.Recursion,
+		Usage: "递归",
+	}
+}

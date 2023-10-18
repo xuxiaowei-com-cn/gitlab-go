@@ -2,7 +2,6 @@ package jobs
 
 import (
 	"github.com/urfave/cli/v2"
-	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
 )
 
@@ -17,28 +16,10 @@ func Jobs() *cli.Command {
 		Name:    "job",
 		Aliases: []string{"jobs", "j"},
 		Usage:   "作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html",
-		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
+		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(), flag.Recursion(),
 			flag.Sort(), flag.Id(false), flag.Scope(ScopeValue, ScopeUsage)),
 		Subcommands: []*cli.Command{
 			List(),
 		},
 	}
-}
-
-func ListProjectJobs(gitClient *gitlab.Client, pid interface{}, scope []string, page int, perPage int) ([]*gitlab.Job, *gitlab.Response, error) {
-	var bsvs []gitlab.BuildStateValue
-	for _, str := range scope {
-		bsv := gitlab.BuildStateValue(str)
-		bsvs = append(bsvs, bsv)
-	}
-
-	opt := &gitlab.ListJobsOptions{
-		Scope: &bsvs,
-		ListOptions: gitlab.ListOptions{
-			Page:    page,
-			PerPage: perPage,
-		},
-	}
-	jobs, response, err := gitClient.Jobs.ListProjectJobs(pid, opt)
-	return jobs, response, err
 }

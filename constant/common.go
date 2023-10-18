@@ -19,4 +19,5 @@ const (
 	PrintTimeDefault = false
 	Scope            = "scope"
 	IssueId          = "issue-id"
+	Recursion        = "recursion"
 )

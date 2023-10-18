@@ -17,7 +17,7 @@ func Issues() *cli.Command {
 		Name:    "issue",
 		Aliases: []string{"issues"},
 		Usage:   "议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html",
-		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
+		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(), flag.Recursion(),
 			flag.AssigneeUsername(), flag.AuthorId(), flag.AuthorUsername(), flag.Confidential(),
 			flag.DueDate(), flag.Iids(), flag.In(), flag.IssueType(), flag.IterationId(), flag.Milestone(),
 			flag.MilestoneId(), flag.MyReactionEmoji(), flag.OrderBy(OrderByUsage), flag.Scope(ScopeValue, ScopeUsage), flag.Search(),

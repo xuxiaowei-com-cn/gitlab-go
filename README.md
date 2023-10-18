@@ -304,6 +304,7 @@ COPYRIGHT:
        --per-page value           每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
        --print-json               打印 JSON (default: false)
        --print-time               打印时间 (default: false)
+       --recursion                递归 (default: false)
        --assignee-username value  对于给定的用户名 username，返回指派给这个用户的议题。与 assignee_id 相似且与其冲突。在免费版中，assignee_username 数组只能包含单个成员，否则将报参数错误提示。
        --author-id value          对于给定的用户 id，返回这个用户创建的议题。与 author_username 冲突。与 scope=all 或 scope=assigned_to_me 配合使用。
        --author-username value    对于给定的用户名 username，返回这个用户创建的议题。与 author_id 相似且与其冲突。

@@ -15,7 +15,7 @@ func List() *cli.Command {
 	return &cli.Command{
 		Name:  "list",
 		Usage: "列出项目作业",
-		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(), flag.Recursion(),
+		Flags: append(flag.CommonTokenRequired(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(), flag.Recursion(),
 			flag.Sort(), flag.Id(true), flag.Scope(ScopeValue, ScopeUsage)),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)

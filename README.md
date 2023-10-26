@@ -411,6 +411,7 @@ COPYRIGHT:
        --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
        --print-json      打印 JSON (default: false)
        --print-time      打印时间 (default: false)
+       --recursion       递归 (default: false)
        --id value        项目 ID 或 URL 编码的路径
        --help, -h        show help
     ```

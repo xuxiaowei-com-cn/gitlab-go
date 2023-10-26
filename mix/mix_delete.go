@@ -14,6 +14,7 @@ func Delete() *cli.Command {
 		Flags:   append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(false), flag.IIdRange(false)),
 		Subcommands: []*cli.Command{
 			DeleteArtifacts(),
+			DeleteAllArtifacts(),
 		},
 	}
 }

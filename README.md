@@ -446,7 +446,7 @@ COPYRIGHT:
     ```
 
 - 删除（混合命令）
-    
+
     ```shell
     $ go run main.go mix-delete --help
     NAME:
@@ -456,8 +456,9 @@ COPYRIGHT:
        gitlab-go mix-delete command [command options] [arguments...]
     
     COMMANDS:
-       artifact, artifacts  根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）
-       help, h              Shows a list of commands or help for one command
+       artifact, artifacts          根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）
+       all-artifact, all-artifacts  根据项目路径/ID删除所有产物（混合命令，立即删除）
+       help, h                      Shows a list of commands or help for one command
     
     OPTIONS:
        --base-url value                         实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]

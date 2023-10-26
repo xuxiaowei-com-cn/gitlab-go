@@ -39,7 +39,7 @@ func List() *cli.Command {
 				},
 				Sort: &sort,
 			}
-			PipelineInfos, response, err := gitClient.Pipelines.ListProjectPipelines(id, opt)
+			pipelineInfos, response, err := gitClient.Pipelines.ListProjectPipelines(id, opt)
 			if err != nil {
 				return err
 			}
@@ -49,7 +49,7 @@ func List() *cli.Command {
 
 			if printJson {
 				if printTime {
-					for _, pipelineInfo := range PipelineInfos {
+					for _, pipelineInfo := range pipelineInfos {
 						jsonData, err := json.Marshal(pipelineInfo)
 						if err != nil {
 							panic(err)
@@ -59,7 +59,7 @@ func List() *cli.Command {
 						fmt.Println("")
 					}
 				} else {
-					for _, pipelineInfo := range PipelineInfos {
+					for _, pipelineInfo := range pipelineInfos {
 						jsonData, err := json.Marshal(pipelineInfo)
 						if err != nil {
 							panic(err)
@@ -71,7 +71,7 @@ func List() *cli.Command {
 				}
 			} else {
 				if printTime {
-					for _, pipelineInfo := range PipelineInfos {
+					for _, pipelineInfo := range pipelineInfos {
 						log.Printf("ID: %d\n", pipelineInfo.ID)
 						log.Printf("IID: %d\n", pipelineInfo.IID)
 						log.Printf("ProjectID: %d\n", pipelineInfo.ProjectID)
@@ -81,7 +81,7 @@ func List() *cli.Command {
 						fmt.Println("")
 					}
 				} else {
-					for _, pipelineInfo := range PipelineInfos {
+					for _, pipelineInfo := range pipelineInfos {
 						fmt.Printf("ID: %d\n", pipelineInfo.ID)
 						fmt.Printf("IID: %d\n", pipelineInfo.IID)
 						fmt.Printf("ProjectID: %d\n", pipelineInfo.ProjectID)

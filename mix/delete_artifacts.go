@@ -15,8 +15,8 @@ import (
 // DeleteArtifacts 删除产物
 func DeleteArtifacts() *cli.Command {
 	return &cli.Command{
-		Name:    "artifacts",
-		Aliases: []string{"artifact"},
+		Name:    "artifact",
+		Aliases: []string{"artifacts"},
 		Usage:   "根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）",
 		Flags:   append(flag.CommonTokenRequired(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(true), flag.IIdRange(true)),
 		Action: func(context *cli.Context) error {

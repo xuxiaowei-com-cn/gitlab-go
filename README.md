@@ -456,7 +456,7 @@ COPYRIGHT:
        gitlab-go mix-delete command [command options] [arguments...]
     
     COMMANDS:
-       artifacts, artifact  根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）
+       artifact, artifacts  根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）
        help, h              Shows a list of commands or help for one command
     
     OPTIONS:

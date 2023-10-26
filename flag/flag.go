@@ -73,6 +73,18 @@ func Id(required bool) cli.Flag {
 	}
 }
 
+func IIdRange(required bool) cli.Flag {
+	return &cli.StringSliceFlag{
+		Name: constant.IIdRange,
+		Usage: "流水线ID的范围，支持范围如下：\n\t" +
+			"单数：1\n\t" +
+			"多个数字（使用英文逗号隔开）：1,2,3,7,8,15\n\t" +
+			"支持范围：5-10,\n\t" +
+			fmt.Sprintf("支持范围方向选择：-10（小于等于10，即：从 0 到 10），214-（大于等于214，即：从 214 到 214 + %d，数据范围不超过 %d）", RangeMaxInterval, RangeMaxInterval),
+		Required: required,
+	}
+}
+
 func Repository(required bool) cli.Flag {
 	return &cli.StringFlag{
 		Name:     constant.Repository,

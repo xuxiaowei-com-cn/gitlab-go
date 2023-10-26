@@ -10,6 +10,7 @@ import (
 	"github.com/xuxiaowei-com-cn/gitlab-go/issues"
 	"github.com/xuxiaowei-com-cn/gitlab-go/job_artifacts"
 	"github.com/xuxiaowei-com-cn/gitlab-go/jobs"
+	"github.com/xuxiaowei-com-cn/gitlab-go/mix"
 	"github.com/xuxiaowei-com-cn/gitlab-go/pipelines"
 	"github.com/xuxiaowei-com-cn/gitlab-go/projects"
 	"gopkg.in/yaml.v3"
@@ -74,6 +75,7 @@ func main() {
 			jobs.Jobs(),
 			pipelines.Pipelines(),
 			projects.Projects(),
+			mix.Delete(),
 		},
 	}
 

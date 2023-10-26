@@ -5,6 +5,7 @@ const (
 	BaseUrl          = "base-url"
 	BaseUrlDefault   = "https://gitlab.com/api/v4"
 	Id               = "id"
+	IIdRange         = "iid-range"
 	Repository       = "repository"
 	TagName          = "tag-name"
 	JobId            = "job-id"

@@ -13,7 +13,7 @@ func DeleteProject() *cli.Command {
 	return &cli.Command{
 		Name:    "delete-project",
 		Aliases: []string{"delete-projects", "rm-p"},
-		Usage:   "删除项目产物",
+		Usage:   "删除项目产物（计划删除，如需立即删除请使用混合命令）",
 		Flags:   append(flag.Common(), flag.Id(true)),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)

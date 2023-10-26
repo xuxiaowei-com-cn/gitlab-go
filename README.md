@@ -167,6 +167,7 @@ COMMANDS:
    job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
    pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
    project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+   mix-delete, mix-rm                                             删除（混合命令）
    help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -349,7 +350,7 @@ COPYRIGHT:
        get                                    获取（下载）作业产物
        download, dl                           下载产物归档文件（未完成）
        delete, rm                             删除作业产物
-       delete-project, delete-projects, rm-p  删除项目产物
+       delete-project, delete-projects, rm-p  删除项目产物（计划删除，如需立即删除请使用混合命令）
        help, h                                Shows a list of commands or help for one command
     
     OPTIONS:
@@ -442,6 +443,35 @@ COPYRIGHT:
        --search-namespaces  匹配搜索条件时包括上级命名空间。默认为 false。 (default: false)
        --order-by value     返回按 id、name、path、created_at、updated_at、last_activity_at 或 similarity 字段排序的项目。repository_size、storage_size、packages_size 或 wiki_size 字段只允许管理员使用。similarity（引入于 14.1 版本）仅在搜索 时可用，并且仅限于当前用户所属的项目。默认是created_at。 (default: "created_at")
        --help, -h           show help
+    ```
+
+- 删除（混合命令）
+    
+    ```shell
+    $ go run main.go mix-delete --help
+    NAME:
+       gitlab-go mix-delete - 删除（混合命令）
+    
+    USAGE:
+       gitlab-go mix-delete command [command options] [arguments...]
+    
+    COMMANDS:
+       artifacts, artifact  根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）
+       help, h              Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value                         实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                            your_access_token
+       --sort value                             按照 asc 或者 desc 排序 (default: "desc")
+       --page value                             页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value                         每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --id value                               项目 ID 或 URL 编码的路径
+       --iid-range value [ --iid-range value ]  流水线ID的范围，支持范围如下：
+                                                单数：1
+                                                多个数字（使用英文逗号隔开）：1,2,3,7,8,15
+                                                支持范围：5-10,
+                                                支持范围方向选择：-10（小于等于10，即：从 0 到 10），214-（大于等于214，即：从 214 到 214 + 10000，数据范围不超过 10000）
+       --help, -h                               show help
     ```
 
 ### test

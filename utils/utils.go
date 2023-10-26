@@ -23,6 +23,24 @@ func ParseID(id interface{}) (string, error) {
 	}
 }
 
+func Unique(nums []int) []int {
+	// 使用 map 来存储不重复的元素
+	uniqueMap := make(map[int]bool)
+
+	// 遍历数组，将元素作为键存入 map
+	for _, num := range nums {
+		uniqueMap[num] = true
+	}
+
+	// 从 map 中提取不重复的元素到新的切片
+	var result []int
+	for num := range uniqueMap {
+		result = append(result, num)
+	}
+
+	return result
+}
+
 func RangeInt(stringSlices []string) []int {
 	allowMin := 1
 	var rangeInt []int

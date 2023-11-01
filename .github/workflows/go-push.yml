@@ -81,14 +81,14 @@ jobs:
           # 设置环境变量：支持 windows
           # echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: gitlab-go-${{ env.OS }}
-          path: |
-            gitlab-go-windows-*
-            gitlab-go-linux-*
-            gitlab-go-darwin-*
+      # - name: Upload Artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: gitlab-go-${{ env.OS }}
+      #     path: |
+      #       gitlab-go-windows-*
+      #       gitlab-go-linux-*
+      #       gitlab-go-darwin-*
 
       - name: Get current date
         id: date

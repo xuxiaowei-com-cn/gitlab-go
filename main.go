@@ -48,6 +48,7 @@ var (
 	Minor              string // 次版本，如：27
 	Revision           string // 修订版本，如：4
 	Platform           string // 平台，如：linux/amd64
+	InstanceUrl        string // 实例地址
 	CiPipelineId       string // 流水线，如：ID8754
 	CiJobId            string // 作业ID，如：14468
 )
@@ -105,6 +106,7 @@ func versionInfo() string {
 			Minor:              Minor,
 			Revision:           Revision,
 			Platform:           Platform,
+			InstanceUrl:        InstanceUrl,
 			CiPipelineId:       CiPipelineId,
 			CiJobId:            CiJobId,
 		},

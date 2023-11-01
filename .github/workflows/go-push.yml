@@ -46,7 +46,6 @@ jobs:
 
       - name: Build
         run: |
-          env
           echo $GITHUB_RUN_ID
           echo $GITHUB_JOB_ID
           go version

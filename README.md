@@ -167,7 +167,7 @@ COMMANDS:
    job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
    pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
    project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
-   mix-delete, mix-rm                                             删除（混合命令）
+   mix-delete, mix-rm                                             删除（混合命令，多接口命令）
    help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -445,19 +445,19 @@ COPYRIGHT:
        --help, -h           show help
     ```
 
-- 删除（混合命令）
+- 删除（混合命令，多接口命令）
 
     ```shell
     $ go run main.go mix-delete --help
     NAME:
-       gitlab-go mix-delete - 删除（混合命令）
+       gitlab-go mix-delete - 删除（混合命令，多接口命令）
     
     USAGE:
        gitlab-go mix-delete command [command options] [arguments...]
     
     COMMANDS:
-       artifact, artifacts          根据项目路径/ID、流水线IID范围删除产物（混合命令，立即删除）
-       all-artifact, all-artifacts  根据项目路径/ID删除所有产物（混合命令，立即删除）
+       artifact, artifacts          根据项目路径/ID、流水线IID范围删除产物（混合命令，多接口命令，立即删除）
+       all-artifact, all-artifacts  根据项目路径/ID删除所有产物（混合命令，多接口命令，立即删除）
        help, h                      Shows a list of commands or help for one command
     
     OPTIONS:

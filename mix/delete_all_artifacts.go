@@ -15,7 +15,7 @@ func DeleteAllArtifacts() *cli.Command {
 	return &cli.Command{
 		Name:    "all-artifact",
 		Aliases: []string{"all-artifacts"},
-		Usage:   "根据项目路径/ID删除所有产物（混合命令，立即删除）",
+		Usage:   "根据项目路径/ID删除所有产物（混合命令，多接口命令，立即删除）",
 		Flags:   append(flag.CommonTokenRequired(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(true)),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)

@@ -16,6 +16,7 @@ jobs:
       contents: write
     env:
       CACHE_PATH: ~/go/pkg/mod/cache
+      CGO_ENABLED: 0
       # 系统名称
       OS: ""
       # 时间

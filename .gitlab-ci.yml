@@ -6,6 +6,8 @@ stages:
 build:golang:1.21:
   stage: build
   image: golang:1.21
+  variables:
+    CGO_ENABLED: 0
   script:
     - echo $CI_PIPELINE_ID
     - echo $CI_JOB_ID
@@ -102,6 +104,8 @@ build:docker:
 build:golang:1.21-alpine3.18:
   stage: build
   image: golang:1.21-alpine3.18
+  variables:
+    CGO_ENABLED: 0
   script:
     - echo $CI_PIPELINE_ID
     - echo $CI_JOB_ID

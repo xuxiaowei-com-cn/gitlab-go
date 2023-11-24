@@ -28,24 +28,40 @@ jobs:
         os: [ "ubuntu-latest" ]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Checkout repository（xuxiaowei-com-cn/cicd-release）
         uses: actions/checkout@v4
         with:
           repository: 'xuxiaowei-com-cn/cicd-release'
 
-      - name: pwd
-        run: pwd
+      - name: Set up Go（xuxiaowei-com-cn/cicd-release）
+        uses: actions/setup-go@v4
+        id: set-up-go
+        with:
+          go-version: 1.19
 
-      - name: ls
-        run: ls
+      - name: Go Version（xuxiaowei-com-cn/cicd-release）
+        run: go version
 
-      - name: ls /home/runner/work
-        run: ls /home/runner/work
+      - name: Go Mod Download（xuxiaowei-com-cn/cicd-release）
+        run: go mod download
+
+      - name: Go Test（xuxiaowei-com-cn/cicd-release）
+        run: go test ./... -v
+
+      - name: Go Run（xuxiaowei-com-cn/cicd-release）
+        run: go run main.go
+
+      - name: Build（xuxiaowei-com-cn/cicd-release）
+        run: |
+          go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+          GOOS=linux   GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/amd64   -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o cicd-release-linux-amd64 .
+          ./cicd-release-linux-amd64 --version
+          ./cicd-release-linux-amd64
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v4

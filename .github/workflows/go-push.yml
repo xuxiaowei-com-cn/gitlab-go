@@ -1,28 +1,23 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Push Branches
+name: Go Push
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
 
   build:
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
+
     env:
-      CACHE_PATH: ~/go/pkg/mod/cache
       CGO_ENABLED: 0
-      # 系统名称
-      OS: ""
-      # 时间
-      YEAR_MONTH_DAY: ""
-      YEAR_MONTH_DAY_HOUR: ""
-      YEAR_MONTH_DAY_HOUR_MINUTE: ""
+      RELEASE_BODY: 自动化发布
+
     strategy:
       matrix:
         os: [ "ubuntu-latest" ]

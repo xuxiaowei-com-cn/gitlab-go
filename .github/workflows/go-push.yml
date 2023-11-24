@@ -35,7 +35,6 @@ jobs:
 
       - name: Set up Go（xuxiaowei-com-cn/cicd-release）
         uses: actions/setup-go@v4
-        id: set-up-go-xuxiaowei-com-cn_cicd-release
         with:
           go-version: 1.19
 
@@ -58,96 +57,68 @@ jobs:
           ./cicd-release-linux-amd64 --version
           ./cicd-release-linux-amd64
 
+      - name: Upload Artifacts（xuxiaowei-com-cn/cicd-release）
+        uses: actions/upload-artifact@v3
+        with:
+          name: cicd-release-linux-amd64
+          path: |
+            cicd-release-linux-amd64
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          # 获取所有的代码历史记录，包括分支和标签
           fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v4
-        id: set-up-go
         with:
-          go-version: 1.19
+          go-version: '1.20'
 
-      - name: Cache Go modules
-        uses: actions/cache@v3
-        id: cache-modules
-        with:
-          path: ${{ env.CACHE_PATH }}
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Build
-        run: |
-          echo $GITHUB_RUN_ID
-          go version
-          # go env -w GOPROXY=https://goproxy.cn,direct
-          # go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
-          go mod download
-          go test ./... -v
-          go run main.go
-          go build -o buildinfo/buildinfo buildinfo/buildinfo.go
-          GOOS=windows GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/amd64 -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=" -trimpath -o gitlab-go-windows-amd64.exe .
-          GOOS=windows GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/arm64 -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=" -trimpath -o gitlab-go-windows-arm64.exe .
-          GOOS=linux   GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/amd64   -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=" -trimpath -o gitlab-go-linux-amd64 .
-          GOOS=linux   GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/arm64   -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=" -trimpath -o gitlab-go-linux-arm64 .
-          GOOS=darwin  GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/amd64  -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=" -trimpath -o gitlab-go-darwin-amd64 .
-          GOOS=darwin  GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/arm64  -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=" -trimpath -o gitlab-go-darwin-arm64 .
-          ./gitlab-go-linux-amd64 --version
-          ./gitlab-go-linux-amd64
-          ls
-
-      - name: Replace String Action
-        uses: frabert/replace-string-action@v2
-        id: replace
-        with:
-          pattern: '-latest$'
-          string: ${{ matrix.os }}
-          replace-with: ''
-
-      - name: Set OS variable
-        id: os
-        run: |
-          # 设置环境变量：支持 ubuntu、macos
-          echo "OS=${{ steps.replace.outputs.replaced }}" >> $GITHUB_ENV
-          # 设置环境变量：支持 windows
-          # echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
-
-      # - name: Upload Artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: gitlab-go-${{ env.OS }}
-      #     path: |
-      #       gitlab-go-windows-*
-      #       gitlab-go-linux-*
-      #       gitlab-go-darwin-*
-
-      - name: Get current date
-        id: date
-        # bash, sh, cmd, powershell, pwsh
-        # shell 类型必须为 sh，否则：
-        # $GITHUB_ENV：仅支持 ubuntu、macos
-        # $env:GITHUB_ENV：仅支持 windows
-        shell: sh
+      - name: Set Current Date ENV
         run: |
           echo "YEAR_MONTH_DAY=$(date +'%Y-%m-%dZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y-%m-%dT%H-%MZ')" >> $GITHUB_ENV
 
-      - name: Create Release
-        uses: ncipollo/release-action@v1
+      - name: Get Current Date ENV
+        run: |
+          echo ${{ env.YEAR_MONTH_DAY }}
+          echo ${{ env.YEAR_MONTH_DAY_HOUR }}
+          echo ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+
+      - name: Go Version
+        run: go version
+
+      - name: Go Mod Download
+        run: go mod download
+
+      - name: Go Test
+        run: go test ./... -v
+
+      - name: Go Run
+        run: go run main.go
+
+      - name: Build
+        run: |
+          go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+          GOOS=windows GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/amd64 -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o gitlab-go-windows-amd64.exe .
+          GOOS=windows GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/arm64 -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o gitlab-go-windows-arm64.exe .
+          GOOS=linux   GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/amd64   -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o gitlab-go-linux-amd64 .
+          GOOS=linux   GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/arm64   -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o gitlab-go-linux-arm64 .
+          GOOS=darwin  GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/amd64  -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o gitlab-go-darwin-amd64 .
+          GOOS=darwin  GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/arm64  -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o gitlab-go-darwin-arm64 .
+          ./gitlab-go-linux-amd64 --version
+          ./gitlab-go-linux-amd64
+
+      - name: ls
+        run: ls
+
+      - name: Download Artifacts cicd-release-linux-amd64
+        uses: actions/download-artifact@v3
         with:
-          artifacts: |
-            gitlab-go-windows-*
-            gitlab-go-linux-*
-            gitlab-go-darwin-*
-          body:
-            自动推送时的发布
-          # draft: 草稿状态，为 true 时，不创建标签，默认为 false
-          # draft: true
-          # prerelease：是否发布预发布版，默认为 false
-          prerelease: true
-          name: 0.0.0-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
-          tag: v0.0.0-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: cicd-release-linux-amd64
+          path: .
+
+      - name: ls
+        run: ls

@@ -17,9 +17,10 @@ func Jobs() *cli.Command {
 		Aliases: []string{"jobs", "j"},
 		Usage:   "作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html",
 		Flags: append(flag.Common(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(), flag.Recursion(),
-			flag.Sort(), flag.Id(false), flag.Scope(ScopeValue, ScopeUsage)),
+			flag.Sort(), flag.Id(false), flag.JobIdRange(false), flag.Scope(ScopeValue, ScopeUsage)),
 		Subcommands: []*cli.Command{
 			List(),
+			Erase(),
 		},
 	}
 }

@@ -140,7 +140,7 @@ go run main.go
 - Linux 环境为 $xxx
 
 ```shell
-go run main.go help
+go run main.go --help
 ```
 
 ```shell
@@ -374,20 +374,26 @@ COPYRIGHT:
     
     COMMANDS:
        list     列出项目作业
+       erase    删除作业（删除作业产物和作业日志）
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
-       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
-       --print-json      打印 JSON (default: false)
-       --print-time      打印时间 (default: false)
-       --recursion       递归 (default: false)
-       --sort value      按照 asc 或者 desc 排序 (default: "desc")
-       --id value        项目 ID 或 URL 编码的路径
-       --scope value     要显示的作业范围。以下之一或数组：created、pending、running、failed、success、canceled、skipped、waiting_for_resource 或 manual。范围如果未提供，则返回所有作业。
-       --help, -h        show help
+       --base-url value                               实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                                  your_access_token
+       --page value                                   页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value                               每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json                                   打印 JSON (default: false)
+       --print-time                                   打印时间 (default: false)
+       --recursion                                    递归 (default: false)
+       --sort value                                   按照 asc 或者 desc 排序 (default: "desc")
+       --id value                                     项目 ID 或 URL 编码的路径
+       --job-id-range value [ --job-id-range value ]  Job ID的范围，支持范围如下：
+                                                      单数：1
+                                                      多个数字（使用英文逗号隔开）：1,2,3,7,8,15
+                                                      支持范围：5-10,
+                                                      支持范围方向选择：-10（小于等于10，即：从 0 到 10），214-（大于等于214，即：从 214 到 214 + 10000，数据范围不超过 10000）
+       --scope value                                  要显示的作业范围。以下之一或数组：created、pending、running、failed、success、canceled、skipped、waiting_for_resource 或 manual。范围如果未提供，则返回所有作业。
+       --help, -h                                     show help
     ```
 
 - [pipeline - 流水线 API](https://docs.gitlab.cn/jh/api/pipelines.html)

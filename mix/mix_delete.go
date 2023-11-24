@@ -15,6 +15,8 @@ func Delete() *cli.Command {
 		Subcommands: []*cli.Command{
 			DeleteArtifacts(),
 			DeleteAllArtifacts(),
+			DeleteJobs(),
+			DeleteAllJobs(),
 		},
 	}
 }

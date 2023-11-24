@@ -12,12 +12,12 @@ import (
 	"sort"
 )
 
-// DeleteArtifacts 删除产物
-func DeleteArtifacts() *cli.Command {
+// DeleteJobs 删除作业产物和作业日志
+func DeleteJobs() *cli.Command {
 	return &cli.Command{
-		Name:    "artifact",
-		Aliases: []string{"artifacts"},
-		Usage:   "根据项目路径/ID、流水线IID范围删除产物（混合命令，多接口命令，立即删除）",
+		Name:    "job",
+		Aliases: []string{"jobs"},
+		Usage:   "根据项目路径/ID、流水线IID范围删除作业产物和作业日志（混合命令，多接口命令，立即删除）",
 		Flags:   append(flag.CommonTokenRequired(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(true), flag.IIdRange(true)),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)
@@ -45,7 +45,7 @@ func DeleteArtifacts() *cli.Command {
 				return nil
 			}
 
-			err = DeleteArtifactsRecursion(gitClient, id, page, perPage, sortStr, iids)
+			err = DeleteJobsRecursion(gitClient, id, page, perPage, sortStr, iids)
 			if err != nil {
 				return err
 			}
@@ -55,7 +55,7 @@ func DeleteArtifacts() *cli.Command {
 	}
 }
 
-func DeleteArtifactsRecursion(gitClient *gitlab.Client, id interface{}, page int, perPage int, sort string, iids []int) error {
+func DeleteJobsRecursion(gitClient *gitlab.Client, id interface{}, page int, perPage int, sort string, iids []int) error {
 
 	pipelineInfos, response, err := pipelines.ListProjectPipelines(gitClient, id, page, perPage, sort)
 
@@ -78,26 +78,26 @@ func DeleteArtifactsRecursion(gitClient *gitlab.Client, id interface{}, page int
 		if iidsMin == pipelineInfo.IID {
 			// 等于最小值，删除最小值
 			iids = iids[1:]
-			err = ExecuteDeleteArtifacts(gitClient, id, pipelineInfo.ID, 1, 100)
+			err = ExecuteDeleteJobs(gitClient, id, pipelineInfo.ID, 1, 100)
 			if err != nil {
 				return err
 			}
 		} else if pipelineInfo.IID == iidsMax {
 			// 等于最大值
 			iids = iids[:len(iids)-1]
-			err = ExecuteDeleteArtifacts(gitClient, id, pipelineInfo.ID, 1, 100)
+			err = ExecuteDeleteJobs(gitClient, id, pipelineInfo.ID, 1, 100)
 			if err != nil {
 				return err
 			}
 		} else if iidsMin < pipelineInfo.IID {
 			// 大于最小值
-			err = artifactsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID)
+			err = jobsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID)
 			if err != nil {
 				return err
 			}
 		} else if pipelineInfo.IID < iidsMax {
 			// 小于最大值
-			err = artifactsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID)
+			err = jobsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID)
 			if err != nil {
 				return err
 			}
@@ -115,7 +115,7 @@ func DeleteArtifactsRecursion(gitClient *gitlab.Client, id interface{}, page int
 	}
 
 	if len(pipelineInfos) > 0 {
-		err := DeleteArtifactsRecursion(gitClient, id, page+1, perPage, sort, iids)
+		err := DeleteJobsRecursion(gitClient, id, page+1, perPage, sort, iids)
 		if err != nil {
 			return err
 		}
@@ -124,12 +124,12 @@ func DeleteArtifactsRecursion(gitClient *gitlab.Client, id interface{}, page int
 	return nil
 }
 
-func artifactsForExecute(iids *[]int, pipelineInfoIId int, gitClient *gitlab.Client, id interface{}, pipelineInfoId int) error {
+func jobsForExecute(iids *[]int, pipelineInfoIId int, gitClient *gitlab.Client, id interface{}, pipelineInfoId int) error {
 	for i := 0; i < len(*iids); i++ {
 		if (*iids)[i] == pipelineInfoIId {
 			fmt.Printf("数组中包含%d\n", pipelineInfoIId)
 			*iids = append((*iids)[:i], (*iids)[i+1:]...)
-			err := ExecuteDeleteArtifacts(gitClient, id, pipelineInfoId, 1, 100)
+			err := ExecuteDeleteJobs(gitClient, id, pipelineInfoId, 1, 100)
 			if err != nil {
 				return err
 			}
@@ -139,7 +139,7 @@ func artifactsForExecute(iids *[]int, pipelineInfoIId int, gitClient *gitlab.Cli
 	return nil
 }
 
-func ExecuteDeleteArtifacts(gitClient *gitlab.Client, id interface{}, pipelineInfoId int, page int, perPage int) error {
+func ExecuteDeleteJobs(gitClient *gitlab.Client, id interface{}, pipelineInfoId int, page int, perPage int) error {
 	fmt.Printf("执行删除 %d \n", pipelineInfoId)
 
 	opt := &gitlab.ListJobsOptions{
@@ -157,7 +157,8 @@ func ExecuteDeleteArtifacts(gitClient *gitlab.Client, id interface{}, pipelineIn
 	log.Printf("List Project %s Pipeline %d Jobs Response StatusCode: %d\n", id, pipelineInfoId, response.Response.StatusCode)
 
 	for _, job := range jobs {
-		response, err = gitClient.Jobs.DeleteArtifacts(id, job.ID)
+
+		_, response, err = gitClient.Jobs.EraseJob(id, job.ID)
 		if err != nil {
 			return err
 		}
@@ -165,7 +166,7 @@ func ExecuteDeleteArtifacts(gitClient *gitlab.Client, id interface{}, pipelineIn
 	}
 
 	if len(jobs) == perPage {
-		err = ExecuteDeleteArtifacts(gitClient, id, pipelineInfoId, page+1, perPage)
+		err = ExecuteDeleteJobs(gitClient, id, pipelineInfoId, page+1, perPage)
 		if err != nil {
 			return err
 		}

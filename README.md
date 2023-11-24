@@ -464,6 +464,8 @@ COPYRIGHT:
     COMMANDS:
        artifact, artifacts          根据项目路径/ID、流水线IID范围删除产物（混合命令，多接口命令，立即删除）
        all-artifact, all-artifacts  根据项目路径/ID删除所有产物（混合命令，多接口命令，立即删除）
+       job, jobs                    根据项目路径/ID、流水线IID范围删除作业产物和作业日志（混合命令，多接口命令，立即删除）
+       all-job, all-jobs            根据项目路径/ID删除所有作业产物和作业日志（混合命令，多接口命令，立即删除）
        help, h                      Shows a list of commands or help for one command
     
     OPTIONS:

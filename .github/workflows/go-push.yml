@@ -80,7 +80,6 @@ jobs:
 
       - name: Build
         run: |
-          find / -name cicd-release-linux-amd64
           echo $GITHUB_RUN_ID
           go version
           # go env -w GOPROXY=https://goproxy.cn,direct

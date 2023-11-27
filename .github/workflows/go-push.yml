@@ -65,10 +65,10 @@ jobs:
           # 获取所有的代码历史记录，包括分支和标签
           fetch-depth: 0
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.20'
+      #- name: Set up Go
+      #  uses: actions/setup-go@v4
+      #  with:
+      #    go-version: '1.20'
 
       - name: Set Current Date ENV
         run: |
@@ -93,6 +93,9 @@ jobs:
 
       - name: Go Run
         run: go run main.go
+
+      - name: Git Tag
+        run: git tag v0.0.0-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
 
       - name: Build
         run: |

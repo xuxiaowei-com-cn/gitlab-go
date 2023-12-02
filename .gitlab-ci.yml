@@ -13,7 +13,7 @@ build:golang:1.21:
     - echo $CI_JOB_ID
     - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
-    #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
+    #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy,direct
     - go mod download
     - go test ./... -v
     - go run main.go
@@ -111,7 +111,7 @@ build:golang:1.21-alpine3.18:
     - echo $CI_JOB_ID
     - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
-    #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
+    #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy,direct
     - go mod download
     - go test ./... -v
     - go run main.go

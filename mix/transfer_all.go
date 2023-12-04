@@ -36,8 +36,8 @@ func TransferAll() *cli.Command {
 				return err
 			}
 
-			for _, project := range projectList {
-				log.Printf(project.WebURL)
+			for index, project := range projectList {
+				log.Printf("Project Index: %d, WebURL: %s", index, project.WebURL)
 
 				err = TransferProject(baseUrl, token, project.PathWithNamespace, namespaceTarget)
 				if err != nil {

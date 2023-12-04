@@ -54,7 +54,7 @@ func ExportAll() *cli.Command {
 				skipProjectWikiPaths[index] = skipProjectWikiPath
 			}
 
-			projectList, err := projects.ListProjects(&owned, token, baseUrl, 1, 100)
+			projectList, err := projects.ListProjects(owned, token, baseUrl, 1, 100)
 			if err != nil {
 				return err
 			}

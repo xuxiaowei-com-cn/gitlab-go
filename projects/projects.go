@@ -26,8 +26,8 @@ func Projects() *cli.Command {
 	}
 }
 
-// ListProjects 列出群组 https://docs.gitlab.cn/jh/api/projects.html#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E9%A1%B9%E7%9B%AE
-func ListProjects(owned *bool, token string, baseUrl string, page int, perPage int) ([]*gitlab.Project, error) {
+// ListProjects 列出所有项目 https://docs.gitlab.cn/jh/api/projects.html#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E9%A1%B9%E7%9B%AE
+func ListProjects(owned bool, token string, baseUrl string, page int, perPage int) ([]*gitlab.Project, error) {
 	var results []*gitlab.Project
 
 	gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
@@ -40,7 +40,7 @@ func ListProjects(owned *bool, token string, baseUrl string, page int, perPage i
 			Page:    page,
 			PerPage: perPage,
 		},
-		Owned: owned,
+		Owned: &owned,
 	}
 
 	projects, response, err := gitClient.Projects.ListProjects(opt)

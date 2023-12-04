@@ -19,7 +19,7 @@ func ArchiveAll() *cli.Command {
 			var token = context.String(constant.Token)
 			var owned = context.Bool(constant.Owned)
 
-			projectList, err := projects.ListProjects(&owned, token, baseUrl, 1, 100)
+			projectList, err := projects.ListProjects(owned, token, baseUrl, 1, 100)
 			if err != nil {
 				return err
 			}

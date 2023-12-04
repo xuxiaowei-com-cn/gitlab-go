@@ -77,6 +77,7 @@ func main() {
 			pipelines.Pipelines(),
 			projects.Projects(),
 			mix.Delete(),
+			mix.Archive(),
 		},
 	}
 

@@ -23,4 +23,5 @@ const (
 	IssueId          = "issue-id"
 	IssueIdRange     = "issue-id-range"
 	Recursion        = "recursion"
+	Owned            = "owned"
 )

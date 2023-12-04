@@ -176,6 +176,14 @@ func Recursion() cli.Flag {
 	}
 }
 
+func Owned(required bool) cli.Flag {
+	return &cli.BoolFlag{
+		Name:     constant.Owned,
+		Usage:    "当前用户明确拥有的项目。",
+		Required: required,
+	}
+}
+
 func IssueIdRange(required bool) cli.Flag {
 	return &cli.StringSliceFlag{
 		Name: constant.IssueIdRange,

@@ -197,6 +197,7 @@ COMMANDS:
    pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
    project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
    mix-delete, mix-rm                                             删除（混合命令，多接口命令）
+   mix-archive                                                    归档（混合命令，多接口命令）
    help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -510,6 +511,27 @@ COPYRIGHT:
                                                 支持范围：5-10,
                                                 支持范围方向选择：-10（小于等于10，即：从 0 到 10），214-（大于等于214，即：从 214 到 214 + 10000，数据范围不超过 10000）
        --help, -h                               show help
+    ```
+
+- 归档（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-archive --help
+    NAME:
+       gitlab-go mix-archive - 归档（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-archive command [command options] [arguments...]
+    
+    COMMANDS:
+       all      归档所有项目（混合命令，多接口命令）
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --owned           当前用户明确拥有的项目。 (default: false)
+       --help, -h        show help
     ```
 
 ### test

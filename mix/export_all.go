@@ -23,13 +23,12 @@ func ExportAll() *cli.Command {
 			"已包含：\n" +
 			"1. git 仓库\n" +
 			"2. wiki 仓库",
-		Flags: append(flag.CommonTokenRequired(), flag.Username(true), flag.Owned(true),
+		Flags: append(flag.CommonTokenRequired(), flag.Owned(true),
 			flag.ExportFolder(true), flag.SkipProjectPath(), flag.SkipProjectWikiPath()),
 		Action: func(context *cli.Context) error {
 
 			var baseUrl = context.String(constant.BaseUrl)
 			var token = context.String(constant.Token)
-			var username = context.String(constant.Username)
 			var owned = context.Bool(constant.Owned)
 			var exportFolder = context.String(constant.ExportFolder)
 			var skipProjectPaths = context.StringSlice(constant.SkipProjectPath)
@@ -62,12 +61,12 @@ func ExportAll() *cli.Command {
 			for index, project := range projectList {
 				log.Printf("Project Index: %d, WebURL: %s", index, project.WebURL)
 
-				err = Repository(exportFolder, host, username, token, project, skipProjectPaths)
+				err = Repository(exportFolder, host, token, project, skipProjectPaths)
 				if err != nil {
 					return err
 				}
 
-				err = Wiki(exportFolder, host, username, token, project, skipProjectWikiPaths)
+				err = Wiki(exportFolder, host, token, project, skipProjectWikiPaths)
 				if err != nil {
 					return err
 				}
@@ -80,7 +79,7 @@ func ExportAll() *cli.Command {
 	}
 }
 
-func Repository(exportFolder string, host string, username string, token string, project *gitlab.Project, skipProjectPaths []string) error {
+func Repository(exportFolder string, host string, token string, project *gitlab.Project, skipProjectPaths []string) error {
 
 	c := contains(skipProjectPaths, project.PathWithNamespace)
 	if c {
@@ -100,7 +99,7 @@ func Repository(exportFolder string, host string, username string, token string,
 		return err
 	}
 
-	userinfo := url.UserPassword(username, token)
+	userinfo := url.UserPassword("", token)
 	repoUrl.User = userinfo
 
 	cmd := exec.Command("git", "clone", repoUrl.String(), gitPath)
@@ -120,7 +119,7 @@ func Repository(exportFolder string, host string, username string, token string,
 	return nil
 }
 
-func Wiki(exportFolder string, host string, username string, token string, project *gitlab.Project, skipProjectWikiPaths []string) error {
+func Wiki(exportFolder string, host string, token string, project *gitlab.Project, skipProjectWikiPaths []string) error {
 
 	c := contains(skipProjectWikiPaths, project.PathWithNamespace)
 	if c {
@@ -146,7 +145,7 @@ func Wiki(exportFolder string, host string, username string, token string, proje
 		return err
 	}
 
-	userinfo := url.UserPassword(username, token)
+	userinfo := url.UserPassword("", token)
 	repoUrl.User = userinfo
 
 	cmd := exec.Command("git", "clone", repoUrl.String(), wikiPath)

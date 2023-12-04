@@ -1,7 +1,6 @@
 package constant
 
 const (
-	Username            = "username"
 	Token               = "token"
 	BaseUrl             = "base-url"
 	BaseUrlDefault      = "https://gitlab.com/api/v4"

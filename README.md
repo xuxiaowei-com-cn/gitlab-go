@@ -556,7 +556,6 @@ COPYRIGHT:
     OPTIONS:
        --base-url value                                                   实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
        --token value                                                      your_access_token
-       --username value                                                   用户名
        --owned                                                            当前用户明确拥有的项目。 (default: false)
        --export-folder value                                              导出文件夹
        --skip-project-path value [ --skip-project-path value ]            跳过项目路径

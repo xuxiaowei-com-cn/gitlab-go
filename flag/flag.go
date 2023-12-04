@@ -49,14 +49,6 @@ func BaseUrl() cli.Flag {
 	}
 }
 
-func Username(required bool) cli.Flag {
-	return &cli.StringFlag{
-		Name:     constant.Username,
-		Usage:    "用户名",
-		Required: required,
-	}
-}
-
 func Token(required bool) cli.Flag {
 	return &cli.StringFlag{
 		Name:     constant.Token,

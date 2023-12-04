@@ -49,6 +49,14 @@ func BaseUrl() cli.Flag {
 	}
 }
 
+func Username(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.Username,
+		Usage:    "用户名",
+		Required: required,
+	}
+}
+
 func Token(required bool) cli.Flag {
 	return &cli.StringFlag{
 		Name:     constant.Token,
@@ -193,5 +201,27 @@ func IssueIdRange(required bool) cli.Flag {
 			"支持范围：5-10,\n\t" +
 			fmt.Sprintf("支持范围方向选择：-10（小于等于10，即：从 0 到 10），214-（大于等于214，即：从 214 到 214 + %d，数据范围不超过 %d）", RangeMaxInterval, RangeMaxInterval),
 		Required: required,
+	}
+}
+
+func ExportFolder(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.ExportFolder,
+		Usage:    "导出文件夹",
+		Required: required,
+	}
+}
+
+func SkipProjectPath() cli.Flag {
+	return &cli.StringSliceFlag{
+		Name:  constant.SkipProjectPath,
+		Usage: "跳过项目路径",
+	}
+}
+
+func SkipProjectWikiPath() cli.Flag {
+	return &cli.StringSliceFlag{
+		Name:  constant.SkipProjectWikiPath,
+		Usage: "跳过项目wiki路径",
 	}
 }

@@ -198,6 +198,7 @@ COMMANDS:
    project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
    mix-delete, mix-rm                                             删除（混合命令，多接口命令）
    mix-archive                                                    归档（混合命令，多接口命令）
+   mix-export                                                     导出（混合命令，多接口命令）
    help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -532,6 +533,34 @@ COPYRIGHT:
        --token value     your_access_token
        --owned           当前用户明确拥有的项目。 (default: false)
        --help, -h        show help
+    ```
+
+- 导出（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-export --help
+    NAME:
+       gitlab-go mix-export - 导出（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-export command [command options] [arguments...]
+    
+    COMMANDS:
+       all, a   导出所有（混合命令，多接口命令）
+                已包含：
+                1. git 仓库
+                2. wiki 仓库
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value                                                   实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                                                      your_access_token
+       --username value                                                   用户名
+       --owned                                                            当前用户明确拥有的项目。 (default: false)
+       --export-folder value                                              导出文件夹
+       --skip-project-path value [ --skip-project-path value ]            跳过项目路径
+       --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
+       --help, -h                                                         show help
     ```
 
 ### test

@@ -78,6 +78,7 @@ func main() {
 			projects.Projects(),
 			mix.Delete(),
 			mix.Archive(),
+			mix.Export(),
 		},
 	}
 

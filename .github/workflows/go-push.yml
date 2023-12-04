@@ -246,55 +246,19 @@ jobs:
 
       - name: Release GitLink
         run: |
-          ./cicd-release-linux-amd64 pre-release gitlink --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitlink-repository=$GITHUB_REPOSITORY --gitlink-username=${{ secrets.PRIVATE_GITLINK_USERNAME }} --gitlink-token=${{ secrets.PRIVATE_GITLINK_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --artifacts=gitlab-go-windows-amd64.exe --artifacts=gitlab-go-windows-arm64.exe --artifacts=gitlab-go-linux-amd64 --artifacts=gitlab-go-linux-arm64 --artifacts=gitlab-go-darwin-amd64 --artifacts=gitlab-go-darwin-arm64 --artifacts=gitlab-go-loong64  --gitlink-cookie=${{ secrets.PRIVATE_GITLINK_COOKIE }}
+          ./cicd-release-linux-amd64 pre-release gitlink --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitlink-repository=$GITHUB_REPOSITORY --gitlink-username=${{ secrets.PRIVATE_GITLINK_USERNAME }} --gitlink-token=${{ secrets.PRIVATE_GITLINK_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --artifacts=gitlab-go-windows-amd64.exe --artifacts=gitlab-go-windows-arm64.exe --artifacts=gitlab-go-linux-amd64 --artifacts=gitlab-go-linux-arm64 --artifacts=gitlab-go-darwin-amd64 --artifacts=gitlab-go-darwin-arm64 --artifacts=gitlab-go-loong64  --gitlink-cookie=${{ secrets.PRIVATE_GITLINK_COOKIE }} --gitlink-export-assets-file-name=cicd-release-assets.json
 
-  release-jihulab:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          # 获取所有的代码历史记录，包括分支和标签
-          fetch-depth: 0
-
-      - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
-        uses: actions/download-artifact@v3
-        with:
-          name: cicd-release
-          path: .
-
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: gitlab-go
-          path: .
-
-      - name: ls -l
-        run: ls -l
-
-      - name: chmod +x cicd-release-linux-amd64
-        run: chmod +x cicd-release-linux-amd64
-
-      - name: ls -l
-        run: ls -l
-
-      - name: Release JiHuLab
-        run: |
-          ./cicd-release-linux-amd64 pre-release gitlab --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitlab-repository=$GITHUB_REPOSITORY --gitlab-username=$GITHUB_ACTOR --gitlab-token=${{ secrets.PRIVATE_JIHULAB_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --package-name=cicd-release --artifacts=gitlab-go-windows-amd64.exe --artifacts=gitlab-go-windows-arm64.exe --artifacts=gitlab-go-linux-amd64 --artifacts=gitlab-go-linux-arm64 --artifacts=gitlab-go-darwin-amd64 --artifacts=gitlab-go-darwin-arm64 --artifacts=gitlab-go-loong64 --gitlab-instance=https://jihulab.com --gitlab-export-assets-file-name=gitlab-go-assets.json
-
-      - name: Upload Artifacts（gitlab-go-assets.json）
+      - name: Upload Artifacts（cicd-release-assets.json）
         uses: actions/upload-artifact@v3
         with:
-          name: gitlab-go-assets
+          name: cicd-release-assets
           path: |
-            gitlab-go-assets.json
+            cicd-release-assets.json
 
   release-gitee:
     needs:
       - build
-      - release-jihulab
+      - release-gitlink
     runs-on: ubuntu-latest
 
     steps:
@@ -325,12 +289,12 @@ jobs:
       - name: ls -l
         run: ls -l
 
-      - name: Download Artifacts（gitlab-go-assets.json）
+      - name: Download Artifacts（cicd-release-assets.json）
         uses: actions/download-artifact@v3
         with:
-          name: gitlab-go-assets
+          name: cicd-release-assets
           path: .
 
       - name: Release Gitee
         run: |
-          ./cicd-release-linux-amd64 pre-release gitee --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitee-repository=$GITHUB_REPOSITORY --gitee-username=$GITHUB_ACTOR --gitee-token=${{ secrets.PRIVATE_GITEE_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --gitlab-export-assets-file-name=gitlab-go-assets.json
+          ./cicd-release-linux-amd64 pre-release gitee --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitee-repository=$GITHUB_REPOSITORY --gitee-username=$GITHUB_ACTOR --gitee-token=${{ secrets.PRIVATE_GITEE_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --gitlink-export-assets-file-name=cicd-release-assets.json

@@ -65,6 +65,10 @@ func ExportAll() *cli.Command {
 				if err != nil {
 					return err
 				}
+			}
+
+			for index, project := range projectList {
+				log.Printf("Project wiki Index: %d, WebURL: %s", index, project.WebURL)
 
 				err = Wiki(exportFolder, host, token, project, skipProjectWikiPaths)
 				if err != nil {

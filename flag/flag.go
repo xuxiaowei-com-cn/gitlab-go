@@ -192,6 +192,22 @@ func Owned(required bool) cli.Flag {
 	}
 }
 
+func NamespaceSource(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.NamespaceSource,
+		Usage:    "源命名空间。如：用户名、群组名",
+		Required: required,
+	}
+}
+
+func NamespaceTargetFlag(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.NamespaceTarget,
+		Usage:    "源命名空间。如：用户名、群组名",
+		Required: required,
+	}
+}
+
 func IssueIdRange(required bool) cli.Flag {
 	return &cli.StringSliceFlag{
 		Name: constant.IssueIdRange,

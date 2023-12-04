@@ -25,6 +25,8 @@ const (
 	IssueIdRange        = "issue-id-range"
 	Recursion           = "recursion"
 	Owned               = "owned"
+	NamespaceSource     = "namespace-source"
+	NamespaceTarget     = "namespace-target"
 	ExportFolder        = "export-folder"
 	SkipProjectPath     = "skip-project-path"
 	SkipProjectWikiPath = "skip-project-wiki-path"

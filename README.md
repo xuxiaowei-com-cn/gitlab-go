@@ -199,6 +199,7 @@ COMMANDS:
    mix-delete, mix-rm                                             删除（混合命令，多接口命令）
    mix-archive                                                    归档（混合命令，多接口命令）
    mix-export                                                     导出（混合命令，多接口命令）
+   mix-transfer                                                   转移（混合命令，多接口命令）
    help, h                                                        Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -561,6 +562,30 @@ COPYRIGHT:
        --skip-project-path value [ --skip-project-path value ]            跳过项目路径
        --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
        --help, -h                                                         show help
+    ```
+
+- 转移（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-transfer --help
+    NAME:
+       gitlab-go mix-transfer - 转移（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-transfer command [command options] [arguments...]
+    
+    COMMANDS:
+       all, a   将一个命令空间的项目转移到新的命名空间
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value                                         实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                                            your_access_token
+       --owned                                                  当前用户明确拥有的项目。 (default: false)
+       --namespace-source value                                 源命名空间。如：用户名、群组名
+       --namespace-target value                                 源命名空间。如：用户名、群组名
+       --skip-project-path value [ --skip-project-path value ]  跳过项目路径
+       --help, -h                                               show help
     ```
 
 ### test

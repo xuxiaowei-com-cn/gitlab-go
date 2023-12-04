@@ -79,6 +79,7 @@ func main() {
 			mix.Delete(),
 			mix.Archive(),
 			mix.Export(),
+			mix.Transfer(),
 		},
 	}
 

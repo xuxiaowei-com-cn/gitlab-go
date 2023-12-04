@@ -5,6 +5,7 @@ import (
 	"github.com/xanzy/go-gitlab"
 	"github.com/xuxiaowei-com-cn/gitlab-go/flag"
 	"log"
+	"strings"
 )
 
 const (
@@ -62,6 +63,70 @@ func ListProjects(owned bool, token string, baseUrl string, page int, perPage in
 	}
 
 	return results, err
+}
+
+// ListNamespaceProjects 列出命名空间所有项目
+func ListNamespaceProjects(owned bool, token string, baseUrl string, page int, perPage int, namespace string, skipProjectPaths []string) ([]*gitlab.Project, error) {
+	var results []*gitlab.Project
+
+	gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+	if err != nil {
+		return nil, err
+	}
+
+	opt := &gitlab.ListProjectsOptions{
+		ListOptions: gitlab.ListOptions{
+			Page:    page,
+			PerPage: perPage,
+		},
+		Owned: &owned,
+	}
+
+	projects, response, err := gitClient.Projects.ListProjects(opt)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Printf("ListProjects Page %d, PerPage: %d, Response StatusCode: %d\n", page, perPage, response.Response.StatusCode)
+
+	results = Namespace(results, projects, namespace, skipProjectPaths)
+
+	if len(projects) != 0 {
+		projects, err = ListNamespaceProjects(owned, token, baseUrl, page+1, perPage, namespace, skipProjectPaths)
+		if err != nil {
+			return nil, err
+		}
+
+		results = Namespace(results, projects, namespace, skipProjectPaths)
+	}
+
+	return results, err
+}
+
+func Namespace(results []*gitlab.Project, projects []*gitlab.Project, namespace string, skipProjectPaths []string) []*gitlab.Project {
+	if namespace == "" {
+		results = append(results, projects...)
+	} else {
+		for _, project := range projects {
+			var c bool
+			for _, skipProjectPath := range skipProjectPaths {
+				if project.NameWithNamespace == skipProjectPath {
+					c = true
+					break
+				}
+			}
+			if c {
+				break
+			}
+
+			if strings.HasPrefix(project.PathWithNamespace, namespace+"/") {
+				// 将 project 添加到 results 中
+				results = append(results, project)
+			}
+		}
+	}
+
+	return results
 }
 
 func ArchiveProject(token string, baseUrl string, pathWithNamespace string) error {

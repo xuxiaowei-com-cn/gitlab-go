@@ -105,6 +105,35 @@
   </a>
 </div>
 
+## 支持的系统
+
+1. Linux amd64、arm64
+2. Windows amd64、arm64
+3. Mac amd64、arm64
+4. LoongArch 64-bit
+
+# 构建
+
+本项目发布在 GitHub 进行构建，并使用构建后的程序将自己发布到各大代码托管平台，发布过程参见：
+[GitHub Actions](https://github.com/xuxiaowei-com-cn/gitlab-go/actions/workflows/go-push.yml)
+
+## 下载
+
+1. [gitee](https://gitee.com/xuxiaowei-com-cn/gitlab-go/releases)
+2. [jihulab](https://jihulab.com/xuxiaowei-com-cn/gitlab-go/-/releases)
+3. [gitlab](https://gitlab.com/xuxiaowei-com-cn/gitlab-go/-/releases)
+4. [github](https://github.com/xuxiaowei-com-cn/gitlab-go/releases)
+5. [gitlink](https://gitlink.org.cn/xuxiaowei-com-cn/gitlab-go/releases)
+
+## 支持的功能
+
+1. 一键发布到 github，可包含产物上传
+2. 一键发布到 gitlab，可包含产物上传，可自定义域名（支持自建 gitlab），支持将产物文件名、链接导出为 map，可供 gitee 使用
+3. 一键发布到 gitee，由于 gitee 暂不支持提供上传产物的 API 接口，
+   本工具支持提供 json 文件（map 形式，键：代表文件名，值：代表下载链接）作为产物，本项目使用 [极狐](https://jihulab.com) 作为
+   gitee 产物链接
+4. 一键发布到 gitlink，可包含产物上传（需要等到官方开放 token 功能，或者联系官方人员申请 token 才能使用）
+
 ## 开发命令
 
 ### get
@@ -527,6 +556,13 @@ go build
         ```shell
         go build -o buildinfo/buildinfo buildinfo/buildinfo.go
         GOOS=linux GOARCH=arm64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$(buildinfo/buildinfo commitBranch) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/arm64 -X main.CiPipelineId= -X main.CiJobId=" -trimpath -o gitlab-go-linux-arm64 .
+        ```
+
+- LoongArch
+    - 64-bit
+        ```shell
+        go build -o buildinfo/buildinfo buildinfo/buildinfo.go
+        GOOS=linux GOARCH=loong64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$(buildinfo/buildinfo commitBranch) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/amd64 -X main.CiPipelineId= -X main.CiJobId=" -trimpath -o gitlab-go-loong64 .
         ```
 
 - Darwin

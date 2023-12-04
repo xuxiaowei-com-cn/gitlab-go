@@ -116,7 +116,7 @@ func Namespace(results []*gitlab.Project, projects []*gitlab.Project, namespace 
 				}
 			}
 			if c {
-				break
+				continue
 			}
 
 			if strings.HasPrefix(project.PathWithNamespace, namespace+"/") {

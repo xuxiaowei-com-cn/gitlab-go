@@ -145,3 +145,20 @@ func ArchiveProject(token string, baseUrl string, pathWithNamespace string) erro
 
 	return nil
 }
+
+func UnarchiveProject(token string, baseUrl string, pathWithNamespace string) error {
+
+	gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+	if err != nil {
+		return err
+	}
+
+	_, response, err := gitClient.Projects.UnarchiveProject(pathWithNamespace)
+	if err != nil {
+		return err
+	}
+
+	log.Printf("ArchiveProject PathWithNamespace: %s, Response StatusCode: %d\n", pathWithNamespace, response.Response.StatusCode)
+
+	return nil
+}

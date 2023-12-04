@@ -110,7 +110,7 @@ func Namespace(results []*gitlab.Project, projects []*gitlab.Project, namespace 
 		for _, project := range projects {
 			var c bool
 			for _, skipProjectPath := range skipProjectPaths {
-				if project.NameWithNamespace == skipProjectPath {
+				if project.PathWithNamespace == skipProjectPath {
 					c = true
 					break
 				}

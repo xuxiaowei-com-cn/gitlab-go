@@ -77,8 +77,8 @@ build:docker:
   script:
     - cp gitlab-go-linux-amd64 docker/debian/
     - cd $CI_PROJECT_DIR/docker/debian
-    - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1
-    - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/debian:12.1 docker.io/library/debian:12.1
+    - docker pull registry.cn-qingdao.aliyuncs.com/xuxiaowei/public:debian_12.1
+    - docker tag registry.cn-qingdao.aliyuncs.com/xuxiaowei/public:debian_12.1 docker.io/library/debian:12.1
     - if [ "$CI_COMMIT_TAG" ]; then
         tag="$CI_COMMIT_TAG";
         tag_hub="$CI_COMMIT_TAG-debian";
@@ -169,8 +169,8 @@ build:docker:alpine3.18:
   script:
     - cp gitlab-go-linux-alpine-amd64 docker/alpine/
     - cd $CI_PROJECT_DIR/docker/alpine
-    - docker pull registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3
-    - docker tag registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alpine:3.18.3 docker.io/library/alpine:3.18.3
+    - docker pull registry.cn-qingdao.aliyuncs.com/xuxiaowei/public:alpine_3.18.3
+    - docker tag registry.cn-qingdao.aliyuncs.com/xuxiaowei/public:alpine_3.18.3 docker.io/library/alpine:3.18.3
     - if [ "$CI_COMMIT_TAG" ]; then
         tag="$CI_COMMIT_TAG";
         tag_hub="$CI_COMMIT_TAG-alpine";

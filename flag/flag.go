@@ -195,7 +195,7 @@ func NamespaceSource(required bool) cli.Flag {
 func NamespaceTargetFlag(required bool) cli.Flag {
 	return &cli.StringFlag{
 		Name:     constant.NamespaceTarget,
-		Usage:    "源命名空间。如：用户名、群组名",
+		Usage:    "目标命名空间。如：用户名、群组名",
 		Required: required,
 	}
 }

@@ -604,7 +604,7 @@ COPYRIGHT:
        --token value                                            your_access_token
        --owned                                                  当前用户明确拥有的项目。 (default: false)
        --namespace-source value                                 源命名空间。如：用户名、群组名
-       --namespace-target value                                 源命名空间。如：用户名、群组名
+       --namespace-target value                                 目标命名空间。如：用户名、群组名
        --skip-project-path value [ --skip-project-path value ]  跳过项目路径
        --help, -h                                               show help
     ```

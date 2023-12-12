@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/urfave/cli/v2 v2.26.0
-	github.com/xanzy/go-gitlab v0.94.0
+	github.com/xanzy/go-gitlab v0.95.1
 	github.com/xuxiaowei-com-cn/git-go v0.0.0-20231127015559-635f5e3143dc
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -17,8 +17,8 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.5 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/oauth2 v0.14.0 // indirect
-	golang.org/x/time v0.4.0 // indirect
+	golang.org/x/oauth2 v0.15.0 // indirect
+	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )

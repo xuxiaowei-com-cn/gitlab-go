@@ -241,3 +241,11 @@ func AutoSkipExistFolder() cli.Flag {
 		Value: false,
 	}
 }
+
+func AllowFailure() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.AllowFailure,
+		Usage: "允许失败",
+		Value: false,
+	}
+}

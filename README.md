@@ -583,6 +583,7 @@ COPYRIGHT:
        --skip-project-path value [ --skip-project-path value ]            跳过项目路径
        --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
        --auto-skip-exist-folder                                           自动跳过已存在的文件夹 (default: false)
+       --allow-failure                                                    允许失败 (default: false)
        --help, -h                                                         show help
     ```
 

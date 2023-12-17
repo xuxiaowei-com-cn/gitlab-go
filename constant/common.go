@@ -30,4 +30,5 @@ const (
 	SkipProjectPath     = "skip-project-path"
 	SkipProjectWikiPath = "skip-project-wiki-path"
 	AutoSkipExistFolder = "auto-skip-exist-folder"
+	AllowFailure        = "allow-failure"
 )

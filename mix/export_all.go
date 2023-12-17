@@ -24,7 +24,8 @@ func ExportAll() *cli.Command {
 			"1. git 仓库\n" +
 			"2. wiki 仓库",
 		Flags: append(flag.CommonTokenRequired(), flag.Owned(true),
-			flag.ExportFolder(true), flag.SkipProjectPath(), flag.SkipProjectWikiPath(), flag.AutoSkipExistFolder()),
+			flag.ExportFolder(true), flag.SkipProjectPath(), flag.SkipProjectWikiPath(),
+			flag.AutoSkipExistFolder(), flag.AllowFailure()),
 		Action: func(context *cli.Context) error {
 
 			var baseUrl = context.String(constant.BaseUrl)
@@ -34,6 +35,7 @@ func ExportAll() *cli.Command {
 			var skipProjectPaths = context.StringSlice(constant.SkipProjectPath)
 			var skipProjectWikiPaths = context.StringSlice(constant.SkipProjectWikiPath)
 			var autoSkipExistFolder = context.Bool(constant.AutoSkipExistFolder)
+			var allowFailure = context.Bool(constant.AllowFailure)
 
 			baseURL, err := url.Parse(baseUrl)
 			if err != nil {
@@ -62,7 +64,7 @@ func ExportAll() *cli.Command {
 			for index, project := range projectList {
 				log.Printf("Project Index: %d, WebURL: %s", index, project.WebURL)
 
-				err = Repository(autoSkipExistFolder, exportFolder, host, token, project, skipProjectPaths)
+				err = Repository(allowFailure, autoSkipExistFolder, exportFolder, host, token, project, skipProjectPaths)
 				if err != nil {
 					return err
 				}
@@ -71,7 +73,7 @@ func ExportAll() *cli.Command {
 			for index, project := range projectList {
 				log.Printf("Project wiki Index: %d, WebURL: %s", index, project.WebURL)
 
-				err = Wiki(autoSkipExistFolder, exportFolder, host, token, project, skipProjectWikiPaths)
+				err = Wiki(allowFailure, autoSkipExistFolder, exportFolder, host, token, project, skipProjectWikiPaths)
 				if err != nil {
 					return err
 				}
@@ -84,7 +86,7 @@ func ExportAll() *cli.Command {
 	}
 }
 
-func Repository(autoSkipExistFolder bool, exportFolder string, host string, token string, project *gitlab.Project, skipProjectPaths []string) error {
+func Repository(allowFailure bool, autoSkipExistFolder bool, exportFolder string, host string, token string, project *gitlab.Project, skipProjectPaths []string) error {
 
 	c := contains(skipProjectPaths, project.PathWithNamespace)
 	if c {
@@ -123,18 +125,24 @@ func Repository(autoSkipExistFolder bool, exportFolder string, host string, toke
 
 	err = cmd.Run()
 	if err != nil {
+		if allowFailure {
+			return nil
+		}
 		return err
 	}
 
 	err = GitRemoteSetUrl(gitPath, HTTPURLToRepo)
 	if err != nil {
+		if allowFailure {
+			return nil
+		}
 		return err
 	}
 
 	return nil
 }
 
-func Wiki(autoSkipExistFolder bool, exportFolder string, host string, token string, project *gitlab.Project, skipProjectWikiPaths []string) error {
+func Wiki(allowFailure bool, autoSkipExistFolder bool, exportFolder string, host string, token string, project *gitlab.Project, skipProjectWikiPaths []string) error {
 
 	c := contains(skipProjectWikiPaths, project.PathWithNamespace)
 	if c {
@@ -179,11 +187,17 @@ func Wiki(autoSkipExistFolder bool, exportFolder string, host string, token stri
 
 	err = cmd.Run()
 	if err != nil {
+		if allowFailure {
+			return nil
+		}
 		return err
 	}
 
 	err = GitRemoteSetUrl(wikiPath, HTTPURLToRepo)
 	if err != nil {
+		if allowFailure {
+			return nil
+		}
 		return err
 	}
 

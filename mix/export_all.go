@@ -24,7 +24,7 @@ func ExportAll() *cli.Command {
 			"1. git 仓库\n" +
 			"2. wiki 仓库",
 		Flags: append(flag.CommonTokenRequired(), flag.Owned(true),
-			flag.ExportFolder(true), flag.SkipProjectPath(), flag.SkipProjectWikiPath()),
+			flag.ExportFolder(true), flag.SkipProjectPath(), flag.SkipProjectWikiPath(), flag.AutoSkipExistFolder()),
 		Action: func(context *cli.Context) error {
 
 			var baseUrl = context.String(constant.BaseUrl)
@@ -33,6 +33,7 @@ func ExportAll() *cli.Command {
 			var exportFolder = context.String(constant.ExportFolder)
 			var skipProjectPaths = context.StringSlice(constant.SkipProjectPath)
 			var skipProjectWikiPaths = context.StringSlice(constant.SkipProjectWikiPath)
+			var autoSkipExistFolder = context.Bool(constant.AutoSkipExistFolder)
 
 			baseURL, err := url.Parse(baseUrl)
 			if err != nil {
@@ -61,7 +62,7 @@ func ExportAll() *cli.Command {
 			for index, project := range projectList {
 				log.Printf("Project Index: %d, WebURL: %s", index, project.WebURL)
 
-				err = Repository(exportFolder, host, token, project, skipProjectPaths)
+				err = Repository(autoSkipExistFolder, exportFolder, host, token, project, skipProjectPaths)
 				if err != nil {
 					return err
 				}
@@ -70,7 +71,7 @@ func ExportAll() *cli.Command {
 			for index, project := range projectList {
 				log.Printf("Project wiki Index: %d, WebURL: %s", index, project.WebURL)
 
-				err = Wiki(exportFolder, host, token, project, skipProjectWikiPaths)
+				err = Wiki(autoSkipExistFolder, exportFolder, host, token, project, skipProjectWikiPaths)
 				if err != nil {
 					return err
 				}
@@ -83,7 +84,7 @@ func ExportAll() *cli.Command {
 	}
 }
 
-func Repository(exportFolder string, host string, token string, project *gitlab.Project, skipProjectPaths []string) error {
+func Repository(autoSkipExistFolder bool, exportFolder string, host string, token string, project *gitlab.Project, skipProjectPaths []string) error {
 
 	c := contains(skipProjectPaths, project.PathWithNamespace)
 	if c {
@@ -92,6 +93,16 @@ func Repository(exportFolder string, host string, token string, project *gitlab.
 	}
 
 	gitPath := filepath.Join(exportFolder, "repository", host, project.PathWithNamespace)
+	if autoSkipExistFolder {
+		_, err := os.Stat(gitPath)
+		if os.IsNotExist(err) {
+
+		} else {
+			log.Printf("已启用自动跳过已存在的文件夹：%s\n", gitPath)
+			return nil
+		}
+	}
+
 	err := os.MkdirAll(gitPath, os.ModePerm)
 	if err != nil {
 		return err
@@ -123,7 +134,7 @@ func Repository(exportFolder string, host string, token string, project *gitlab.
 	return nil
 }
 
-func Wiki(exportFolder string, host string, token string, project *gitlab.Project, skipProjectWikiPaths []string) error {
+func Wiki(autoSkipExistFolder bool, exportFolder string, host string, token string, project *gitlab.Project, skipProjectWikiPaths []string) error {
 
 	c := contains(skipProjectWikiPaths, project.PathWithNamespace)
 	if c {
@@ -132,6 +143,16 @@ func Wiki(exportFolder string, host string, token string, project *gitlab.Projec
 	}
 
 	wikiPath := filepath.Join(exportFolder, "wiki", host, project.PathWithNamespace+".wiki")
+	if autoSkipExistFolder {
+		_, err := os.Stat(wikiPath)
+		if os.IsNotExist(err) {
+
+		} else {
+			log.Printf("已启用自动跳过已存在的文件夹：%s\n", wikiPath)
+			return nil
+		}
+	}
+
 	err := os.MkdirAll(wikiPath, os.ModePerm)
 	if err != nil {
 		return err

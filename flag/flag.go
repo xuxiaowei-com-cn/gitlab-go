@@ -233,3 +233,11 @@ func SkipProjectWikiPath() cli.Flag {
 		Usage: "跳过项目wiki路径",
 	}
 }
+
+func AutoSkipExistFolder() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.AutoSkipExistFolder,
+		Usage: "自动跳过已存在的文件夹",
+		Value: false,
+	}
+}

@@ -11,7 +11,7 @@ func Export() *cli.Command {
 		Name:  "mix-export",
 		Usage: "导出（混合命令，多接口命令）",
 		Flags: append(flag.Common(), flag.Owned(false),
-			flag.ExportFolder(false), flag.SkipProjectPath(), flag.SkipProjectWikiPath()),
+			flag.ExportFolder(false), flag.SkipProjectPath(), flag.SkipProjectWikiPath(), flag.AutoSkipExistFolder()),
 		Subcommands: []*cli.Command{
 			ExportAll(),
 		},

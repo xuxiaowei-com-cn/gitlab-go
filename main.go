@@ -6,6 +6,7 @@ import (
 	"github.com/xuxiaowei-com-cn/gitlab-go/access_requests"
 	"github.com/xuxiaowei-com-cn/gitlab-go/boards"
 	"github.com/xuxiaowei-com-cn/gitlab-go/container_registry"
+	"github.com/xuxiaowei-com-cn/gitlab-go/environments"
 	"github.com/xuxiaowei-com-cn/gitlab-go/instance_level_ci_variables"
 	"github.com/xuxiaowei-com-cn/gitlab-go/issues"
 	"github.com/xuxiaowei-com-cn/gitlab-go/job_artifacts"
@@ -70,6 +71,7 @@ func main() {
 			access_requests.AccessRequests(),
 			boards.Boards(),
 			container_registry.ContainerRegistry(),
+			environments.Environments(),
 			instance_level_ci_variables.InstanceLevelCiVariables(),
 			issues.Issues(),
 			job_artifacts.JobsArtifacts(),

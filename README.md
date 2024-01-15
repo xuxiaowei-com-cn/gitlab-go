@@ -129,8 +129,8 @@
 1. 一键发布到 github，可包含产物上传
 2. 一键发布到 gitlab，可包含产物上传，可自定义域名（支持自建 gitlab），支持将产物文件名、链接导出为 map，可供 gitee 使用
 3. 一键发布到 gitee，由于 gitee 暂不支持提供上传产物的 API 接口，
-   本工具支持提供 json 文件（map 形式，键：代表文件名，值：代表下载链接）作为产物，本项目使用 [GitLink](https://www.gitlink.org.cn) 作为
-   gitee 产物链接
+   本工具支持提供 json 文件（map 形式，键：代表文件名，值：代表下载链接）作为产物，
+   本项目使用 [GitLink](https://www.gitlink.org.cn) 作为 gitee 产物链接
 4. 一键发布到 gitlink，可包含产物上传（需要等到官方开放 token 功能，或者联系官方人员申请 token 才能使用），
    本工具支持提供 json 文件（map 形式，键：代表文件名，值：代表下载链接）作为产物
 
@@ -180,7 +180,7 @@ NAME:
    gitlab-go - 基于 Go 语言开发的 GitLab 命令行工具
 
 USAGE:
-   gitlab-go [global options] command [command options] [arguments...]
+   gitlab-go [global options] command [command options]
 
 VERSION:
    dev
@@ -192,6 +192,7 @@ COMMANDS:
    access-request, access-requests, ar                            群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
    board, boards                                                  项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
    container-registry, cr                                         容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html
+   environments, env                                              环境 API，中文文档：https://docs.gitlab.cn/jh/api/environments.html
    instance-level-ci-variable, instance-level-ci-variables, ilcv  实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
    issue, issues                                                  议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html
    job-artifact, job-artifacts, ja                                作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
@@ -261,6 +262,31 @@ COPYRIGHT:
        --print-json      打印 JSON (default: false)
        --print-time      打印时间 (default: false)
        --id value        项目 ID 或 URL 编码的路径
+       --help, -h        show help
+    ```
+
+- [environments 环境 API](https://docs.gitlab.cn/jh/api/environments.html)
+
+    ```shell
+    $ go run main.go environments --help
+    NAME:
+       gitlab-go environments - 环境 API，中文文档：https://docs.gitlab.cn/jh/api/environments.html
+    
+    USAGE:
+       gitlab-go environments command [command options]
+    
+    COMMANDS:
+       list     列出所有实例变量
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --id value        项目 ID 或 URL 编码的路径
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json      打印 JSON (default: false)
+       --print-time      打印时间 (default: false)
        --help, -h        show help
     ```
 

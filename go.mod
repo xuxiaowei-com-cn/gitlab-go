@@ -3,7 +3,7 @@ module github.com/xuxiaowei-com-cn/gitlab-go
 go 1.21
 
 require (
-	github.com/urfave/cli/v2 v2.26.0
+	github.com/urfave/cli/v2 v2.27.1
 	github.com/xanzy/go-gitlab v0.95.2
 	github.com/xuxiaowei-com-cn/git-go v0.0.0-20231220150841-0d99ea39e1f9
 	gopkg.in/yaml.v3 v3.0.1

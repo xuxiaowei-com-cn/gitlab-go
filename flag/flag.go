@@ -249,3 +249,25 @@ func AllowFailure() cli.Flag {
 		Value: false,
 	}
 }
+
+func EnvName(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.EnvName,
+		Usage:    "环境名称",
+		Required: required,
+	}
+}
+
+func EnvExternalUrl() cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.EnvExternalUrl,
+		Usage: "该环境的链接位置",
+	}
+}
+
+func EnvTier() cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.EnvTier,
+		Usage: "新环境的层级。允许设置的值为 production， staging， testing， development 和 other",
+	}
+}

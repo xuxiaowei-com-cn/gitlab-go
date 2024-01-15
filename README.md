@@ -278,17 +278,21 @@ COPYRIGHT:
     
     COMMANDS:
        list     列举环境
+       create   创建新环境
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --id value        项目 ID 或 URL 编码的路径
-       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
-       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
-       --print-json      打印 JSON (default: false)
-       --print-time      打印时间 (default: false)
-       --help, -h        show help
+       --base-url value      实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value         your_access_token
+       --id value            项目 ID 或 URL 编码的路径
+       --name value          环境名称
+       --external_url value  该环境的链接位置
+       --tier value          新环境的层级。允许设置的值为 production， staging， testing， development 和 other
+       --page value          页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value      每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json          打印 JSON (default: false)
+       --print-time          打印时间 (default: false)
+       --help, -h            show help
     ```
 
 - [container-registry - 容器仓库 API](https://docs.gitlab.cn/jh/api/container_registry.html)

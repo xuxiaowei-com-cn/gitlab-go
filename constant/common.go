@@ -31,4 +31,7 @@ const (
 	SkipProjectWikiPath = "skip-project-wiki-path"
 	AutoSkipExistFolder = "auto-skip-exist-folder"
 	AllowFailure        = "allow-failure"
+	EnvName             = "name"
+	EnvExternalUrl      = "external_url"
+	EnvTier             = "tier"
 )

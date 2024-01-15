@@ -216,6 +216,8 @@ sync-framagit:
   rules:
     # GitCode 实例不执行
     - if: $CI_SERVER_HOST == 'gitcode.net'
+    # framagit.org 不同步到自己
+    - if: $CI_SERVER_HOST == 'framagit.org'
       # 不执行
       when: never
     # 匹配以 dependabot 开头的分支

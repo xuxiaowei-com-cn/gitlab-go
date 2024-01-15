@@ -12,8 +12,9 @@ import (
 
 // List 列举环境 https://docs.gitlab.cn/jh/api/environments.html#%E5%88%97%E4%B8%BE%E7%8E%AF%E5%A2%83
 func List() *cli.Command {
-	return &cli.Command{Name: "list",
-		Usage: "列出所有实例变量",
+	return &cli.Command{
+		Name:  "list",
+		Usage: "列举环境",
 		Flags: append(flag.CommonTokenRequired(), flag.Id(true), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime()),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)

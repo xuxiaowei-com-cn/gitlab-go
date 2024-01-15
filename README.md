@@ -277,7 +277,7 @@ COPYRIGHT:
        gitlab-go environments command [command options]
     
     COMMANDS:
-       list     列出所有实例变量
+       list     列举环境
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:

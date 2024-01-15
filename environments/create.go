@@ -27,75 +27,82 @@ func Create() *cli.Command {
 			var printJson = context.Bool(constant.PrintJson)
 			var printTime = context.Bool(constant.PrintTime)
 
-			gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+			return CreateEnvironment(baseUrl, token, id, name, externalURL, tier, printJson, printTime, false)
+		},
+	}
+}
+
+func CreateEnvironment(baseUrl string, token string, id interface{}, name string, externalURL string, tier string, printJson bool, printTime bool, allowFailure bool) error {
+	gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+	if err != nil {
+		return err
+	}
+
+	opt := &gitlab.CreateEnvironmentOptions{
+		Name:        &name,
+		ExternalURL: &externalURL,
+	}
+	if tier != "" {
+		opt.Tier = &tier
+	}
+
+	environment, response, err := gitClient.Environments.CreateEnvironment(id, opt)
+	if err != nil {
+		if allowFailure {
+			return nil
+		}
+		return err
+	}
+	log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+
+	fmt.Println("")
+
+	if printJson {
+		if printTime {
+			jsonData, err := json.Marshal(environment)
 			if err != nil {
-				return err
+				panic(err)
 			}
 
-			opt := &gitlab.CreateEnvironmentOptions{
-				Name:        &name,
-				ExternalURL: &externalURL,
-			}
-			if tier != "" {
-				opt.Tier = &tier
+			log.Printf("\n%s\n", string(jsonData))
+			fmt.Println("")
+
+		} else {
+			jsonData, err := json.Marshal(environment)
+			if err != nil {
+				panic(err)
 			}
 
-			environment, response, err := gitClient.Environments.CreateEnvironment(id, opt)
-			if err != nil {
-				return err
-			}
-			log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+			fmt.Printf("%s\n", string(jsonData))
+			fmt.Println("")
+
+		}
+	} else {
+		if printTime {
+			log.Printf("ID: %d\n", environment.ID)
+			log.Printf("Name: %s\n", environment.Name)
+			log.Printf("Slug: %s\n", environment.Slug)
+			log.Printf("State: %s\n", environment.State)
+			log.Printf("Tier: %s\n", environment.Tier)
+			log.Printf("ExternalURL: %s\n", environment.ExternalURL)
+			log.Printf("CreatedAt: %s\n", environment.CreatedAt)
+			log.Printf("UpdatedAt: %s\n", environment.UpdatedAt)
 
 			fmt.Println("")
 
-			if printJson {
-				if printTime {
-					jsonData, err := json.Marshal(environment)
-					if err != nil {
-						panic(err)
-					}
+		} else {
+			fmt.Printf("ID: %d\n", environment.ID)
+			fmt.Printf("Name: %s\n", environment.Name)
+			fmt.Printf("Slug: %s\n", environment.Slug)
+			fmt.Printf("State: %s\n", environment.State)
+			fmt.Printf("Tier: %s\n", environment.Tier)
+			fmt.Printf("ExternalURL: %s\n", environment.ExternalURL)
+			fmt.Printf("CreatedAt: %s\n", environment.CreatedAt)
+			fmt.Printf("UpdatedAt: %s\n", environment.UpdatedAt)
 
-					log.Printf("\n%s\n", string(jsonData))
-					fmt.Println("")
-
-				} else {
-					jsonData, err := json.Marshal(environment)
-					if err != nil {
-						panic(err)
-					}
-
-					fmt.Printf("%s\n", string(jsonData))
-					fmt.Println("")
-
-				}
-			} else {
-				if printTime {
-					log.Printf("ID: %d\n", environment.ID)
-					log.Printf("Name: %s\n", environment.Name)
-					log.Printf("Slug: %s\n", environment.Slug)
-					log.Printf("State: %s\n", environment.State)
-					log.Printf("Tier: %s\n", environment.Tier)
-					log.Printf("ExternalURL: %s\n", environment.ExternalURL)
-					log.Printf("CreatedAt: %s\n", environment.CreatedAt)
-					log.Printf("UpdatedAt: %s\n", environment.UpdatedAt)
-
-					fmt.Println("")
-
-				} else {
-					fmt.Printf("ID: %d\n", environment.ID)
-					fmt.Printf("Name: %s\n", environment.Name)
-					fmt.Printf("Slug: %s\n", environment.Slug)
-					fmt.Printf("State: %s\n", environment.State)
-					fmt.Printf("Tier: %s\n", environment.Tier)
-					fmt.Printf("ExternalURL: %s\n", environment.ExternalURL)
-					fmt.Printf("CreatedAt: %s\n", environment.CreatedAt)
-					fmt.Printf("UpdatedAt: %s\n", environment.UpdatedAt)
-
-					fmt.Println("")
-				}
-			}
-
-			return nil
-		},
+			fmt.Println("")
+		}
 	}
+
+	return nil
 }

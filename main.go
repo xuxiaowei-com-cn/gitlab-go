@@ -78,11 +78,12 @@ func main() {
 			jobs.Jobs(),
 			pipelines.Pipelines(),
 			projects.Projects(),
-			mix.Delete(),
 			mix.Archive(),
-			mix.Unarchive(),
+			mix.Delete(),
+			mix.Environments(),
 			mix.Export(),
 			mix.Transfer(),
+			mix.Unarchive(),
 		},
 	}
 

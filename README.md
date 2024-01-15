@@ -190,22 +190,23 @@ AUTHOR:
    徐晓伟 <xuxiaowei@xuxiaowei.com.cn>
 
 COMMANDS:
-   access-request, access-requests, ar                            群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
-   board, boards                                                  项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
-   container-registry, cr                                         容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html
-   environments, env                                              环境 API，中文文档：https://docs.gitlab.cn/jh/api/environments.html
-   instance-level-ci-variable, instance-level-ci-variables, ilcv  实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
-   issue, issues                                                  议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html
-   job-artifact, job-artifacts, ja                                作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
-   job, jobs, j                                                   作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
-   pipeline, pipelines, pl                                        流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
-   project, projects, p                                           项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
-   mix-delete, mix-rm                                             删除（混合命令，多接口命令）
-   mix-archive                                                    归档（混合命令，多接口命令）
-   mix-unarchive                                                  取消归档（混合命令，多接口命令）
-   mix-export                                                     导出（混合命令，多接口命令）
-   mix-transfer                                                   转移（混合命令，多接口命令）
-   help, h                                                        Shows a list of commands or help for one command
+   access-request, access-requests, ar                              群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
+   board, boards                                                    项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
+   container-registry, cr                                           容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html
+   environments, environment, env                                   环境 API，中文文档：https://docs.gitlab.cn/jh/api/environments.html
+   instance-level-ci-variable, instance-level-ci-variables, ilcv    实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+   issue, issues                                                    议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html
+   job-artifact, job-artifacts, ja                                  作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
+   job, jobs, j                                                     作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
+   pipeline, pipelines, pl                                          流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
+   project, projects, p                                             项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+   mix-archive                                                      归档（混合命令，多接口命令）
+   mix-delete, mix-rm                                               删除（混合命令，多接口命令）
+   mix-create-environments, mix-create-environment, mix-create-env  创建新环境（混合命令，多接口命令）
+   mix-export                                                       导出（混合命令，多接口命令）
+   mix-transfer                                                     转移（混合命令，多接口命令）
+   mix-unarchive                                                    取消归档（混合命令，多接口命令）
+   help, h                                                          Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --help, -h     show help
@@ -642,6 +643,35 @@ COPYRIGHT:
        --namespace-target value                                 目标命名空间。如：用户名、群组名
        --skip-project-path value [ --skip-project-path value ]  跳过项目路径
        --help, -h                                               show help
+    ```
+
+- 创建新环境（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-create-environments --help
+    NAME:
+       gitlab-go mix-create-environments - 创建新环境（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-create-environments command [command options]
+    
+    COMMANDS:
+       all      所有项目创建新环境
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value                                                   实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                                                      your_access_token
+       --owned                                                            当前用户明确拥有的项目。 (default: false)
+       --skip-project-path value [ --skip-project-path value ]            跳过项目路径
+       --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
+       --allow-failure                                                    允许失败 (default: false)
+       --name value                                                       环境名称
+       --external_url value                                               该环境的链接位置
+       --tier value                                                       新环境的层级。允许设置的值为 production， staging， testing， development 和 other
+       --print-json                                                       打印 JSON (default: false)
+       --print-time                                                       打印时间 (default: false)
+       --help, -h                                                         show help
     ```
 
 ### test

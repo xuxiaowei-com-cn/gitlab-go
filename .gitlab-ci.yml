@@ -99,6 +99,10 @@ build:docker:
     expire_in: 3 day
     paths:
       - docker/debian/*.tar
+  rules:
+    # framagit.org 不构建 docker 镜像
+    - if: $CI_SERVER_HOST == 'framagit.org'
+      when: never
 
 build:golang:1.21-alpine3.18:
   stage: build
@@ -191,6 +195,10 @@ build:docker:alpine3.18:
     expire_in: 3 day
     paths:
       - docker/alpine/*.tar
+  rules:
+    # framagit.org 不构建 docker 镜像
+    - if: $CI_SERVER_HOST == 'framagit.org'
+      when: never
 
 # 嵌入
 include:

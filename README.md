@@ -738,3 +738,12 @@ go build
         go build -o buildinfo/buildinfo buildinfo/buildinfo.go
         GOOS=darwin GOARCH=arm64 go build -v -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$(buildinfo/buildinfo commitBranch) -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/arm64 -X main.CiPipelineId= -X main.CiJobId=" -trimpath -o gitlab-go-darwin-arm64 .
         ```
+
+## 鸣谢
+
+1. 感谢 [![jetbrains](./static/jb_beam.svg)](https://www.jetbrains.com/)
+   提供开发工具 [![IDEA](./static/IntelliJ_IDEA_icon.svg)](https://www.jetbrains.com/idea) 的免费授权
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/xuxiaowei-com-cn/gitlab-go.svg)](https://starchart.cc/xuxiaowei-com-cn/gitlab-go)

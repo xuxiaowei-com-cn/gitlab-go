@@ -202,6 +202,7 @@ COMMANDS:
    project-level-variables, project-level-variable, plv             项目级别 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/project_level_variables.html
    project, projects, p                                             项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
    mix-archive                                                      归档（混合命令，多接口命令）
+   mix-create-project-level-variables                               创建项目级别 CI/CD 变量（混合命令，多接口命令）
    mix-delete, mix-rm                                               删除（混合命令，多接口命令）
    mix-create-environments, mix-create-environment, mix-create-env  创建新环境（混合命令，多接口命令）
    mix-export                                                       导出（混合命令，多接口命令）
@@ -571,6 +572,35 @@ COPYRIGHT:
        --token value     your_access_token
        --owned           当前用户明确拥有的项目。 (default: false)
        --help, -h        show help
+    ```
+
+- mix-create-project-level-variables 创建项目级别 CI/CD 变量（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-create-project-level-variables --help
+    NAME:
+       gitlab-go mix-create-project-level-variables - 创建项目级别 CI/CD 变量（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-create-project-level-variables command [command options]
+    
+    COMMANDS:
+       all, a   所有项目创建新变量
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value           实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value              your_access_token
+       --key value                变量的 key。不能超过 255 个字符。仅支持 A-Z、a-z、0-9 和 _
+       --value value              变量的 value
+       --variable-type value      变量类型。可用类型为：env_var 和 file (default: "env_var")
+       --protected                变量是否受保护。 (default: false)
+       --masked                   变量是否隐藏。 (default: false)
+       --raw                      变量是否被视为原始字符串。当为 true 时，值中的变量不会扩展 (default: false)
+       --environment-scope value  变量的 environment_scope。 (default: "*")
+       --print-json               打印 JSON (default: false)
+       --print-time               打印时间 (default: false)
+       --help, -h                 show help
     ```
 
 - mix-delete 删除（混合命令，多接口命令）

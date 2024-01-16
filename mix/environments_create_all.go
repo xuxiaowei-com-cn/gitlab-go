@@ -12,8 +12,9 @@ import (
 // EnvironmentsCreateAll 所有项目创建新环境
 func EnvironmentsCreateAll() *cli.Command {
 	return &cli.Command{
-		Name:  "all",
-		Usage: "所有项目创建新环境",
+		Name:    "all",
+		Aliases: []string{"a"},
+		Usage:   "所有项目创建新环境",
 		Flags: append(flag.CommonTokenRequired(), flag.Owned(true),
 			flag.SkipProjectPath(), flag.SkipProjectWikiPath(), flag.AllowFailure(),
 			flag.EnvName(false), flag.EnvExternalUrl(), flag.EnvTier(),

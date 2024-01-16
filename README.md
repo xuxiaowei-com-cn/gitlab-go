@@ -566,18 +566,52 @@ COPYRIGHT:
     
     COMMANDS:
        list     列出受保护的分支
+       protect  保护仓库分支
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --id value        项目 ID 或 URL 编码的路径
-       --search value    要搜索的受保护分支的名称或部分名称
-       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
-       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
-       --print-json      打印 JSON (default: false)
-       --print-time      打印时间 (default: false)
-       --help, -h        show help
+       --base-url value                实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                   your_access_token
+       --id value                      项目 ID 或 URL 编码的路径
+       --search value                  要搜索的受保护分支的名称或部分名称
+       --name value                    分支或通配符的名称
+       --push-access-level value       允许推送的访问级别（默认值：40，维护者角色），合法值：
+                                       0：NoPermissions
+                                       5：MinimalAccessPermissions
+                                       10：GuestPermissions
+                                       20：ReporterPermissions
+                                       30：DeveloperPermissions
+                                       40：MaintainerPermissions
+                                       50：OwnerPermissions
+                                       60：AdminPermissions
+                                        (default: 40)
+       --merge-access-level value      允许合并的访问级别（默认值：40，维护者角色），合法值：
+                                       0：NoPermissions
+                                       5：MinimalAccessPermissions
+                                       10：GuestPermissions
+                                       20：ReporterPermissions
+                                       30：DeveloperPermissions
+                                       40：MaintainerPermissions
+                                       50：OwnerPermissions
+                                       60：AdminPermissions
+                                        (default: 40)
+       --unprotect-access-level value  允许取消保护的访问级别（默认值：40，维护者角色），合法值：
+                                       0：NoPermissions
+                                       5：MinimalAccessPermissions
+                                       10：GuestPermissions
+                                       20：ReporterPermissions
+                                       30：DeveloperPermissions
+                                       40：MaintainerPermissions
+                                       50：OwnerPermissions
+                                       60：AdminPermissions
+                                        (default: 40)
+       --allow-force-push              启用后，可以推送到该分支的成员也可以强制推送 (default: false)
+       --code-owner-approval-required  如果分支在 CODEOWNERS https://docs.gitlab.cn/jh/user/project/codeowners/index.html 文件中，则阻止推送到此分支。（默认值：false） (default: false)
+       --page value                    页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value                每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json                    打印 JSON (default: false)
+       --print-time                    打印时间 (default: false)
+       --help, -h                      show help
     ```
 
 - mix-archive 归档（混合命令，多接口命令）

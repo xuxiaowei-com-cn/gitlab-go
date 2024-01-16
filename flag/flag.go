@@ -334,3 +334,75 @@ func ProtectedBranchesSearch() cli.Flag {
 		Usage: "要搜索的受保护分支的名称或部分名称",
 	}
 }
+
+func BranchName(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.BranchName,
+		Usage:    "分支或通配符的名称",
+		Required: required,
+	}
+}
+
+func PushAccessLevel() cli.Flag {
+	return &cli.IntFlag{
+		Name: constant.PushAccessLevel,
+		Usage: "允许推送的访问级别（默认值：40，维护者角色），合法值：\n\t" +
+			"0：NoPermissions\n\t" +
+			"5：MinimalAccessPermissions\n\t" +
+			"10：GuestPermissions\n\t" +
+			"20：ReporterPermissions\n\t" +
+			"30：DeveloperPermissions\n\t" +
+			"40：MaintainerPermissions\n\t" +
+			"50：OwnerPermissions\n\t" +
+			"60：AdminPermissions\n\t",
+		Value: 40,
+	}
+}
+
+func MergeAccessLevel() cli.Flag {
+	return &cli.IntFlag{
+		Name: constant.MergeAccessLevel,
+		Usage: "允许合并的访问级别（默认值：40，维护者角色），合法值：\n\t" +
+			"0：NoPermissions\n\t" +
+			"5：MinimalAccessPermissions\n\t" +
+			"10：GuestPermissions\n\t" +
+			"20：ReporterPermissions\n\t" +
+			"30：DeveloperPermissions\n\t" +
+			"40：MaintainerPermissions\n\t" +
+			"50：OwnerPermissions\n\t" +
+			"60：AdminPermissions\n\t",
+		Value: 40,
+	}
+}
+
+func UnprotectAccessLevel() cli.Flag {
+	return &cli.IntFlag{
+		Name: constant.UnprotectAccessLevel,
+		Usage: "允许取消保护的访问级别（默认值：40，维护者角色），合法值：\n\t" +
+			"0：NoPermissions\n\t" +
+			"5：MinimalAccessPermissions\n\t" +
+			"10：GuestPermissions\n\t" +
+			"20：ReporterPermissions\n\t" +
+			"30：DeveloperPermissions\n\t" +
+			"40：MaintainerPermissions\n\t" +
+			"50：OwnerPermissions\n\t" +
+			"60：AdminPermissions\n\t",
+		Value: 40,
+	}
+}
+
+func AllowForcePush() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.AllowForcePush,
+		Usage: "启用后，可以推送到该分支的成员也可以强制推送",
+		Value: false,
+	}
+}
+
+func CodeOwnerApprovalRequired() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.CodeOwnerApprovalRequired,
+		Usage: "如果分支在 CODEOWNERS https://docs.gitlab.cn/jh/user/project/codeowners/index.html 文件中，则阻止推送到此分支。（默认值：false）",
+		Value: false,
+	}
+}

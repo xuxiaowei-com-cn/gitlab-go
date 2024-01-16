@@ -36,9 +36,9 @@ const (
 	EnvTier                  = "tier"
 	VariableKey              = "key"
 	VariableValue            = "value"
-	VariableType             = "variableType"
+	VariableType             = "variable-type"
 	VariableProtected        = "protected"
 	VariableMasked           = "masked"
 	VariableRaw              = "raw"
-	VariableEnvironmentScope = "environmentScope"
+	VariableEnvironmentScope = "environment-scope"
 )

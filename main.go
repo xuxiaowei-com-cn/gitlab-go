@@ -81,6 +81,7 @@ func main() {
 			project_level_variables.ProjectLevelVariables(),
 			projects.Projects(),
 			mix.Archive(),
+			mix.CreateProjectLevelVariables(),
 			mix.Delete(),
 			mix.Environments(),
 			mix.Export(),

@@ -35,80 +35,89 @@ func Create() *cli.Command {
 			var printJson = context.Bool(constant.PrintJson)
 			var printTime = context.Bool(constant.PrintTime)
 
-			gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+			return CreateVariable(baseUrl, token, id, key, value, protected, masked, raw, environmentScope, variableType,
+				printJson, printTime, false)
+		},
+	}
+}
+
+func CreateVariable(baseUrl string, token string, id interface{}, key string, value string, protected bool, masked bool, raw bool, environmentScope string, variableType string,
+	printJson bool, printTime bool, allowFailure bool) error {
+	gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
+	if err != nil {
+		return err
+	}
+
+	opt := &gitlab.CreateProjectVariableOptions{
+		Key:              &key,
+		Value:            &value,
+		Protected:        &protected,
+		Masked:           &masked,
+		Raw:              &raw,
+		EnvironmentScope: &environmentScope,
+	}
+	if variableType == "env_var" {
+		opt.VariableType = gitlab.Ptr(gitlab.EnvVariableType)
+	} else if variableType == "file" {
+		opt.VariableType = gitlab.Ptr(gitlab.FileVariableType)
+	}
+
+	projectVariable, response, err := gitClient.ProjectVariables.CreateVariable(id, opt)
+	if err != nil {
+		if allowFailure {
+			return nil
+		}
+		return err
+	}
+	log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+
+	fmt.Println("")
+
+	if printJson {
+		if printTime {
+			jsonData, err := json.Marshal(projectVariable)
 			if err != nil {
-				return err
+				panic(err)
 			}
 
-			opt := &gitlab.CreateProjectVariableOptions{
-				Key:              &key,
-				Value:            &value,
-				Protected:        &protected,
-				Masked:           &masked,
-				Raw:              &raw,
-				EnvironmentScope: &environmentScope,
-			}
-			if variableType == "env_var" {
-				opt.VariableType = gitlab.Ptr(gitlab.EnvVariableType)
-			} else if variableType == "file" {
-				opt.VariableType = gitlab.Ptr(gitlab.FileVariableType)
+			log.Printf("\n%s\n", string(jsonData))
+			fmt.Println("")
+
+		} else {
+			jsonData, err := json.Marshal(projectVariable)
+			if err != nil {
+				panic(err)
 			}
 
-			projectVariable, response, err := gitClient.ProjectVariables.CreateVariable(id, opt)
-			if err != nil {
-				return err
-			}
-			log.Printf("Response StatusCode: %d\n", response.Response.StatusCode)
+			fmt.Printf("%s\n", string(jsonData))
+			fmt.Println("")
+
+		}
+	} else {
+		if printTime {
+			log.Printf("Key: %s\n", projectVariable.Key)
+			log.Printf("Value: %s\n", projectVariable.Value)
+			log.Printf("VariableType: %s\n", projectVariable.VariableType)
+			log.Printf("Protected: %t\n", projectVariable.Protected)
+			log.Printf("Masked: %t\n", projectVariable.Masked)
+			log.Printf("Raw: %t\n", projectVariable.Raw)
+			log.Printf("EnvironmentScope: %s\n", projectVariable.EnvironmentScope)
 
 			fmt.Println("")
 
-			if printJson {
-				if printTime {
-					jsonData, err := json.Marshal(projectVariable)
-					if err != nil {
-						panic(err)
-					}
+		} else {
+			fmt.Printf("Key: %s\n", projectVariable.Key)
+			fmt.Printf("Value: %s\n", projectVariable.Value)
+			fmt.Printf("VariableType: %s\n", projectVariable.VariableType)
+			fmt.Printf("Protected: %t\n", projectVariable.Protected)
+			fmt.Printf("Masked: %t\n", projectVariable.Masked)
+			fmt.Printf("Raw: %t\n", projectVariable.Raw)
+			fmt.Printf("EnvironmentScope: %s\n", projectVariable.EnvironmentScope)
 
-					log.Printf("\n%s\n", string(jsonData))
-					fmt.Println("")
+			fmt.Println("")
 
-				} else {
-					jsonData, err := json.Marshal(projectVariable)
-					if err != nil {
-						panic(err)
-					}
-
-					fmt.Printf("%s\n", string(jsonData))
-					fmt.Println("")
-
-				}
-			} else {
-				if printTime {
-					log.Printf("Key: %s\n", projectVariable.Key)
-					log.Printf("Value: %s\n", projectVariable.Value)
-					log.Printf("VariableType: %s\n", projectVariable.VariableType)
-					log.Printf("Protected: %t\n", projectVariable.Protected)
-					log.Printf("Masked: %t\n", projectVariable.Masked)
-					log.Printf("Raw: %t\n", projectVariable.Raw)
-					log.Printf("EnvironmentScope: %s\n", projectVariable.EnvironmentScope)
-
-					fmt.Println("")
-
-				} else {
-					fmt.Printf("Key: %s\n", projectVariable.Key)
-					fmt.Printf("Value: %s\n", projectVariable.Value)
-					fmt.Printf("VariableType: %s\n", projectVariable.VariableType)
-					fmt.Printf("Protected: %t\n", projectVariable.Protected)
-					fmt.Printf("Masked: %t\n", projectVariable.Masked)
-					fmt.Printf("Raw: %t\n", projectVariable.Raw)
-					fmt.Printf("EnvironmentScope: %s\n", projectVariable.EnvironmentScope)
-
-					fmt.Println("")
-
-				}
-			}
-
-			return nil
-		},
+		}
 	}
+
+	return nil
 }

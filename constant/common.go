@@ -32,7 +32,7 @@ const (
 	AutoSkipExistFolder      = "auto-skip-exist-folder"
 	AllowFailure             = "allow-failure"
 	EnvName                  = "name"
-	EnvExternalUrl           = "external_url"
+	EnvExternalUrl           = "external-url"
 	EnvTier                  = "tier"
 	VariableKey              = "key"
 	VariableValue            = "value"

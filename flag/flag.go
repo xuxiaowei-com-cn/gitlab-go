@@ -271,3 +271,59 @@ func EnvTier() cli.Flag {
 		Usage: "新环境的层级。允许设置的值为 production， staging， testing， development 和 other",
 	}
 }
+
+func VariableKey(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.VariableKey,
+		Usage:    "变量的 key。不能超过 255 个字符。仅支持 A-Z、a-z、0-9 和 _",
+		Required: required,
+	}
+}
+
+func VariableValue(required bool) cli.Flag {
+	return &cli.StringFlag{
+		Name:     constant.VariableValue,
+		Usage:    "变量的 value",
+		Required: required,
+	}
+}
+
+func VariableType() cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.VariableType,
+		Usage: "变量类型。可用类型为：env_var 和 file",
+		Value: "env_var",
+	}
+}
+
+func VariableProtected() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.VariableProtected,
+		Usage: "变量是否受保护。",
+		Value: false,
+	}
+}
+
+func VariableMasked() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.VariableMasked,
+		Usage: "变量是否隐藏。",
+		Value: false,
+	}
+}
+
+func VariableRaw() cli.Flag {
+	return &cli.BoolFlag{
+		Name:  constant.VariableRaw,
+		Usage: "变量是否被视为原始字符串。当为 true 时，值中的变量不会扩展",
+		Value: false,
+	}
+}
+
+func VariableEnvironmentScope() cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.VariableEnvironmentScope,
+		Usage: "变量的 environment_scope。",
+		Value: "*",
+	}
+}

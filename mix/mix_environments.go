@@ -11,8 +11,7 @@ func Environments() *cli.Command {
 		Aliases: []string{"mix-create-environment", "mix-create-env"},
 		Usage:   "创建新环境（混合命令，多接口命令）",
 		Flags: append(flag.Common(), flag.Owned(false),
-			flag.SkipProjectPath(), flag.SkipProjectWikiPath(), flag.AllowFailure(),
-			flag.EnvName(false), flag.EnvExternalUrl(), flag.EnvTier(),
+			flag.EnvName(false), flag.EnvExternalUrl(), flag.EnvTier(), flag.AllowFailure(),
 			flag.PrintJson(), flag.PrintTime()),
 		Subcommands: []*cli.Command{
 			EnvironmentsCreateAll(),

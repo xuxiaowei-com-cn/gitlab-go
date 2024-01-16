@@ -16,8 +16,7 @@ func EnvironmentsCreateAll() *cli.Command {
 		Aliases: []string{"a"},
 		Usage:   "所有项目创建新环境",
 		Flags: append(flag.CommonTokenRequired(), flag.Owned(true),
-			flag.SkipProjectPath(), flag.SkipProjectWikiPath(), flag.AllowFailure(),
-			flag.EnvName(false), flag.EnvExternalUrl(), flag.EnvTier(),
+			flag.EnvName(false), flag.EnvExternalUrl(), flag.EnvTier(), flag.AllowFailure(),
 			flag.PrintJson(), flag.PrintTime()),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)

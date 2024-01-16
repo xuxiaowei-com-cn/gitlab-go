@@ -620,18 +620,16 @@ COPYRIGHT:
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value                                                   实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value                                                      your_access_token
-       --owned                                                            当前用户明确拥有的项目。 (default: false)
-       --skip-project-path value [ --skip-project-path value ]            跳过项目路径
-       --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
-       --allow-failure                                                    允许失败 (default: false)
-       --name value                                                       环境名称
-       --external-url value                                               该环境的链接位置
-       --tier value                                                       新环境的层级。允许设置的值为 production， staging， testing， development 和 other
-       --print-json                                                       打印 JSON (default: false)
-       --print-time                                                       打印时间 (default: false)
-       --help, -h                                                         show help
+       --base-url value      实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value         your_access_token
+       --owned               当前用户明确拥有的项目。 (default: false)
+       --name value          环境名称
+       --external-url value  该环境的链接位置
+       --tier value          新环境的层级。允许设置的值为 production， staging， testing， development 和 other
+       --allow-failure       允许失败 (default: false)
+       --print-json          打印 JSON (default: false)
+       --print-time          打印时间 (default: false)
+       --help, -h            show help
     ```
 
 - 导出（混合命令，多接口命令）

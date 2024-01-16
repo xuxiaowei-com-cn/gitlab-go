@@ -194,7 +194,7 @@ COMMANDS:
    board, boards                                                    项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
    container-registry, cr                                           容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html
    environments, environment, env                                   环境 API，中文文档：https://docs.gitlab.cn/jh/api/environments.html
-   instance-level-ci-variable, instance-level-ci-variables, ilcv    实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+   instance-level-ci-variables, instance-level-ci-variable, ilcv    实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
    issue, issues                                                    议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html
    job-artifact, job-artifacts, ja                                  作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
    job, jobs, j                                                     作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
@@ -326,15 +326,15 @@ COPYRIGHT:
        --help, -h            show help
     ```
 
-- [instance-level-ci-variable - 实例级 CI/CD 变量 API](https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html)
+- [instance-level-ci-variables - 实例级 CI/CD 变量 API](https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html)
 
     ```shell
-    $ go run main.go instance-level-ci-variable --help
+    $ go run main.go instance-level-ci-variables --help
     NAME:
-       gitlab-go instance-level-ci-variable - 实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
+       gitlab-go instance-level-ci-variables - 实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
     
     USAGE:
-       gitlab-go instance-level-ci-variable command [command options]
+       gitlab-go instance-level-ci-variables command [command options]
     
     COMMANDS:
        list     列出所有实例变量

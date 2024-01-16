@@ -201,6 +201,7 @@ COMMANDS:
    pipeline, pipelines, pl                                          流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
    project-level-variables, project-level-variable, plv             项目级别 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/project_level_variables.html
    project, projects, p                                             项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
+   protected-branches, pb                                           受保护的分支 API，中文文档：https://docs.gitlab.cn/jh/api/protected_branches.html
    mix-archive                                                      归档（混合命令，多接口命令）
    mix-create-project-level-variables                               创建项目级别 CI/CD 变量（混合命令，多接口命令）
    mix-delete, mix-rm                                               删除（混合命令，多接口命令）
@@ -551,6 +552,32 @@ COPYRIGHT:
        --search-namespaces  匹配搜索条件时包括上级命名空间。默认为 false。 (default: false)
        --order-by value     返回按 id、name、path、created_at、updated_at、last_activity_at 或 similarity 字段排序的项目。repository_size、storage_size、packages_size 或 wiki_size 字段只允许管理员使用。similarity（引入于 14.1 版本）仅在搜索 时可用，并且仅限于当前用户所属的项目。默认是created_at。 (default: "created_at")
        --help, -h           show help
+    ```
+
+- [protected-branches 受保护的分支 API](https://docs.gitlab.cn/jh/api/protected_branches.html)
+
+    ```shell
+    $ go run main.go protected-branches --help
+    NAME:
+       gitlab-go protected-branches - 受保护的分支 API，中文文档：https://docs.gitlab.cn/jh/api/protected_branches.html
+    
+    USAGE:
+       gitlab-go protected-branches command [command options]
+    
+    COMMANDS:
+       list     列出受保护的分支
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --id value        项目 ID 或 URL 编码的路径
+       --search value    要搜索的受保护分支的名称或部分名称
+       --page value      页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value  每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json      打印 JSON (default: false)
+       --print-time      打印时间 (default: false)
+       --help, -h        show help
     ```
 
 - mix-archive 归档（混合命令，多接口命令）

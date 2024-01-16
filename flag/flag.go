@@ -327,3 +327,10 @@ func VariableEnvironmentScope() cli.Flag {
 		Value: "*",
 	}
 }
+
+func ProtectedBranchesSearch() cli.Flag {
+	return &cli.StringFlag{
+		Name:  constant.ProtectedBranchesSearch,
+		Usage: "要搜索的受保护分支的名称或部分名称",
+	}
+}

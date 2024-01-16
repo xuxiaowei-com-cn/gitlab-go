@@ -41,4 +41,5 @@ const (
 	VariableMasked           = "masked"
 	VariableRaw              = "raw"
 	VariableEnvironmentScope = "environment-scope"
+	ProtectedBranchesSearch  = "search"
 )

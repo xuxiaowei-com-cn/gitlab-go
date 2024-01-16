@@ -15,6 +15,7 @@ import (
 	"github.com/xuxiaowei-com-cn/gitlab-go/pipelines"
 	"github.com/xuxiaowei-com-cn/gitlab-go/project_level_variables"
 	"github.com/xuxiaowei-com-cn/gitlab-go/projects"
+	"github.com/xuxiaowei-com-cn/gitlab-go/protected_branches"
 	"gopkg.in/yaml.v3"
 	"log"
 	"os"
@@ -80,6 +81,7 @@ func main() {
 			pipelines.Pipelines(),
 			project_level_variables.ProjectLevelVariables(),
 			projects.Projects(),
+			protected_branches.ProtectedBranches(),
 			mix.Archive(),
 			mix.CreateProjectLevelVariables(),
 			mix.Delete(),

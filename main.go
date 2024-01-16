@@ -13,6 +13,7 @@ import (
 	"github.com/xuxiaowei-com-cn/gitlab-go/jobs"
 	"github.com/xuxiaowei-com-cn/gitlab-go/mix"
 	"github.com/xuxiaowei-com-cn/gitlab-go/pipelines"
+	"github.com/xuxiaowei-com-cn/gitlab-go/project_level_variables"
 	"github.com/xuxiaowei-com-cn/gitlab-go/projects"
 	"gopkg.in/yaml.v3"
 	"log"
@@ -77,6 +78,7 @@ func main() {
 			job_artifacts.JobsArtifacts(),
 			jobs.Jobs(),
 			pipelines.Pipelines(),
+			project_level_variables.ProjectLevelVariables(),
 			projects.Projects(),
 			mix.Archive(),
 			mix.Delete(),

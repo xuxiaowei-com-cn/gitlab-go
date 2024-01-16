@@ -224,7 +224,7 @@ COPYRIGHT:
        gitlab-go access-request - 群组和项目访问请求 API，中文文档：https://docs.gitlab.cn/jh/api/access_requests.html
     
     USAGE:
-       gitlab-go access-request command [command options] [arguments...]
+       gitlab-go access-request command [command options]
     
     COMMANDS:
        group, groups      为群组列出访问请求
@@ -250,7 +250,7 @@ COPYRIGHT:
        gitlab-go board - 项目议题板 API，中文文档：https://docs.gitlab.cn/jh/api/boards.html
     
     USAGE:
-       gitlab-go board command [command options] [arguments...]
+       gitlab-go board command [command options]
     
     COMMANDS:
        list     列出项目议题板
@@ -265,6 +265,36 @@ COPYRIGHT:
        --print-time      打印时间 (default: false)
        --id value        项目 ID 或 URL 编码的路径
        --help, -h        show help
+    ```
+
+- [container-registry - 容器仓库 API](https://docs.gitlab.cn/jh/api/container_registry.html)
+
+    ```shell
+    $ go run main.go container-registry --help
+    NAME:
+       gitlab-go container-registry - 容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html
+    
+    USAGE:
+       gitlab-go container-registry command [command options]
+    
+    COMMANDS:
+       list                列出仓库内存储库
+       list-tags           列出仓库里存储库的标签
+       get-tag             获取仓库里存储库的某个标签的详情
+       delete-tag, rm-tag  删除仓库里存储库的某个标签
+       help, h             Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value    实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value       your_access_token
+       --page value        页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
+       --per-page value    每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
+       --print-json        打印 JSON (default: false)
+       --print-time        打印时间 (default: false)
+       --id value          项目 ID 或 URL 编码的路径
+       --repository value  仓库里存储库的 ID
+       --tag-name value    标签的名称
+       --help, -h          show help
     ```
 
 - [environments 环境 API](https://docs.gitlab.cn/jh/api/environments.html)
@@ -296,36 +326,6 @@ COPYRIGHT:
        --help, -h            show help
     ```
 
-- [container-registry - 容器仓库 API](https://docs.gitlab.cn/jh/api/container_registry.html)
-
-    ```shell
-    $ go run main.go container-registry --help
-    NAME:
-       gitlab-go container-registry - 容器仓库 API，中文文档：https://docs.gitlab.cn/jh/api/container_registry.html
-    
-    USAGE:
-       gitlab-go container-registry command [command options] [arguments...]
-    
-    COMMANDS:
-       list                列出仓库内存储库
-       list-tags           列出仓库里存储库的标签
-       get-tag             获取仓库里存储库的某个标签的详情
-       delete-tag, rm-tag  删除仓库里存储库的某个标签
-       help, h             Shows a list of commands or help for one command
-    
-    OPTIONS:
-       --base-url value    实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value       your_access_token
-       --page value        页码（默认：1），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 1)
-       --per-page value    每页列出的项目数（默认：20；最大：100），中文文档 https://docs.gitlab.cn/jh/api/rest/index.html#pagination (default: 20)
-       --print-json        打印 JSON (default: false)
-       --print-time        打印时间 (default: false)
-       --id value          项目 ID 或 URL 编码的路径
-       --repository value  仓库里存储库的 ID
-       --tag-name value    标签的名称
-       --help, -h          show help
-    ```
-
 - [instance-level-ci-variable - 实例级 CI/CD 变量 API](https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html)
 
     ```shell
@@ -334,7 +334,7 @@ COPYRIGHT:
        gitlab-go instance-level-ci-variable - 实例级 CI/CD 变量 API，中文文档：https://docs.gitlab.cn/jh/api/instance_level_ci_variables.html
     
     USAGE:
-       gitlab-go instance-level-ci-variable command [command options] [arguments...]
+       gitlab-go instance-level-ci-variable command [command options]
     
     COMMANDS:
        list     列出所有实例变量
@@ -358,7 +358,7 @@ COPYRIGHT:
        gitlab-go issue - 议题 API，中文文档：https://docs.gitlab.cn/jh/api/issues.html
     
     USAGE:
-       gitlab-go issue command [command options] [arguments...]
+       gitlab-go issue command [command options]
     
     COMMANDS:
        list                    列出议题
@@ -411,7 +411,7 @@ COPYRIGHT:
        gitlab-go job-artifact - 作业产物 API，中文文档：https://docs.gitlab.cn/jh/api/job_artifacts.html
     
     USAGE:
-       gitlab-go job-artifact command [command options] [arguments...]
+       gitlab-go job-artifact command [command options]
     
     COMMANDS:
        get                                    获取（下载）作业产物
@@ -437,7 +437,7 @@ COPYRIGHT:
        gitlab-go job - 作业 API，中文文档：https://docs.gitlab.cn/jh/api/jobs.html
     
     USAGE:
-       gitlab-go job command [command options] [arguments...]
+       gitlab-go job command [command options]
     
     COMMANDS:
        list     列出项目作业
@@ -471,7 +471,7 @@ COPYRIGHT:
        gitlab-go pipeline - 流水线 API，中文文档：https://docs.gitlab.cn/jh/api/pipelines.html
     
     USAGE:
-       gitlab-go pipeline command [command options] [arguments...]
+       gitlab-go pipeline command [command options]
     
     COMMANDS:
        list     列出项目流水线
@@ -498,7 +498,7 @@ COPYRIGHT:
        gitlab-go project - 项目 API，中文文档：https://docs.gitlab.cn/jh/api/projects.html
     
     USAGE:
-       gitlab-go project command [command options] [arguments...]
+       gitlab-go project command [command options]
     
     COMMANDS:
        list     列出所有项目
@@ -518,7 +518,28 @@ COPYRIGHT:
        --help, -h           show help
     ```
 
-- 删除（混合命令，多接口命令）
+- mix-archive 归档（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-archive --help
+    NAME:
+       gitlab-go mix-archive - 归档（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-archive command [command options]
+    
+    COMMANDS:
+       all      归档所有项目（混合命令，多接口命令）
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --owned           当前用户明确拥有的项目。 (default: false)
+       --help, -h        show help
+    ```
+
+- mix-delete 删除（混合命令，多接口命令）
 
     ```shell
     $ go run main.go mix-delete --help
@@ -526,7 +547,7 @@ COPYRIGHT:
        gitlab-go mix-delete - 删除（混合命令，多接口命令）
     
     USAGE:
-       gitlab-go mix-delete command [command options] [arguments...]
+       gitlab-go mix-delete command [command options]
     
     COMMANDS:
        artifact, artifacts          根据项目路径/ID、流水线IID范围删除产物（混合命令，多接口命令，立即删除）
@@ -550,46 +571,33 @@ COPYRIGHT:
        --help, -h                               show help
     ```
 
-- 归档（混合命令，多接口命令）
+- mix-create-environments 创建新环境（混合命令，多接口命令）
 
     ```shell
-    $ go run main.go mix-archive --help
+    $ go run main.go mix-create-environments --help
     NAME:
-       gitlab-go mix-archive - 归档（混合命令，多接口命令）
+       gitlab-go mix-create-environments - 创建新环境（混合命令，多接口命令）
     
     USAGE:
-       gitlab-go mix-archive command [command options] [arguments...]
+       gitlab-go mix-create-environments command [command options]
     
     COMMANDS:
-       all      归档所有项目（混合命令，多接口命令）
+       all, a   所有项目创建新环境
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --owned           当前用户明确拥有的项目。 (default: false)
-       --help, -h        show help
-    ```
-
-- 取消归档（混合命令，多接口命令）
-
-    ```shell
-    $ go run main.go mix-unarchive --help
-    NAME:
-       gitlab-go mix-unarchive - 取消归档（混合命令，多接口命令）
-    
-    USAGE:
-       gitlab-go mix-unarchive command [command options] [arguments...]
-    
-    COMMANDS:
-       all      取消归档所有项目（混合命令，多接口命令）
-       help, h  Shows a list of commands or help for one command
-    
-    OPTIONS:
-       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value     your_access_token
-       --owned           当前用户明确拥有的项目。 (default: false)
-       --help, -h        show help
+       --base-url value                                                   实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                                                      your_access_token
+       --owned                                                            当前用户明确拥有的项目。 (default: false)
+       --skip-project-path value [ --skip-project-path value ]            跳过项目路径
+       --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
+       --allow-failure                                                    允许失败 (default: false)
+       --name value                                                       环境名称
+       --external_url value                                               该环境的链接位置
+       --tier value                                                       新环境的层级。允许设置的值为 production， staging， testing， development 和 other
+       --print-json                                                       打印 JSON (default: false)
+       --print-time                                                       打印时间 (default: false)
+       --help, -h                                                         show help
     ```
 
 - 导出（混合命令，多接口命令）
@@ -600,7 +608,7 @@ COPYRIGHT:
        gitlab-go mix-export - 导出（混合命令，多接口命令）
     
     USAGE:
-       gitlab-go mix-export command [command options] [arguments...]
+       gitlab-go mix-export command [command options]
     
     COMMANDS:
        all, a   导出所有（混合命令，多接口命令）
@@ -629,7 +637,7 @@ COPYRIGHT:
        gitlab-go mix-transfer - 转移（混合命令，多接口命令）
     
     USAGE:
-       gitlab-go mix-transfer command [command options] [arguments...]
+       gitlab-go mix-transfer command [command options]
     
     COMMANDS:
        all, a   将一个命令空间的项目转移到新的命名空间
@@ -645,33 +653,25 @@ COPYRIGHT:
        --help, -h                                               show help
     ```
 
-- 创建新环境（混合命令，多接口命令）
+- 取消归档（混合命令，多接口命令）
 
     ```shell
-    $ go run main.go mix-create-environments --help
+    $ go run main.go mix-unarchive --help
     NAME:
-       gitlab-go mix-create-environments - 创建新环境（混合命令，多接口命令）
+       gitlab-go mix-unarchive - 取消归档（混合命令，多接口命令）
     
     USAGE:
-       gitlab-go mix-create-environments command [command options]
+       gitlab-go mix-unarchive command [command options]
     
     COMMANDS:
-       all      所有项目创建新环境
+       all      取消归档所有项目（混合命令，多接口命令）
        help, h  Shows a list of commands or help for one command
     
     OPTIONS:
-       --base-url value                                                   实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
-       --token value                                                      your_access_token
-       --owned                                                            当前用户明确拥有的项目。 (default: false)
-       --skip-project-path value [ --skip-project-path value ]            跳过项目路径
-       --skip-project-wiki-path value [ --skip-project-wiki-path value ]  跳过项目wiki路径
-       --allow-failure                                                    允许失败 (default: false)
-       --name value                                                       环境名称
-       --external_url value                                               该环境的链接位置
-       --tier value                                                       新环境的层级。允许设置的值为 production， staging， testing， development 和 other
-       --print-json                                                       打印 JSON (default: false)
-       --print-time                                                       打印时间 (default: false)
-       --help, -h                                                         show help
+       --base-url value  实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value     your_access_token
+       --owned           当前用户明确拥有的项目。 (default: false)
+       --help, -h        show help
     ```
 
 ### test

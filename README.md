@@ -207,6 +207,7 @@ COMMANDS:
    mix-delete, mix-rm                                               删除（混合命令，多接口命令）
    mix-create-environments, mix-create-environment, mix-create-env  创建新环境（混合命令，多接口命令）
    mix-export                                                       导出（混合命令，多接口命令）
+   mix-protect-branches                                             保护仓库分支（混合命令，多接口命令）
    mix-transfer                                                     转移（混合命令，多接口命令）
    mix-unarchive                                                    取消归档（混合命令，多接口命令）
    help, h                                                          Shows a list of commands or help for one command
@@ -750,6 +751,62 @@ COPYRIGHT:
        --auto-skip-exist-folder                                           自动跳过已存在的文件夹 (default: false)
        --allow-failure                                                    允许失败 (default: false)
        --help, -h                                                         show help
+    ```
+
+- 保护仓库分支（混合命令，多接口命令）
+
+    ```shell
+    $ go run main.go mix-protect-branches --help
+    NAME:
+       gitlab-go mix-protect-branches - 保护仓库分支（混合命令，多接口命令）
+    
+    USAGE:
+       gitlab-go mix-protect-branches command [command options]
+    
+    COMMANDS:
+       all, a   保护所有仓库分支
+       help, h  Shows a list of commands or help for one command
+    
+    OPTIONS:
+       --base-url value                实例地址，例如：https://gitlab.xuxiaowei.com.cn/api/v4 (default: "https://gitlab.com/api/v4") [%CI_API_V4_URL%]
+       --token value                   your_access_token
+       --owned                         当前用户明确拥有的项目。 (default: false)
+       --name value                    分支或通配符的名称
+       --push-access-level value       允许推送的访问级别（默认值：40，维护者角色），合法值：
+                                       0：NoPermissions
+                                       5：MinimalAccessPermissions
+                                       10：GuestPermissions
+                                       20：ReporterPermissions
+                                       30：DeveloperPermissions
+                                       40：MaintainerPermissions
+                                       50：OwnerPermissions
+                                       60：AdminPermissions
+                                        (default: 40)
+       --merge-access-level value      允许合并的访问级别（默认值：40，维护者角色），合法值：
+                                       0：NoPermissions
+                                       5：MinimalAccessPermissions
+                                       10：GuestPermissions
+                                       20：ReporterPermissions
+                                       30：DeveloperPermissions
+                                       40：MaintainerPermissions
+                                       50：OwnerPermissions
+                                       60：AdminPermissions
+                                        (default: 40)
+       --unprotect-access-level value  允许取消保护的访问级别（默认值：40，维护者角色），合法值：
+                                       0：NoPermissions
+                                       5：MinimalAccessPermissions
+                                       10：GuestPermissions
+                                       20：ReporterPermissions
+                                       30：DeveloperPermissions
+                                       40：MaintainerPermissions
+                                       50：OwnerPermissions
+                                       60：AdminPermissions
+                                        (default: 40)
+       --allow-force-push              启用后，可以推送到该分支的成员也可以强制推送 (default: false)
+       --code-owner-approval-required  如果分支在 CODEOWNERS https://docs.gitlab.cn/jh/user/project/codeowners/index.html 文件中，则阻止推送到此分支。（默认值：false） (default: false)
+       --print-json                    打印 JSON (default: false)
+       --print-time                    打印时间 (default: false)
+       --help, -h                      show help
     ```
 
 - 转移（混合命令，多接口命令）

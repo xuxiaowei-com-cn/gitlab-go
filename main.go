@@ -87,6 +87,7 @@ func main() {
 			mix.Delete(),
 			mix.Environments(),
 			mix.Export(),
+			mix.ProtectBranches(),
 			mix.Transfer(),
 			mix.Unarchive(),
 		},

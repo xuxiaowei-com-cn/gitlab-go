@@ -11,7 +11,8 @@ func Delete() *cli.Command {
 		Name:    "mix-delete",
 		Aliases: []string{"mix-rm"},
 		Usage:   "删除（混合命令，多接口命令）",
-		Flags:   append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(false), flag.IIdRange(false)),
+		Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(false),
+			flag.IIdRange(false), flag.AllowFailure()),
 		Subcommands: []*cli.Command{
 			DeleteArtifacts(),
 			DeleteAllArtifacts(),

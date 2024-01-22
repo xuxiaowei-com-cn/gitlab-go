@@ -18,7 +18,8 @@ func DeleteJobs() *cli.Command {
 		Name:    "job",
 		Aliases: []string{"jobs"},
 		Usage:   "根据项目路径/ID、流水线IID范围删除作业产物和作业日志（混合命令，多接口命令，立即删除）",
-		Flags:   append(flag.CommonTokenRequired(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(true), flag.IIdRange(true)),
+		Flags: append(flag.CommonTokenRequired(), flag.Sort(), flag.Page(), flag.PerPage(), flag.Id(true),
+			flag.IIdRange(true), flag.AllowFailure()),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)
 			var token = context.String(constant.Token)
@@ -27,6 +28,7 @@ func DeleteJobs() *cli.Command {
 			var page = context.Int(constant.Page)
 			var perPage = context.Int(constant.PerPage)
 			var iidRanges = context.StringSlice(constant.IIdRange)
+			var allowFailure = context.Bool(constant.AllowFailure)
 			fmt.Println(iidRanges)
 
 			gitClient, err := gitlab.NewClient(token, gitlab.WithBaseURL(baseUrl))
@@ -45,7 +47,7 @@ func DeleteJobs() *cli.Command {
 				return nil
 			}
 
-			err = DeleteJobsRecursion(gitClient, id, page, perPage, sortStr, iids)
+			err = DeleteJobsRecursion(gitClient, id, page, perPage, sortStr, iids, allowFailure)
 			if err != nil {
 				return err
 			}
@@ -55,7 +57,7 @@ func DeleteJobs() *cli.Command {
 	}
 }
 
-func DeleteJobsRecursion(gitClient *gitlab.Client, id interface{}, page int, perPage int, sort string, iids []int) error {
+func DeleteJobsRecursion(gitClient *gitlab.Client, id interface{}, page int, perPage int, sort string, iids []int, allowFailure bool) error {
 
 	pipelineInfos, response, err := pipelines.ListProjectPipelines(gitClient, id, page, perPage, sort)
 
@@ -78,26 +80,26 @@ func DeleteJobsRecursion(gitClient *gitlab.Client, id interface{}, page int, per
 		if iidsMin == pipelineInfo.IID {
 			// 等于最小值，删除最小值
 			iids = iids[1:]
-			err = ExecuteDeleteJobs(gitClient, id, pipelineInfo.ID, 1, 100)
+			err = ExecuteDeleteJobs(gitClient, id, pipelineInfo.ID, 1, 100, allowFailure)
 			if err != nil {
 				return err
 			}
 		} else if pipelineInfo.IID == iidsMax {
 			// 等于最大值
 			iids = iids[:len(iids)-1]
-			err = ExecuteDeleteJobs(gitClient, id, pipelineInfo.ID, 1, 100)
+			err = ExecuteDeleteJobs(gitClient, id, pipelineInfo.ID, 1, 100, allowFailure)
 			if err != nil {
 				return err
 			}
 		} else if iidsMin < pipelineInfo.IID {
 			// 大于最小值
-			err = jobsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID)
+			err = jobsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID, allowFailure)
 			if err != nil {
 				return err
 			}
 		} else if pipelineInfo.IID < iidsMax {
 			// 小于最大值
-			err = jobsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID)
+			err = jobsForExecute(&iids, pipelineInfo.IID, gitClient, id, pipelineInfo.ID, allowFailure)
 			if err != nil {
 				return err
 			}
@@ -115,7 +117,7 @@ func DeleteJobsRecursion(gitClient *gitlab.Client, id interface{}, page int, per
 	}
 
 	if len(pipelineInfos) > 0 {
-		err := DeleteJobsRecursion(gitClient, id, page+1, perPage, sort, iids)
+		err := DeleteJobsRecursion(gitClient, id, page+1, perPage, sort, iids, allowFailure)
 		if err != nil {
 			return err
 		}
@@ -124,13 +126,16 @@ func DeleteJobsRecursion(gitClient *gitlab.Client, id interface{}, page int, per
 	return nil
 }
 
-func jobsForExecute(iids *[]int, pipelineInfoIId int, gitClient *gitlab.Client, id interface{}, pipelineInfoId int) error {
+func jobsForExecute(iids *[]int, pipelineInfoIId int, gitClient *gitlab.Client, id interface{}, pipelineInfoId int, allowFailure bool) error {
 	for i := 0; i < len(*iids); i++ {
 		if (*iids)[i] == pipelineInfoIId {
 			fmt.Printf("数组中包含%d\n", pipelineInfoIId)
 			*iids = append((*iids)[:i], (*iids)[i+1:]...)
-			err := ExecuteDeleteJobs(gitClient, id, pipelineInfoId, 1, 100)
+			err := ExecuteDeleteJobs(gitClient, id, pipelineInfoId, 1, 100, allowFailure)
 			if err != nil {
+				if allowFailure {
+					return nil
+				}
 				return err
 			}
 			break
@@ -139,7 +144,7 @@ func jobsForExecute(iids *[]int, pipelineInfoIId int, gitClient *gitlab.Client, 
 	return nil
 }
 
-func ExecuteDeleteJobs(gitClient *gitlab.Client, id interface{}, pipelineInfoId int, page int, perPage int) error {
+func ExecuteDeleteJobs(gitClient *gitlab.Client, id interface{}, pipelineInfoId int, page int, perPage int, allowFailure bool) error {
 	fmt.Printf("执行删除 %d \n", pipelineInfoId)
 
 	opt := &gitlab.ListJobsOptions{
@@ -160,13 +165,16 @@ func ExecuteDeleteJobs(gitClient *gitlab.Client, id interface{}, pipelineInfoId 
 
 		_, response, err = gitClient.Jobs.EraseJob(id, job.ID)
 		if err != nil {
+			if allowFailure {
+				return nil
+			}
 			return err
 		}
 		log.Printf("Delete Project %s Job %d Response StatusCode: %d\n", id, job.ID, response.Response.StatusCode)
 	}
 
 	if len(jobs) == perPage {
-		err = ExecuteDeleteJobs(gitClient, id, pipelineInfoId, page+1, perPage)
+		err = ExecuteDeleteJobs(gitClient, id, pipelineInfoId, page+1, perPage, allowFailure)
 		if err != nil {
 			return err
 		}

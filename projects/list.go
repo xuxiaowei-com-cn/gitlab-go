@@ -15,12 +15,13 @@ func List() *cli.Command {
 	return &cli.Command{
 		Name:  "list",
 		Usage: "列出所有项目",
-		Flags: append(flag.Common(), flag.Sort(), flag.Page(), flag.PerPage(), flag.PrintJson(), flag.PrintTime(),
-			flag.Search(), flag.SearchNamespaces(),
+		Flags: append(flag.Common(), flag.Owned(true), flag.Sort(), flag.Page(), flag.PerPage(),
+			flag.PrintJson(), flag.PrintTime(), flag.Search(), flag.SearchNamespaces(),
 			flag.OrderBy(OrderByUsage)),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(constant.BaseUrl)
 			var token = context.String(constant.Token)
+			var owned = context.Bool(constant.Owned)
 			var sort = context.String(constant.Sort)
 			var page = context.Int(constant.Page)
 			var perPage = context.Int(constant.PerPage)
@@ -43,6 +44,7 @@ func List() *cli.Command {
 				Sort:             &sort,
 				Search:           &search,
 				SearchNamespaces: &searchNamespaces,
+				Owned:            &owned,
 				OrderBy:          &orderBy,
 			}
 			projects, response, err := gitClient.Projects.ListProjects(opt)
